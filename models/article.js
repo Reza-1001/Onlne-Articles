@@ -27,7 +27,7 @@ const essentialSchema = {
 
       },
       views:{
-          type:Numberg,
+          type:Number,
           trim:true
       }
   })

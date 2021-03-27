@@ -3,12 +3,12 @@ const bcrypt = require('bcrypt');
 
 const essentialSchema = {
     type: String,
-    require: true,
+    required: true,
     lowercase: true,
     trim: true,
   };
   const bloggerShcema=new mongoose.Schema({
-      firstnme:{
+      firstName:{
           ...essentialSchema,
           validate(value) {
             if (value.length < 3) {
@@ -24,11 +24,13 @@ const essentialSchema = {
             }
           },
       },
-      username:{
+      userName:{
           ...essentialSchema,
           unique:true,
           validate(value){
+            if (value.length < 3) {
               throw new Error("Username must be at least 3 characters long");
+            }
           }
       },
       password:{
@@ -37,14 +39,13 @@ const essentialSchema = {
 
       },
       gender:{
-          ...essentialSchema,
+          type:String,
           enum: ['Male', 'Female']
       },
       profileImage:{
           type:String
       },
       phoneNumber:{
-          required:true,
           type:String,
           trim:true
       }

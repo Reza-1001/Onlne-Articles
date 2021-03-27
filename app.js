@@ -1,20 +1,19 @@
-var createError = require('http-errors');
-var express = require('express');
-var session = require('express-session');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const session = require('express-session');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const mongoose=require('mongoose');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const apiRouter = require('./routes/api');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-monggose.connect(
+mongoose.connect(
   'mongodb://localhost:27017/AnyArticle',{
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -36,8 +35,9 @@ app.use(session({
   }
 }));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api', apiRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
