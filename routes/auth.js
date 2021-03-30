@@ -7,14 +7,11 @@ const Blogger = require('./../models/blogger');
 const Article = require('./../models/article');
 const generalTools = require('./../tools/general-tools.js');
 
-router.get('/registerPage', (req, res) => {
-    res.render("register");
-  
-}) 
 router.post('/register', (req, res) => {
+    console.log(req.body)
     if (!req.body.firstName || !req.body.lastName || !req.body.userName || !req.body.password) {
         return res.redirect(url.format({
-            pathname: '/api/auth/registerPage',
+            pathname: '/api/auth/register',
             query: {
                 "msg": "Empty Fields"
             }
@@ -26,7 +23,7 @@ router.post('/register', (req, res) => {
         if (err) {
             res.status(302);
             return res.redirect(url.format({
-                pathname: '/api/auth/registerPage',
+                pathname: '/api/auth/register',
                 query: {
                     "msg": "Server Error"
                 }
@@ -34,7 +31,7 @@ router.post('/register', (req, res) => {
         }
         if (user) {
             return res.redirect(url.format({
-                pathname: "/api/auth/registerPage",
+                pathname: "/api/auth/register",
                 query: {
                     "msg": "Username Already Exists"
                 }
@@ -56,6 +53,42 @@ router.post('/register', (req, res) => {
         });
     })
 })
-
+router.post('/login',(req,res)=>{
+    console.log(req.body)
+    if(!req.body.firstName || !req.body.lastName || !req.body.userName || !req.body.password){
+        return res.redirect(url.format({
+            pathname:'/',
+            query:{
+                "msg":"Empty Fields"
+            }
+        }))
+    }
+    Blogger.findOnve({"userName":req.body.username},(err,user)=>{
+        if (err) return res.redirect(url.format({
+            pathname:'/',
+            query:{
+                "msg":"Server Error"
+            }
+        }))
+        if(!user){
+            return res.redirect(url.format({
+                pathname:'/',
+                "query":"Blogger Not found"
+            }))
+        }
+        bcrypt.compare(req.body.password,user.password,(err,isMatch)=>{
+            if (err) return res.redirect(url.format({
+                pathname:'/',
+                "query":"Server Error"
+            }))
+            if (!isMatch) return res.redirect(url.format({
+                pathname:'/',
+                "query":"User Not Found"
+            }))
+            user.session.user=user
+            res.redirect('/api/user/dashboard',{user:user})
+        })
+    })
+})
 
 module.exports = router;
