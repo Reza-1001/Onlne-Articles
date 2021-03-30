@@ -47,47 +47,59 @@ router.post('/register', (req, res) => {
             phoneNumber: req.body.phoneNumber
         })
 
-        NEW_BLOGGER.save(err=>{
+        NEW_BLOGGER.save(err => {
             // return res.redirect('/api/auth/loginPage');
             res.send("OK")
         });
     })
 })
-router.post('/login',(req,res)=>{
+router.post('/login', (req, res) => {
     console.log(req.body)
-    if(!req.body.firstName || !req.body.lastName || !req.body.userName || !req.body.password){
+    if (!req.body.userName || !req.body.password) {
         return res.redirect(url.format({
-            pathname:'/',
-            query:{
-                "msg":"Empty Fields"
+            pathname: '/',
+            query: {
+                "msg": "Empty Fields"
             }
         }))
     }
-    Blogger.findOnve({"userName":req.body.username},(err,user)=>{
+    Blogger.findOne({
+        "userName": req.body.userName
+    }, (err, user) => {
+        console.log(user)
         if (err) return res.redirect(url.format({
-            pathname:'/',
-            query:{
-                "msg":"Server Error"
+            pathname: '/',
+            query: {
+                "msg": "Server Error"
             }
         }))
-        if(!user){
+        if (!user) {
             return res.redirect(url.format({
-                pathname:'/',
-                "query":"Blogger Not found"
+                pathname: '/',
+                query: {
+                    "msg": "Blogger Not found"
+                }
             }))
         }
-        bcrypt.compare(req.body.password,user.password,(err,isMatch)=>{
+        bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
             if (err) return res.redirect(url.format({
-                pathname:'/',
-                "query":"Server Error"
+                pathname: '/',
+                query: {
+                    "msg": "Server Error"
+                }
             }))
             if (!isMatch) return res.redirect(url.format({
-                pathname:'/',
-                "query":"User Not Found"
+                pathname: '/',
+                query: {
+                    "msg": "User Not Found"
+                }
             }))
-            user.session.user=user
-            res.redirect('/api/user/dashboard',{user:user})
+            req.session.user = user
+            // res.redirect('/api/user/dashboard')
+            console.log("ok")
+            res.send('Enter')
         })
+
     })
 })
 
