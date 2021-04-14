@@ -53,50 +53,28 @@ router.post('/register', (req, res) => {
         });
     })
 })
+router.get('/account-login',(req,res)=>{
+    return res.render('./pages/login',{error:null});
+})
+
 router.post('/login', (req, res) => {
     console.log(req.body)
     if (!req.body.userName || !req.body.password) {
-        return res.redirect(url.format({
-            pathname: '/',
-            query: {
-                "msg": "Empty Fields"
-            }
-        }))
+        return res.render('pages/login',{error:"Empty Fields"})
     }
     Blogger.findOne({
         "userName": req.body.userName
     }, (err, user) => {
         console.log(user)
-        if (err) return res.redirect(url.format({
-            pathname: '/',
-            query: {
-                "msg": "Server Error"
-            }
-        }))
+        if (err) return res.render('pages/login',{error:"Server Error"})
         if (!user) {
-            return res.redirect(url.format({
-                pathname: '/',
-                query: {
-                    "msg": "Blogger Not found"
-                }
-            }))
+            return res.render('pages/login',{error:"User Not Found"})
         }
         bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
-            if (err) return res.redirect(url.format({
-                pathname: '/',
-                query: {
-                    "msg": "Server Error"
-                }
-            }))
-            if (!isMatch) return res.redirect(url.format({
-                pathname: '/',
-                query: {
-                    "msg": "User Not Found"
-                }
-            }))
+            if (err) return res.render('pages/login',{error:"Server Error"})
+            if (!isMatch) return res.render('pages/login',{error:"User Not Found"})
             req.session.user = user
             // res.redirect('/api/user/dashboard')
-            console.log("ok")
             res.send('Enter')
         })
 
