@@ -34,10 +34,10 @@ app.use(session({
       expires: 6000000
   }
 }));
-
 app.use('/api', apiRouter);
-
-
+app.use('/',(req,res)=>{
+  res.render('pages/index')
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
