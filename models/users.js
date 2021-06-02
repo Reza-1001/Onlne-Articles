@@ -77,6 +77,6 @@ bloggerShcema.pre('save', function (next) {
     })
   } else return next();
 })
-const Blogger = mongoose.model("Blogger", bloggerShcema);
+const Users = mongoose.model("Users", bloggerShcema);
 
-module.exports = Blogger;
+module.exports = Users;
