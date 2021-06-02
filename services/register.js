@@ -54,8 +54,8 @@ const createBlogger = (req, res) => {
         });
     })
 }
-const registerPage = (req, res) => {
-    return res.render('./pages/login', {
+const registerPage = (req, res, next) => {
+    return res.render('./pages/register', {
         error: null
     });
 }
