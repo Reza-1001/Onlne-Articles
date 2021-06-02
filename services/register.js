@@ -1,7 +1,7 @@
 const path = require('path');
 const url = require('url');
 
-const Blogger = require('./../models/blogger');
+const Blogger = require('../models/users');
 const Article = require('./../models/article');
 const generalTools = require('./../tools/general-tools.js');
 

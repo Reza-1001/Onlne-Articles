@@ -1,6 +1,6 @@
 const path = require('path');
-const Blogger=require('../models/blogger');
-
+const Blogger=require('../models/users');
+const bcrypt = require('bcrypt');
 const loginPage = (req, res, next) => {
     res.render('./pages/login', {
         error: null
