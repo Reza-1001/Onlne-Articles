@@ -6,7 +6,7 @@ const {
     bloggerLogin
 } = require('../services/login.js');
 
-router.get('/login', loginPage);
+router.get('/', loginPage);
 
 router.post('/', bloggerLogin);
 
