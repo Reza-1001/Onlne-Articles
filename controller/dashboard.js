@@ -12,7 +12,7 @@ router.get('/', generalTools.LoginCheck, dashboard);
 
 router.get('/logout', logOut)
 
-router.get('/deleteuser',deleteUser)
+router.delete('/deleteuser', generalTools.DeleteBloggerCheck, deleteUser)
 
 
 module.exports = router;

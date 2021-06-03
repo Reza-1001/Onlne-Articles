@@ -19,17 +19,12 @@ const logOut=(req,res,next) => {
   });
 }
 const deleteUser =(req,res,next)=>{
-  Blogger.findByIdAndDelete(req.session.user._id, function (err, obj) {
+  Blogger.deleteOne({userName: req.body.userName}, function (err, obj) {
       if (err) throw err;
-      if (req.session.user.role != "admin"){
-        console.log("1 document deleted" + obj);
-        req.session.destroy((err) => {
-          if (err) {
-            return console.log(err);
-          }
-          res.redirect('/api/login');
-        });
-      }
+      
+        console.log("1 document deleted" + obj.userName);
+   
+      res.send("User Deleted")
     });
 }
 
