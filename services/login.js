@@ -1,6 +1,8 @@
 const path = require('path');
 const Blogger=require('../models/users');
 const bcrypt = require('bcrypt');
+
+
 const loginPage = (req, res, next) => {
     res.render('./pages/login', {
         error: null
@@ -35,10 +37,8 @@ const bloggerLogin = (req, res, next) => {
                 error: "User Not Found"
             })
             req.session.user = user
-            // res.redirect('/api/user/dashboard')
-            res.send('Enter')
+            res.redirect('/api/dashboard');
         })
-
     })
 }
 

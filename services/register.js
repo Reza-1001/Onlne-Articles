@@ -60,9 +60,32 @@ const registerPage = (req, res, next) => {
     });
 }
 
+const createAdmin = (req, res, next) => {
+    console.log("admin creation")
+    Blogger.findOne({
+        role: 'admin'
+    }, (err, adminExist) => {
+        if (err) return res.send('Error in Create Admin');
+        if (adminExist) return res.status(404).send('Not found');
+        new Blogger({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            userName: req.body.userName,
+            password: req.body.password,
+            gender: req.body.gender,
+            profileImage: "",
+            phoneNumber: req.body.phoneNumber,
+            role: "admin"
+        }).save(err => {
+            if (err) return res.send('Error in Create Admin')
+            return res.send('Admin created succesfully')
+        })
+    })
+}
 
 
 module.exports = {
     registerPage,
-    createBlogger
+    createBlogger,
+    createAdmin
 };
