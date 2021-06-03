@@ -47,4 +47,11 @@ generalTools.PasswordCheck = function (req, res, next) {
   })
 }
 
+generalTools.IsAdmin=function(req,res,next){
+  if (req.session.user.role=='admin'){
+    return next();
+  }
+  return res.send("Access Denied");
+}
+
 module.exports = generalTools;
