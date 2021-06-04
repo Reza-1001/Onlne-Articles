@@ -14,13 +14,13 @@ const commentShcema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  writer:{
+  writer_id:{
     type: mongoose.Schema.ObjectId,
     required: true,
     ref: 'Users'
   },
-  article: {
-    type: mongoogse.Schema.ObjectId,
+  article_id: {
+    type: mongoose.Schema.ObjectId,
     required: true,
     ref: 'Article'
   }
