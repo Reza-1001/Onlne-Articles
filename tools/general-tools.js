@@ -1,8 +1,9 @@
 const url = require('url');
+const path = require('path');
 const generalTools = {};
 const User = require('../models/users');
 const bcrypt = require('bcrypt');
-
+const multer=require('multer');
 
 generalTools.SessionCheck = function (req, res, next) {
   if (req.cookies.user_sid && req.session.user) {
@@ -48,11 +49,32 @@ generalTools.PasswordCheck = function (req, res, next) {
   })
 }
 
-generalTools.IsAdmin=function(req,res,next){
-  if (req.session.user.role=='admin'){
+generalTools.IsAdmin = function (req, res, next) {
+  if (req.session.user.role == 'admin') {
     return next();
   }
   return res.send("Access Denied");
 }
+
+
+const avatarStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '../public/images/avatar'))
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${req.session.user.userName}-${Date.now()}-${file.originalname}`)
+  }
+})
+
+generalTools.UploadAvatar = multer({
+  storage: avatarStorage,
+  fileFilter: function (req, file, cb) {
+    if (file.mimetype !== 'image/png' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/jpg') {
+      cb(new Error('invalid file type'),false)
+    } else {
+      cb(null, true)
+    }
+  }
+})
 
 module.exports = generalTools;
