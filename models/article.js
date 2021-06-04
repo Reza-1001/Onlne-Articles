@@ -17,7 +17,11 @@ const articleShcema = new mongoose.Schema({
   },
   content: {
     ...essentialSchema,
-    default: ''
+    validate(value) {
+      if (value.length < 200) {
+        throw new Error("article content must be at least 200 characters long");
+      }
+    },
   },
   avatar: {
     type: String,
@@ -26,7 +30,11 @@ const articleShcema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  writer:{
+  lastUpdate: {
+    type: Date,
+    default: new Date()
+  },
+  writer: {
     type: mongoose.Schema.ObjectId,
     required: true,
     ref: 'Users'
