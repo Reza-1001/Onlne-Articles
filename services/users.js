@@ -17,6 +17,23 @@ const getAllUsers = (req, res, next) => {
     })
 }
 
+
+const getOneUser = (req, res, next) => {
+    console.log(req.params.id);
+    Blogger.find({
+        _id: req.params.id
+    }, (err, user) => {
+        console.log(user)
+        if (err) return res.send("Server Error");
+        if (!user) return res.send("User Not Found");
+        if (req.session.user.role == 'admin' || req.session.user._id == req.params.id) {
+            return res.send(user);
+        }
+        return res.send('Access Denied');
+    })
+}
+
+
 const updateUserPassword = (req, res, next) => {
     Blogger.updateOne({
         _id: req.session.user._id
@@ -42,6 +59,7 @@ const updateUserInfo = (req, res, next) => {
 
 module.exports = {
     getAllUsers,
+    getOneUser,
     updateUserPassword,
     updateUserInfo
 };
