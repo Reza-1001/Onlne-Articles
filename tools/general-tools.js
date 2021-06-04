@@ -37,6 +37,7 @@ generalTools.DeleteBloggerCheck = function (req, res, next) {
 }
 
 generalTools.PasswordCheck = function (req, res, next) {
+  console.log(req.body);
   bcrypt.compare(req.body.curr_password, req.session.user.password, function (err, passCompResult) {
     if (!passCompResult) {
       return res.json(false)

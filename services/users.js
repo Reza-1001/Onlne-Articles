@@ -14,4 +14,19 @@ const getAllUsers=(req,res,next)=>{
         return res.send(bloggers);
     })
 }
-module.exports={getAllUsers};
+
+const updateBlogger=(req,res,next) => {
+    Blogger.updateOne({
+        _id: req.session.user._id
+      }, {
+        $set: req.body
+      }, {
+        new: true
+      }, (err, user) => {
+        if (err) return res.status(500).send("Somthing went wrong in update user! \n" + err);
+        return res.json(true)
+      })
+}
+
+
+module.exports={getAllUsers,updateBlogger};

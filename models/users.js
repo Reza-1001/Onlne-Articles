@@ -77,6 +77,18 @@ bloggerShcema.pre('save', function (next) {
     })
   } else return next();
 })
+
+bloggerShcema.pre('updateOne', function (next) {
+  const password = this._update.$set.password;
+  if(!password)
+  return next();
+      const salt = bcrypt.genSaltSync();
+      const hash = bcrypt.hashSync(password, salt);
+      this._update.$set.password=hash;
+  return next();
+})
+
+
 const Users = mongoose.model("Users", bloggerShcema);
 
 module.exports = Users;

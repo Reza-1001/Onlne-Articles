@@ -1,5 +1,5 @@
 const path = require('path');
-const Blogger=require('../models/users');
+const Blogger = require('../models/users');
 const bcrypt = require('bcrypt');
 
 
@@ -25,21 +25,28 @@ const bloggerLogin = (req, res, next) => {
             error: "Server Error"
         })
         if (!user) {
-            return res.render('pages/login', {
-                error: "User Not Found"
-            })
+            return res.send('User Not Found')
+            // return res.render('pages/login', {
+            //     error: "User Not Found"
+            // })
         }
         bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
             if (err) return res.render('pages/login', {
                 error: "Server Error"
             })
-            if (!isMatch) return res.render('pages/login', {
-                error: "User Not Found"
-            })
+            if (!isMatch) {
+                return res.send('User Not Found')
+                // return res.render('pages/login', {
+                //     error: "User Not Found"
+                // })
+            }
             req.session.user = user
             res.redirect('/api/dashboard');
         })
     })
 }
 
-module.exports={loginPage,bloggerLogin};
+module.exports = {
+    loginPage,
+    bloggerLogin
+};
