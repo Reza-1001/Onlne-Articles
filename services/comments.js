@@ -38,6 +38,7 @@ const deleteComment = (req, res, next) => {
     })
 }
 
+
 const getAllComments = (req, res, next) => {
     Comment.find({article_id: req.params.article_id},{content:1,writer_id:1,createdAt:1,article_id:1},(err,comments)=>{
         if (err) return res.send("Server Error");

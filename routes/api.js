@@ -10,10 +10,9 @@ router.use('/register', register);
 
 router.use('/login', login);
 
-router.use('/dashboard', dashboard)
+router.use('/dashboard', dashboard);
 
-router.use('/users' , users)
-
+router.use('/users' , users);
 
 
 module.exports = router;

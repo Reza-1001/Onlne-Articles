@@ -44,7 +44,7 @@ const createBlogger = (req, res) => {
             userName: req.body.userName,
             password: req.body.password,
             gender: req.body.gender,
-            profileImage: "",
+            profileImage: req.body.profileImage,
             phoneNumber: req.body.phoneNumber
         })
 
@@ -54,6 +54,7 @@ const createBlogger = (req, res) => {
         });
     })
 }
+
 const registerPage = (req, res, next) => {
     return res.render('./pages/register', {
         error: null
@@ -73,7 +74,7 @@ const createAdmin = (req, res, next) => {
             userName: req.body.userName,
             password: req.body.password,
             gender: req.body.gender,
-            profileImage: "",
+            profileImage: req.body.profileImage,
             phoneNumber: req.body.phoneNumber,
             role: "admin"
         }).save(err => {

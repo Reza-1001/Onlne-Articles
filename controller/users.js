@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer=require('multer')
 const generalTools = require('../tools/general-tools');
+const User = require('../models/users')
 const {
     IsAdmin
 } = require('../tools/general-tools');
@@ -30,9 +31,18 @@ router.post('/avatar', (req, res, next) => {
             return res.send("Server Error")
         } else if (err) return res.send("Server Error")
         else {
-            res.json(true)
+
+           User.findByIdAndUpdate(req.session.user._id, {profileImage: req.file.filename},{new: true},(err, user)=>{
+            if (err) {
+                return res.send("Server Error")
+            }else{
+                req.session.user=user;
+                res.json(user)
+            }   
+           })
         }
     })
 })
+
 
 module.exports = router;

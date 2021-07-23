@@ -3,8 +3,8 @@ const path = require('path');
 const generalTools = {};
 const User = require('../models/users');
 const bcrypt = require('bcrypt');
-const multer=require('multer');
-
+const multer = require('multer');
+const fs = require('fs');
 generalTools.SessionCheck = function (req, res, next) {
   if (req.cookies.user_sid && req.session.user) {
     return res.redirect('/api/dashboard')
@@ -69,12 +69,28 @@ const avatarStorage = multer.diskStorage({
 generalTools.UploadAvatar = multer({
   storage: avatarStorage,
   fileFilter: function (req, file, cb) {
-    if (file.mimetype !== 'image/png' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/jpg') {
-      cb(new Error('invalid file type'),false)
+    if (file.mimetype !== 'image/bmp' && file.mimetype !== 'image/png' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/jpg') {
+      cb(new Error('invalid file type'), false)
     } else {
       cb(null, true)
     }
   }
 })
+
+
+generalTools.DefaultAvatar = function (req, res, next) {
+
+  if (req.body.profileImage == '') {
+    let filename = `${req.body.userName}-${Date.now()}-default-user-pic.jpg`
+    req.body.profileImage = filename
+    
+    // fs.unlinkSync(path.join(__dirname,`../public/images/avatar//^${req.body.userName}/`));
+    fs.copyFile(path.join(__dirname,'../public/assets/images/default-user-pic.jpg'), path.join(__dirname,`../public/images/avatar/${filename}`), (err) => {
+      if (err) throw err;
+ 
+    });
+  }
+  next();
+}
 
 module.exports = generalTools;
