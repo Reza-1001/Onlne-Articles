@@ -1,8 +1,8 @@
 const path = require('path');
 const url = require('url');
 
-const Blogger = require('../models/users');
-const Article = require('./../models/article');
+const Blogger = require('../models/Users');
+const Article = require('../models/Article');
 const generalTools = require('./../tools/general-tools.js');
 
 // ********************************************************************************

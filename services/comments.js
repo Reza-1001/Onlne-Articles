@@ -1,5 +1,5 @@
 const path = require('path');
-const Blogger = require('../models/users');
+const Blogger = require('../models/Users');
 const Comment = require('../models/Comment');
 
 const addComment = (req, res, next) => {
@@ -32,7 +32,8 @@ const deleteComment = (req, res, next) => {
 
             console.log("1 document deleted");
 
-            res.send("Comment Deleted")
+            res.send("Comment Deleted");
+        
         });
 
     })
@@ -40,7 +41,14 @@ const deleteComment = (req, res, next) => {
 
 
 const getAllComments = (req, res, next) => {
-    Comment.find({article_id: req.params.article_id},{content:1,writer_id:1,createdAt:1,article_id:1},(err,comments)=>{
+    Comment.find({
+        article_id: req.params.article_id
+    }, {
+        content: 1,
+        writer_id: 1,
+        createdAt: 1,
+        article_id: 1
+    }, (err, comments) => {
         if (err) return res.send("Server Error");
         if (!comments) return res.send([])
         return res.send(comments);

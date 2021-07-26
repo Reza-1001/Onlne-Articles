@@ -1,2 +1,4 @@
 {
+    "beautify.config": "",
+    "javascript.format.semicolons": "insert"
 }

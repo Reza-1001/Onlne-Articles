@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer=require('multer')
 const generalTools = require('../tools/general-tools');
-const User = require('../models/users')
+const User = require('../models/Users')
 const {
     IsAdmin
 } = require('../tools/general-tools');

@@ -2,8 +2,8 @@ const path = require('path');
 const url = require('url');
 const multer=require('multer')
 const upload=multer({dest: 'public/images/avatar'})
-const Blogger = require('../models/users');
-const Article = require('./../models/article');
+const Blogger = require('../models/Users');
+const Article = require('../models/Article');
 const generalTools = require('./../tools/general-tools.js');
 
 const getAllUsers = (req, res, next) => {

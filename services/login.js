@@ -1,5 +1,5 @@
 const path = require('path');
-const Blogger = require('../models/users');
+const Blogger = require('../models/Users');
 const bcrypt = require('bcrypt');
 
 
