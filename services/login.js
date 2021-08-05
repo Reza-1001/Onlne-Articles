@@ -11,8 +11,8 @@ const loginPage = (req, res, next) => {
 }
 
 
-const bloggerLogin = (req, res, next) => {
-    console.log(req.body)
+const userLogin = (req, res, next) => {
+    console.log(11111111111111111111111111111111)
     if (!req.body.userName || !req.body.password) {
         return res.render('pages/login', {
             error: "Empty Fields"
@@ -26,10 +26,10 @@ const bloggerLogin = (req, res, next) => {
             error: "Server Error"
         })
         if (!user) {
-            return res.send('User Not Found')
-            // return res.render('pages/login', {
-            //     error: "User Not Found"
-            // })
+            // return res.send('User Not Found')
+            return res.render('pages/login', {
+                error: "User Not Found"
+            })
         }
         bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
             if (err) return res.render('pages/login', {
@@ -49,5 +49,5 @@ const bloggerLogin = (req, res, next) => {
 
 module.exports = {
     loginPage,
-    bloggerLogin
+    userLogin
 };

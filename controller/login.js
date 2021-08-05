@@ -5,12 +5,12 @@ const generalTools=require('../tools/general-tools')
 
 const {
     loginPage,
-    bloggerLogin
+    userLogin
 } = require('../services/login.js');
 
 router.get('/', generalTools.SessionCheck, loginPage);
 
-router.post('/', bloggerLogin);
+router.post('/', userLogin);
 
 
 

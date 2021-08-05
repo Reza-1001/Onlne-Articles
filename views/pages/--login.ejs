@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/3ebeec4ad6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <div class="container">
+    <div class="main-panel row">
+        <div class="main-left-panel">
+
+        </div>
+        <div class="main-right-panel">
+
+        </div>
+    </div>
+        <div class="d-flex flex-row">
+            <form action="/api/login" method="POST">
+                <div class="modal-body w-75 mx-auto row text-right">
+                    <label class="mt-2" for="userName">نام کاربری</label>
+                    <input class="bg-color border-0" type="text" name="userName">
+                    <label class="mt-2" for="password">رمز عبور</label>
+                    <input class="bg-color border-0" type="password" name="password">
+                </div>
+                <div class="footer">
+                    <button type="button" class="btn btn-secondary">بستن</button>
+                    <button type="submit" class="btn btn-primary">ورود</button>
+                </div>
+            </form>
+            <% if (error) { %>
+                <p> <%= error %></p>
+                <% } %>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="/javascripts/bootstrap.bundle.js"></script>
+</body>
+
+</html>
