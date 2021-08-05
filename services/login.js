@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt');
 
 
 const loginPage = (req, res, next) => {
-    console.log("****************************")
     res.render('./pages/login', {
         error: null
     })
@@ -12,7 +11,7 @@ const loginPage = (req, res, next) => {
 
 
 const userLogin = (req, res, next) => {
-    console.log(11111111111111111111111111111111)
+    console.log(1)
     if (!req.body.userName || !req.body.password) {
         return res.render('pages/login', {
             error: "Empty Fields"
@@ -36,10 +35,10 @@ const userLogin = (req, res, next) => {
                 error: "Server Error"
             })
             if (!isMatch) {
-                return res.send('User Not Found')
-                // return res.render('pages/login', {
-                //     error: "User Not Found"
-                // })
+                // return res.send('User Not Found')
+                return res.render('pages/login', {
+                    error: "User Not Found"
+                })
             }
             req.session.user = user
             res.redirect('/api/dashboard');
