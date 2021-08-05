@@ -6,7 +6,7 @@ const {
     dashboard,
     logOut,
     deleteUser,
-} = require('../services/dashboard.js');
+} = require('../services/dashboard');
 
 router.get('/', generalTools.LoginCheck, dashboard);
 

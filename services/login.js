@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 
 
 const loginPage = (req, res, next) => {
+    console.log("****************************")
     res.render('./pages/login', {
         error: null
     })

@@ -37,9 +37,11 @@ app.use(session({
     expires: 6000000
   }
 }));
+
 app.use('/api', apiRouter);
-app.use('/', (req, res) => {
-  res.render('pages/index')
+
+app.use('/', (req, res ,next) => {
+  res.sendFile(path.join(__dirname,'public/pages/home.html'));
 })
 
 // catch 404 and forward to error handler
