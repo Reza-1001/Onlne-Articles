@@ -1,6 +1,5 @@
 const path = require('path');
 const url = require('url');
-
 const Blogger = require('../models/Users');
 const Article = require('../models/Article');
 const generalTools = require('./../tools/general-tools.js');
@@ -10,7 +9,7 @@ const generalTools = require('./../tools/general-tools.js');
 // ********************************************************************************
 const createBlogger = (req, res) => {
     console.log(req.body)
-    if (!req.body.firstName || !req.body.lastName || !req.body.userName || !req.body.password || !req.body.gender || req.body.phonNumber) {
+    if (!req.body.firstName || !req.body.lastName || !req.body.userName || !req.body.password || req.body.phonNumber) {
         return res.redirect(url.format({
             pathname: '/api/register',
             query: {
@@ -43,14 +42,12 @@ const createBlogger = (req, res) => {
             lastName: req.body.lastName,
             userName: req.body.userName,
             password: req.body.password,
-            gender: req.body.gender,
             profileImage: req.body.profileImage,
             phoneNumber: req.body.phoneNumber
         })
-
         NEW_BLOGGER.save(err => {
-            // return res.redirect('/api/auth/loginPage');
-            res.send("OK")
+            return res.redirect('/api/login');
+            // res.send("OK")
         });
     })
 }
@@ -73,8 +70,7 @@ const createAdmin = (req, res, next) => {
             lastName: req.body.lastName,
             userName: req.body.userName,
             password: req.body.password,
-            gender: req.body.gender,
-            profileImage: req.body.profileImage,
+            profileImage: "",
             phoneNumber: req.body.phoneNumber,
             role: "admin"
         }).save(err => {
@@ -83,7 +79,6 @@ const createAdmin = (req, res, next) => {
         })
     })
 }
-
 
 module.exports = {
     registerPage,
