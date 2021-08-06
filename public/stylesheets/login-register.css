@@ -27,6 +27,10 @@ body{
     grid-gap :7rem;
     padding: 0 2rem;
 }
+.back-home{
+	margin:10px 50px 0;
+}
+
 
 .img{
 	display: flex;
