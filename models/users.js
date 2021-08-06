@@ -38,10 +38,6 @@ const bloggerShcema = new mongoose.Schema({
     required: true,
 
   },
-  gender: {
-    type: String,
-    enum: ['Male', 'Female']
-  },
   createAt: {
     type: Date,
     default: new Date(),
