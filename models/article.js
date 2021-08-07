@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 const essentialSchema = {
   type: String,
-  require: true,
+  required: true,
   trim: true,
 };
 const articleShcema = new mongoose.Schema({
@@ -41,6 +41,10 @@ const articleShcema = new mongoose.Schema({
   },
   views: {
     type: Number,
+    trim: true
+  },
+  category:{
+    type: String,
     trim: true
   }
 })
