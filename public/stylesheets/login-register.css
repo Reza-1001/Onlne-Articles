@@ -28,7 +28,9 @@ body{
     padding: 0 2rem;
 }
 .back-home{
-	margin:10px 50px 0;
+	display: flex;
+	justify-content: flex-end;
+	margin:20px 50px 0;
 }
 
 

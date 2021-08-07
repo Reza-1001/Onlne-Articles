@@ -9,17 +9,18 @@
 </head>
 <body>
 	
-	<a class="back-home" href="/">
-		<i class="fas fa-home fa-2x"></i>
-		Back Home
-	  </a>
+	<div class="back-home">
+		<a href="/">
+			
+			Back Home
+			<i class="fas fa-chevron-right"></i>
+		  </a>
+	</div>
 	<div class="container">
 		<div class="img">
 			<img src="/assets/svg/login_bg.svg">
 		</div>
 
-	
-	
 		<div class="login-content">
 			
 			<form class="login-form" method="post" action="/api/login">
@@ -47,11 +48,13 @@
             	</div>
             	<a href="/api/register">Forget Password?</a>
             	<br>
-				<a href="/api/register" > Register Now</a>
+				
             	<input type="submit" class="btn" value="Login">
 				<% if (error) { %>
 					<p> <%= error %></p>
 				<% } %>
+
+				<h5>Don't Have Account? </h5> <a style="display:flex;justify-content:center;" href="/api/register" > Register Now</a>
             </form>
         </div>
     </div>
