@@ -33,9 +33,19 @@ const deleteComment = (req, res, next) => {
             console.log("1 document deleted");
 
             res.send("Comment Deleted");
-        
+
         });
 
+    })
+}
+
+const deleteAllComments = (articleId) => {
+    Comment.find({
+        article_id: articleId
+    }, function (err, deletedComments){
+        if (err) throw err;
+
+        res.send(`All Comments of ${articleId} Deleted Successfully`);
     })
 }
 
@@ -59,5 +69,6 @@ const getAllComments = (req, res, next) => {
 module.exports = {
     addComment,
     deleteComment,
+    deleteAllComments,
     getAllComments
 };
