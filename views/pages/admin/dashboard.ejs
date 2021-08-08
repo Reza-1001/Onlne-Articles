@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title> Online Articles </title>
     <link rel="stylesheet" href="/stylesheets/dashboard.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!-- Boxicons CDN Link -->
     <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
@@ -25,53 +27,40 @@
          <span class="tooltip">Search</span>
       </li>
       <li>
-        <a href="#">
+        <a id="home" href="#">
           <i class="bx bx-grid-alt"></i>
           <span class="links_name">Dashboard</span>
         </a>
          <span class="tooltip">Dashboard</span>
       </li>
       <li>
-       <a href="#">
+       <a id="bloggers" href="#">
          <i class="bx bx-user" ></i>
          <span class="links_name">Bloggers</span>
        </a>
        <span class="tooltip">Bloggers</span>
      </li>
      <li>
-       <a href="#">
+       <a id="articles" href="#">
          <i class="bx bx-chat" ></i>
          <span class="links_name">Articles</span>
        </a>
        <span class="tooltip">Articles</span>
      </li>
-     <li>
-       <a href="#">
+     <!-- <li>
+       <a id="statistics" href="#">
          <i class="bx bx-pie-chart-alt-2" ></i>
-         <span class="links_name">Analytics</span>
+         <span class="links_name">Statistics</span>
        </a>
-       <span class="tooltip">Analytics</span>
-     </li>
+       <span class="tooltip">Statistics</span>
+     </li> -->
+   
      <li>
-       <a href="#">
-         <i class="bx bx-folder" ></i>
-         <span class="links_name">File Manager</span>
-       </a>
-       <span class="tooltip">Files</span>
-     </li>
-     <li>
-       <a href="#">
-         <i class="bx bx-cart-alt" ></i>
-         <span class="links_name">Order</span>
-       </a>
-       <span class="tooltip">Order</span>
-     </li>
-     <li>
-       <a href="#">
+       <a id="profile" href="#">
          <i class="bx bx-heart" ></i>
          <span class="links_name">Profile info</span>
        </a>
-       <span class="tooltip">Settings</span>
+       <span class="tooltip">Profile info</span>
      </li>
      <li>
        <a href="/api/dashboard/logout">
@@ -92,16 +81,19 @@
      </li>
     </ul>
   </div>
-  <section class="home-section">
+  <section id="home-section" class="section">
       <div class="text">Admin Dashboard</div>
   </section>
-  <section class="bloggers-section">
+  <section id="bloggers-section" class="section">
     <div class="text">Bloggers List</div>
 </section>
-  <section class="articles-section">
+  <section id="articles-section" class="section">
     <div class="text">Articles List</div>
 </section>
-  <section class="Profile-section">
+  <!-- <section id="statistics-section" class="section">
+    <div class="text">Statistics</div>
+</section> -->
+  <section id="profile-section" class="section">
     <div class="text">Profile</div>
 </section>
 

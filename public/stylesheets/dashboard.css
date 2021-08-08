@@ -6,6 +6,7 @@
   box-sizing: border-box;
   font-family: "Poppins" , sans-serif;
 }
+
 .sidebar{
   position: fixed;
   left: 0;
@@ -222,7 +223,7 @@
   width: 50px;
   background: none;
 }
-.home-section{
+.section{
   position: relative;
   background: #E4E9F7;
   min-height: 100vh;
@@ -232,11 +233,26 @@
   transition: all 0.5s ease;
   z-index: 2;
 }
-.sidebar.open ~ .home-section{
+#home-section{
+  display: block;
+}
+#articles-section{
+  display:none;
+}
+#bloggers-section{
+  display:none;
+}
+/* #statistics-section{
+  display:none;
+} */
+#profile-section{
+  display:none;
+}
+.sidebar.open ~ .section{
   left: 250px;
   width: calc(100% - 250px);
 }
-.home-section .text{
+.section .text{
   display: inline-block;
   color: #11101d;
   font-size: 25px;

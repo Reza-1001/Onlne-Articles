@@ -1,7 +1,10 @@
 let sidebar = document.querySelector(".sidebar");
 let closeBtn = document.querySelector("#btn");
 let searchBtn = document.querySelector(".bx-search");
-
+let homeSection= document.querySelector(".home-section");
+let bloggerSection= document.querySelector(".blogger-section");
+let articleSection= document.querySelector(".article-section");
+let profileSection= document.querySelector(".profile-section");
 closeBtn.addEventListener("click", ()=>{
   sidebar.classList.toggle("open");
   menuBtnChange();//calling the function(optional)
@@ -20,3 +23,41 @@ function menuBtnChange() {
    closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
  }
 }
+
+$("#home").click(function(){
+  $("#home-section").show();
+  $("#bloggers-section").hide();
+  $("#articles-section").hide();
+  // $("#statistics-section").hide();
+  $("#profile-section").hide();
+})
+
+$("#bloggers").click(function(){
+  $("#home-section").hide();
+  $("#bloggers-section").show();
+  $("#articles-section").hide();
+  // $("#statistics-section").hide();
+  $("#profile-section").hide();
+})
+$("#articles").click(function(){
+  $("#home-section").hide();
+  $("#bloggers-section").hide();
+  $("#articles-section").show();
+  // $("#statistics-section").hide();
+  $("#profile-section").hide();
+})
+// $("#statistics").click(function(){
+//   $("#home-section").hide();
+//   $("#bloggers-section").hide();
+//   $("#articles-section").hide();
+//   $("#statistics-section").show();
+//   $("#profile-section").hide();
+// })
+
+$("#profile").click(function(){
+  $("#home-section").hide();
+  $("#bloggers-section").hide();
+  $("#articles-section").hide();
+  // $("#statistics-section").hide();
+  $("#profile-section").show();
+})
