@@ -4,10 +4,16 @@ const bcrypt = require('bcrypt');
 
 
 const dashboard = (req, res, next) => {
-  
+  if (req.session.user.role === "admin"){
+    res.render('pages/admin/dashboard',{
+      user:req.session.user
+    })
+  }
+  else{
     res.render('pages/dashboard', {
         user: req.session.user
       })
+  }  
 }
 
 const logOut=(req,res,next) => {

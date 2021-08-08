@@ -1,11 +1,16 @@
 const path = require('path');
 const Blogger = require('../models/Users');
-const Comments = require('../models/Comment');
-const Articles = require('../models/Article');
+const Comment = require('../models/Comment');
+const Article = require('../models/Article');
 
+const {deleteAllComments} = require('./comments'); 
  
 const addNewArticle = (req, res, next) => {
-
+    // new Article({
+    //     title:req.body.title,
+    //     content: request.body.content,
+        
+    // })
 }
 const getArticle = (req, res, next) => {
 
