@@ -11,7 +11,6 @@ const loginPage = (req, res, next) => {
 
 
 const userLogin = (req, res, next) => {
-    console.log(1)
     if (!req.body.userName || !req.body.password) {
         return res.render('pages/login', {
             error: "Empty Fields"
@@ -20,7 +19,6 @@ const userLogin = (req, res, next) => {
     Blogger.findOne({
         "userName": req.body.userName
     }, (err, user) => {
-        console.log(user)
         if (err) return res.render('pages/login', {
             error: "Server Error"
         })

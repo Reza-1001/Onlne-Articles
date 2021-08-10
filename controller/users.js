@@ -19,6 +19,9 @@ const {
 router.get('/', IsAdmin, getAllUsers);
 
 router.patch('/', generalTools.PasswordCheck, updateUserPassword)
+// router.patch('/', (req,res)=>{
+//     console.log(req.body)
+// })
 
 router.put('/', updateUserInfo)
 

@@ -5,6 +5,8 @@ const User = require('../models/Users');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const fs = require('fs');
+
+
 generalTools.SessionCheck = function (req, res, next) {
   if (req.cookies.user_sid && req.session.user) {
     return res.redirect('/api/dashboard')
@@ -38,8 +40,7 @@ generalTools.DeleteBloggerCheck = function (req, res, next) {
 }
 
 generalTools.PasswordCheck = function (req, res, next) {
-  console.log(req.body);
-  bcrypt.compare(req.body.curr_password, req.session.user.password, function (err, passCompResult) {
+  bcrypt.compare(req.body.oldPass, req.session.user.password, function (err, passCompResult) {
     if (!passCompResult) {
       return res.json(false)
     } else {

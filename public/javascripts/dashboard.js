@@ -61,3 +61,32 @@ $("#profile").click(function(){
   // $("#statistics-section").hide();
   $("#profile-section").show();
 })
+
+
+$("#save-password").click(function(){
+
+
+  $.ajax({
+    type: 'PATCH',
+    url: '/api/users',
+    processData: false,
+    contentType: 'application/json',
+    data: JSON.stringify({
+      oldPass:$("#old-password").val(),
+      newPass:$("#new-password").val()
+    }),
+    
+    /* success and error handling omitted for brevity */
+    success: function(responseData){
+      console.log(responseData)
+     if (responseData==true){
+         alert("Current Password incorrect")
+         $("#old-password").val("");
+         $("#new-password").val("");
+     }else{
+         alert("Password Changed Succesfully")
+         $("#old-password").val("");
+     }
+  }
+ });
+})
