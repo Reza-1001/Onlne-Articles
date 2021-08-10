@@ -80,13 +80,27 @@ $("#save-password").click(function(){
     success: function(responseData){
       console.log(responseData)
      if (responseData==true){
-         alert("Current Password incorrect")
+         alert("Password Changed Succesfully")
          $("#old-password").val("");
          $("#new-password").val("");
      }else{
-         alert("Password Changed Succesfully")
+         alert("Current Password incorrect")
          $("#old-password").val("");
      }
   }
  });
 })
+
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+          $('#profile-avatar')
+              .attr('src', e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+  }
+}
