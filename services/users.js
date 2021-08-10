@@ -52,11 +52,13 @@ const updateUserPassword = (req, res, next) => {
 }
 
 const updateUserInfo = (req, res, next) => {
+    console.log(110011);
+    console.log(req.body)
     User.findByIdAndUpdate(req.session.user._id, req.body, {
         new: true
     }, (err, user) => {
         if (err) return res.status(500).json(false);
-        res.json(true);
+        return res.redirect('/api/dashboard')
     })
 }
 
