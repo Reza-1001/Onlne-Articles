@@ -49,10 +49,7 @@
                         <div class="row mb-4">
                             <div class="col-md-7">
                                 <p class="text-muted">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit nisl
-                                    ullamcorper, rutrum metus in, congue lectus. In hac habitasse platea dictumst. Cras
-                                    urna quam, malesuada vitae risus at,
-                                    pretium blandit sapien.
+                                    
                                 </p>
                             </div>
 
@@ -78,8 +75,13 @@
                 <div class="form-group">
                     <label for="inputAddress5">Phone Number</label>
                     <input type="text" class="form-control" id="phone-number" name="phoneNumber" value="<%= user.phoneNumber%>" required/>
-                    <button id="save-info" type="submit" class="btn btn-primary mt-4">Save Information</button>
                 </div>
+                <div class="form-group">
+                    <label for="about-me">About Me</label>
+                    <textarea id="about-me" class="form-control" rows="5" name="aboutMe" required><%= user.aboutMe%></textarea>
+                </div>
+                <button id="save-info" type="submit" class="btn btn-primary mt-2">Save Information</button>
+
                 </form>
                 <!-- <div class="form-row">
                         <div class="form-group col-md-6">
