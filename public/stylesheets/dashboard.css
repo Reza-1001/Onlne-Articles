@@ -306,11 +306,11 @@ img {
 }
 
 /* image upload */
-.image-upload>input {
+#file-input {
   display: none;
   
 }
-#image-upload{
+.avatar-btn{
   cursor: pointer;
-  margin-top: 10px;
+  margin: 10px;
 }

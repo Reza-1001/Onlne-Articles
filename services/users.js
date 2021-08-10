@@ -1,13 +1,16 @@
 const path = require('path');
+const fs = require('fs');
 const url = require('url');
-const multer=require('multer')
-const upload=multer({dest: 'public/images/avatar'})
-const Blogger = require('../models/Users');
+const multer = require('multer');
+const upload = multer({
+    dest: 'public/images/avatar'
+})
+const User = require('../models/Users');
 const Article = require('../models/Article');
 const generalTools = require('./../tools/general-tools.js');
 
 const getAllUsers = (req, res, next) => {
-    Blogger.find({
+    User.find({
         role: 'blogger'
     }, (err, bloggers) => {
         if (err) return res.send("Server Error")
@@ -21,7 +24,7 @@ const getAllUsers = (req, res, next) => {
 
 const getOneUser = (req, res, next) => {
     console.log(req.params.id);
-    Blogger.find({
+    User.find({
         _id: req.params.id
     }, (err, user) => {
         console.log(user)
@@ -36,7 +39,7 @@ const getOneUser = (req, res, next) => {
 
 
 const updateUserPassword = (req, res, next) => {
-    Blogger.updateOne({
+    User.updateOne({
         _id: req.session.user._id
     }, {
         $set: req.body
@@ -49,7 +52,7 @@ const updateUserPassword = (req, res, next) => {
 }
 
 const updateUserInfo = (req, res, next) => {
-    Blogger.findByIdAndUpdate(req.session.user._id, req.body, {
+    User.findByIdAndUpdate(req.session.user._id, req.body, {
         new: true
     }, (err, user) => {
         if (err) return res.status(500).json(false);
@@ -57,8 +60,42 @@ const updateUserInfo = (req, res, next) => {
     })
 }
 
-const updateAvatar=(req,res,next)=>{
-
+const addAvatar = (req, res, next) => {
+    const upload = generalTools.UploadAvatar.single('avatar');
+    upload(req, res, function (err) {
+        if (err instanceof multer.MulterError) {
+            return res.send("Server Error")
+        } else if (err) return res.send("Server Error")
+        else {
+            User.findByIdAndUpdate(req.session.user._id, {
+                profileImage: req.file.filename
+            }, {
+                new: true
+            }, (err, user) => {
+                if (err) {
+                    return res.send("Server Error")
+                } else {
+                    if (req.session.user.profileImage) {
+                        fs.unlink(path.join(__dirname, '../public/images/avatar', req.session.user.profileImage), err => {
+                            if (err) {
+                                return res.status(500).json({
+                                    msg: "Server Error!"
+                                })
+                            } 
+                            // else {
+                            //     req.session.user = user;
+                            //     // res.json(true)
+                            //     return res.redirect('/api/dashboard')
+                            // }
+                        })  
+                    }
+                    req.session.user = user;
+                    // res.json(true)
+                    return res.redirect('/api/dashboard')
+                }
+            })
+        }
+    })
 }
 
 
@@ -67,5 +104,5 @@ module.exports = {
     getOneUser,
     updateUserPassword,
     updateUserInfo,
-    updateAvatar
+    addAvatar
 };

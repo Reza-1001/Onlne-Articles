@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const multer=require('multer')
+const multer = require('multer')
+const fs = require('fs')
+const path = require('path')
 const generalTools = require('../tools/general-tools');
 const User = require('../models/Users')
 const {
@@ -12,7 +14,7 @@ const {
     getOneUser,
     updateUserPassword,
     updateUserInfo,
-    updateAvatar
+    addAvatar
 } = require('../services/users');
 
 
@@ -23,29 +25,11 @@ router.patch('/', generalTools.PasswordCheck, updateUserPassword)
 //     console.log(req.body)
 // })
 
-router.put('/', updateUserInfo)
+router.post('/update', updateUserInfo)
 
 router.get('/user:id', getOneUser)
 
-router.post('/avatar', (req, res, next) => {
-    const upload = generalTools.UploadAvatar.single('avatar');
-    upload(req, res, function (err) {
-        if (err instanceof multer.MulterError) {
-            return res.send("Server Error")
-        } else if (err) return res.send("Server Error")
-        else {
-
-           User.findByIdAndUpdate(req.session.user._id, {profileImage: req.file.filename},{new: true},(err, user)=>{
-            if (err) {
-                return res.send("Server Error")
-            }else{
-                req.session.user=user;
-                res.json(user)
-            }   
-           })
-        }
-    })
-})
+router.post('/avatar', addAvatar)
 
 
 module.exports = router;

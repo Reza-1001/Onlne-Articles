@@ -66,7 +66,7 @@ const avatarStorage = multer.diskStorage({
     cb(null, `${req.session.user.userName}-${Date.now()}-${file.originalname}`)
   }
 })
-
+ 
 generalTools.UploadAvatar = multer({
   storage: avatarStorage,
   fileFilter: function (req, file, cb) {
