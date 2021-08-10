@@ -55,6 +55,10 @@ const bloggerShcema = new mongoose.Schema({
   profileImage: {
     type: String
   },
+  aboutMe:{
+    type:String,
+    default:""
+  },
   phoneNumber: {
     type: String,
     trim: true
