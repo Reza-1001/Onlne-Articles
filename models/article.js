@@ -18,9 +18,9 @@ const articleShcema = new mongoose.Schema({
   content: {
     ...essentialSchema,
     validate(value) {
-      if (value.length < 200) {
-        throw new Error("article content must be at least 200 characters long");
-      }
+      // if (value.length < 200) {
+      //   throw new Error("article content must be at least 200 characters long");
+      // }
     },
   },
   avatar: {
