@@ -63,6 +63,7 @@ const updateUserInfo = (req, res, next) => {
 }
 
 const addAvatar = (req, res, next) => {
+    console.log(11111111)
     const upload = generalTools.UploadAvatar.single('avatar');
     upload(req, res, function (err) {
         if (err instanceof multer.MulterError) {
@@ -71,7 +72,7 @@ const addAvatar = (req, res, next) => {
         else {
             User.findByIdAndUpdate(req.session.user._id, {
                 profileImage: req.file.filename
-            }, {
+            }, { 
                 new: true
             }, (err, user) => {
                 if (err) {

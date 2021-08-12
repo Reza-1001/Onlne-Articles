@@ -6,9 +6,12 @@ const {
     dashboard,
     logOut,
     deleteUser,
+    getProfileInfoPage, 
 } = require('../services/dashboard');
 
 router.get('/', generalTools.LoginCheck, dashboard);
+
+router.get('/profile', getProfileInfoPage)
 
 router.get('/logout', logOut)
 

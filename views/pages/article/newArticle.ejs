@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Document</title>
+  <script src="/plugins/tinymce/tinymce.js" referrerpolicy="origin"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="/javascripts/newArticle.js"></script>
+
+  <script>
+    tinymce.init({
+      selector: '#mytextarea',
+      height: 500,
+      width: "90%",
+      plugins: 'print preview searchreplace autolink directionality visualblocks visualchars image link table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',
+      toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+
+    });
+  </script>
+</head>
+
+<body>
+    <a href="/api/dashboard">Back Dashboard</a>
+  <form method="post" action="/api/">
+
+    <textarea name="mytext" id="mytextarea"></textarea>
+    <label for="title">Title</label>
+    <input type="text" name="title">
+    <label for="authhor">Author</label>
+    <input type="text" name="author" value="<%= user.firstName +' ' + user.lastName %>" >
+    <label for="category">category</label>
+    <input type="text" name="category">
+    <button type="submit">Save</button>
+  </form>
+  <!-- <form method="get" action="/get"> -->
+  <button type="submit" onclick="Load();">Load</button>
+  <!-- </form> -->
+
+  <form method="get" action="/new">
+    <button type="submit">Get New</button>
+  </form>
+  <button type="button" onclick="ShowSnippet();">Snippet</button>
+  <p id="load"></p>
+
+</body>
+
+</html>

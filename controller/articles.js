@@ -6,10 +6,12 @@ const {
     addNewArticle,
     deleteArticle,
     getArticle,
-    getAllArticles
+    getAllArticles,
+    newArticlePage
 } = require('../services/articles.js');
-
-router.post('/', addNewArticle);
+ 
+router.get('/', newArticlePage)
+router.post('/new', addNewArticle);
 
 router.delete('/', deleteArticle);
 

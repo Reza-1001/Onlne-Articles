@@ -47,7 +47,7 @@ const articleShcema = new mongoose.Schema({
     type: String,
     trim: true
   }
-})
+})    
 const Article = mongoose.model("Article", articleShcema);
 
 module.exports = Article;

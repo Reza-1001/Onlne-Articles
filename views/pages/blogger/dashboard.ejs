@@ -1,0 +1,11 @@
+
+    <% if(user.role == 'admin') {%>
+        <%- include('./../../partials/admin/_admin_dashboard_panel') -%>   
+        
+        <% }else {%>
+        <%- include('./../../partials/blogger/_blogger_dashboard_panel') -%> 
+        <% } %>
+
+    <h1>Blogger Dash</h1>
+</body>
+</html>
