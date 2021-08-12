@@ -2,7 +2,7 @@ const path = require('path');
 const Blogger = require('../models/Users');
 const Comment = require('../models/Comment');
 const Article = require('../models/Article');
-
+const fs = require('fs');
 const {
     deleteAllComments
 } = require('./comments');
@@ -13,13 +13,27 @@ const newArticlePage = (req, res, next) => {
         user: req.session.user
     });
 }
-const addNewArticle = (req, res, next) => {
-    // new Article({
-    //     title:req.body.title,
-    //     content: request.body.content,
 
-    // })
+const addNewArticle = (req, res, next) => {
+    new Article({
+        avatar: " ",
+        content: articleFile,
+        writer: req.session.user._id,
+        title: req.body.title,
+        category: req.body.category,
+        views: 20
+
+    }).save(err => {
+        if (err) {
+            console.log(err);
+            return res.send('Error in Save Article');
+        }
+        let articleFile = `public/articles/${req.body.title}-${req.session.user.userName}.html`;
+        fs.writeFileSync(articleFile, req.body.mytext);
+        return res.send('Article Saved')
+    })
 }
+
 const getArticle = (req, res, next) => {
 
 }

@@ -24,13 +24,13 @@
 
 <body>
     <a href="/api/dashboard">Back Dashboard</a>
-  <form method="post" action="/api/">
+  <form method="post" action="/api/article/new">
 
     <textarea name="mytext" id="mytextarea"></textarea>
     <label for="title">Title</label>
     <input type="text" name="title">
     <label for="authhor">Author</label>
-    <input type="text" name="author" value="<%= user.firstName +' ' + user.lastName %>" >
+    <input type="text" id="author" value="<%= user.firstName +' ' + user.lastName %>" >
     <label for="category">category</label>
     <input type="text" name="category">
     <button type="submit">Save</button>
