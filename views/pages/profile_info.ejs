@@ -1,8 +1,8 @@
 <% if(user.role == 'admin') {%>
-<%- include('./../partials/admin/_admin_dashboard_panel') -%>    
+<%- include('./../partials/admin/_admin_dashboard_panel') -%>
 
 <% }else{ %>
-<%- include('./../partials/blogger/_blogger_dashboard_panel') -%> 
+<%- include('./../partials/blogger/_blogger_dashboard_panel') -%>
 <% } %>
 <div class="container">
     <div class="row justify-content-center">
@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="col">
-                        
+
                         <div class="row align-items-center">
                             <div class="col-md-7">
                                 <h4 class="mb-1"><%= user.firstName + " " + user.lastName %></h4>
@@ -55,7 +55,7 @@
                         <div class="row mb-4">
                             <div class="col-md-7">
                                 <p class="text-muted">
-                                    
+
                                 </p>
                             </div>
 
@@ -64,29 +64,34 @@
                 </div>
                 <hr class="my-4" />
                 <form method="post" action="/api/users/update">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="first-name">First Name</label>
-                        <input type="text" id="first-name" class="form-control" name="firstName" value="<%= user.firstName%>" required/>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" class="form-control" name="firstName"
+                                value="<%= user.firstName%>" required />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" class="form-control" name="lastName"
+                                value="<%= user.lastName%>" required />
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="last-name">Last Name</label>
-                        <input type="text" id="last-name" class="form-control" name="lastName" value="<%= user.lastName%>" required/>
+                    <div class="form-group">
+                        <label for="user-name">Username</label>
+                        <input type="text" class="form-control" id="user-name" name="userName"
+                            value="<%= user.userName%>" required />
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="user-name">Username</label>
-                    <input type="text" class="form-control" id="user-name" name="userName" value="<%= user.userName%>" required/>
-                </div>
-                <div class="form-group">
-                    <label for="inputAddress5">Phone Number</label>
-                    <input type="text" class="form-control" id="phone-number" name="phoneNumber" value="<%= user.phoneNumber%>" required/>
-                </div>
-                <div class="form-group">
-                    <label for="about-me">About Me</label>
-                    <textarea id="about-me" class="form-control" rows="5" name="aboutMe" required><%= user.aboutMe%></textarea>
-                </div>
-                <button id="save-info" type="submit" class="btn btn-primary mt-2">Save Information</button>
+                    <div class="form-group">
+                        <label for="inputAddress5">Phone Number</label>
+                        <input type="text" class="form-control" id="phone-number" name="phoneNumber"
+                            value="<%= user.phoneNumber%>" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="about-me">About Me</label>
+                        <textarea id="about-me" class="form-control" rows="5" name="aboutMe"
+                            required><%= user.aboutMe%></textarea>
+                    </div>
+                    <button id="save-info" type="submit" class="btn btn-primary mt-2">Save Information</button>
 
                 </form>
                 <!-- <div class="form-row">
@@ -141,3 +146,6 @@
     </div>
 
 </div>
+</body>
+
+</html>

@@ -15,6 +15,7 @@ const newArticlePage = (req, res, next) => {
 }
 
 const addNewArticle = (req, res, next) => {
+    let articleFile = `public/articles/${req.body.title}-${req.session.user.userName}.html`;
     new Article({
         avatar: " ",
         content: articleFile,
@@ -28,9 +29,8 @@ const addNewArticle = (req, res, next) => {
             console.log(err);
             return res.send('Error in Save Article');
         }
-        let articleFile = `public/articles/${req.body.title}-${req.session.user.userName}.html`;
         fs.writeFileSync(articleFile, req.body.mytext);
-        return res.send('Article Saved')
+        return res.redirect('/api/dashboard')
     })
 }
 

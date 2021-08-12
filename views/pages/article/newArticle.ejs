@@ -2,49 +2,65 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Document</title>
-  <script src="/plugins/tinymce/tinymce.js" referrerpolicy="origin"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.js"
-  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-  <script src="/javascripts/newArticle.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <script src="/plugins/tinymce/tinymce.js" referrerpolicy="origin"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="/javascripts/newArticle.js"></script>
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/profile_info.css">
 
-  <script>
-    tinymce.init({
-      selector: '#mytextarea',
-      height: 500,
-      width: "90%",
-      plugins: 'print preview searchreplace autolink directionality visualblocks visualchars image link table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',
-      toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+    <script>
+        tinymce.init({
+            selector: '#mytextarea',
+            height: 500,
+            width: "90%",
+            plugins: 'print preview searchreplace autolink directionality visualblocks visualchars image link table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',
+            toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
 
-    });
-  </script>
+        });
+    </script>
 </head>
 
 <body>
     <a href="/api/dashboard">Back Dashboard</a>
-  <form method="post" action="/api/article/new">
+ 
 
-    <textarea name="mytext" id="mytextarea"></textarea>
-    <label for="title">Title</label>
-    <input type="text" name="title">
-    <label for="authhor">Author</label>
-    <input type="text" id="author" value="<%= user.firstName +' ' + user.lastName %>" >
-    <label for="category">category</label>
-    <input type="text" name="category">
-    <button type="submit">Save</button>
-  </form>
-  <!-- <form method="get" action="/get"> -->
-  <button type="submit" onclick="Load();">Load</button>
-  <!-- </form> -->
+    <!-- editor -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-12 mx-auto">
+                <div class="my-4">
+                    <form method="post" action="/api/article/new">
+                        <div class="form-row">
+                            <div class="form-group col-lg-6">
+                                <label for="title">Title</label>
+                                <input type="text" id="title" class="form-control" name="title" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-6">
+                                <label for="category">Category</label>
+                                <input type="text" class="form-control" id="category" name="category" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="mytextarea" class="form-control" rows="5" name="mytext" required></textarea>
+                        </div>
+                        <button id="save-info" type="submit" class="btn btn-primary mt-2">Save</button>
+                        <a href="/api/dashboard" id="cancel-info"  class="btn btn-primary mt-2">Cancel</a>
 
-  <form method="get" action="/new">
-    <button type="submit">Get New</button>
-  </form>
-  <button type="button" onclick="ShowSnippet();">Snippet</button>
-  <p id="load"></p>
-
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /editor -->
 </body>
 
 </html>
