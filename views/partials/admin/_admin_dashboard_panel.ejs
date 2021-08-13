@@ -54,15 +54,21 @@
           <div id="article-submenu" class="">
             <ul>
               <li>
-                <a id="sub-articles" href="/api/article">
+                <a id="my-article" href="/api/article?id=<%= user._id %>">
+                  <i class="bx bx-chat" ></i>
+                  <span class="links_name">My Articles</span>
+                </a>
+              </li>
+              <li>
+                <a id="new-article" href="/api/article/new">
                   <i class="bx bx-chat" ></i>
                   <span class="links_name">New Article</span>
                 </a>
               </li>
               <li>
-                <a id="all-articles" href="#">
+                <a id="all-articles" href="/api/article">
                   <i class="bx bx-chat" ></i>
-                  <span class="links_name">All Article</span>
+                  <span class="links_name">All Articles</span>
                 </a>
               </li>
               

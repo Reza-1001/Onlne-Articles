@@ -2,7 +2,7 @@
 
 body{
     color: #8e9194;
-    background-color: #f4f6f9;
+    background-color: #fff;
   }
   .avatar-xl img {
     width: 110px;
@@ -48,4 +48,17 @@ body{
     cursor: pointer;
     margin: 10px;
   }
-  
+  /* new Article Page background */
+  .bg-image {
+    background-image: url("/assets/images/bg.jpg");
+    background-color: #cccccc;
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+
+  .opacity{
+    opacity: 0.9;
+  }

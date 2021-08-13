@@ -9,6 +9,12 @@ const apiRouter = require('./routes/api');
 const cors = require('cors');
 const app = express();
 
+
+
+
+
+// app.use('/favicon.ico', express.static('publicfavicon.ico'));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

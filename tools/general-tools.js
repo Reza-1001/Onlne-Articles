@@ -88,7 +88,6 @@ generalTools.DefaultAvatar = function (req, res, next) {
     // fs.unlinkSync(path.join(__dirname,`../public/images/avatar//^${req.body.userName}/`));
     fs.copyFile(path.join(__dirname,'../public/assets/images/default-user-pic.jpg'), path.join(__dirname,`../public/images/avatar/${filename}`), (err) => {
       if (err) throw err;
- 
     });
   }
   next();

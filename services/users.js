@@ -52,18 +52,18 @@ const updateUserPassword = (req, res, next) => {
 }
 
 const updateUserInfo = (req, res, next) => {
-    console.log(110011);
-    console.log(req.body)
+    let oldUseAvatar= req.session.user.profileImage;
+    let oldUserName=req.session.user.userName;
     User.findByIdAndUpdate(req.session.user._id, req.body, {
         new: true
     }, (err, user) => {
         if (err) return res.status(500).json(false);
+        // if (user.userName !== oldUserName) fs.renameSync(`/images/avatar/${user.userName}-avatar`, `/images/avatar/${oldUseAvatar}`)
         return res.redirect('/api/dashboard')
     })
-}
+} 
 
 const addAvatar = (req, res, next) => {
-    console.log(11111111)
     const upload = generalTools.UploadAvatar.single('avatar');
     upload(req, res, function (err) {
         if (err instanceof multer.MulterError) {
@@ -80,20 +80,15 @@ const addAvatar = (req, res, next) => {
                 } else {
                     if (req.session.user.profileImage) {
                         fs.unlink(path.join(__dirname, '../public/images/avatar', req.session.user.profileImage), err => {
-                            if (err) {
+                            if (err) { 
                                 return res.status(500).json({
                                     msg: "Server Error!"
                                 })
                             } 
-                            // else {
-                            //     req.session.user = user;
-                            //     // res.json(true)
-                            //     return res.redirect('/api/dashboard')
-                            // }
+                    
                         })  
                     }
                     req.session.user = user;
-                    // res.json(true)
                     return res.redirect('/api/dashboard')
                 }
             })
@@ -101,11 +96,37 @@ const addAvatar = (req, res, next) => {
     })
 }
 
+const deleteAvatar=(req,res,next)=>{
+    User.findByIdAndUpdate(req.session.user._id, {
+        profileImage: ""
+    }, { 
+        new: true
+    }, (err, user) => {
+        if (err) {
+            return res.send("Server Error")
+        } else {
+            if (req.session.user.profileImage) {
+                fs.unlink(path.join(__dirname, '../public/images/avatar', req.session.user.profileImage), err => {
+                    if (err) { 
+                        return res.status(500).json({
+                            msg: "Server Error!"
+                        })
+                    } 
+                 
+                })  
+            }
+            req.session.user = user;
+            res.json(true)
+            // return res.redirect('/api/dashboard')
+        }
+    })
+}
 
 module.exports = {
     getAllUsers,
     getOneUser,
     updateUserPassword,
     updateUserInfo,
-    addAvatar
+    addAvatar,
+    deleteAvatar
 };

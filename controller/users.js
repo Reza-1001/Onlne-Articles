@@ -14,7 +14,8 @@ const {
     getOneUser,
     updateUserPassword,
     updateUserInfo,
-    addAvatar
+    addAvatar,
+    deleteAvatar
 } = require('../services/users');
 
 
@@ -28,8 +29,10 @@ router.patch('/', generalTools.PasswordCheck, updateUserPassword)
 router.post('/update', updateUserInfo)
 
 router.get('/user:id', getOneUser)
-
+ 
 router.post('/avatar', addAvatar)
+
+router.delete('/avatar', deleteAvatar)
 
 
 module.exports = router;

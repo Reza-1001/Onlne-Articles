@@ -156,3 +156,14 @@ function readURL(input) {
     // $("#profile-upload-form").submit();
   }
 }
+
+function DeleteAvatar(){
+  $.ajax({
+    url: '/api/users/avatar',
+    type: 'DELETE',
+    success: function(result) {
+        // Do something with the result
+        window.location.reload();
+    }
+});
+}

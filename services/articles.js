@@ -43,9 +43,29 @@ const deleteArticle = (req, res, next) => {
 }
 
 
-const getAllArticles = (req, res, next) => {
-
-}
+const getAllArticles = (req, res, next) => { 
+    console.log(req.query.id)
+    Article.find({}).populate('writer', {
+        firstName: 1,
+        lastName: 1,
+        _id: 1,
+        profileImage: 1
+    }).exec((err, articles) => {
+        if (err) return res.send("Server Error")
+        if (!articles) return res.send("No Article Found")
+        if (req.query.id){
+        articles=articles.filter(article=>{
+            return article.writer._id == req.query.id
+        })
+    }
+        res.render('pages/article/myArticles', {
+            articles: articles
+        })
+        // return res.send(articles); 
+    })
+  
+    
+} 
 
 
 module.exports = {
