@@ -40,6 +40,12 @@ body{
   background-image: '';
 }
 
+.back-home{
+	display: flex;
+	justify-content: flex-end;
+	margin:20px 50px 0;
+}
+
 h1,p,ul{
   margin: 0;
 }
@@ -68,7 +74,6 @@ img{
   margin-left: 1rem;
   margin-right: 1rem;
 }
-
 .l-header{
   width: 100%;
   position: fixed;
@@ -147,7 +152,7 @@ img{
   padding-top: 1.5rem;
   justify-self: center;
   width: 302px;
-  height: 233px;
+  height: 300px;
 }
 
 .home__img img{

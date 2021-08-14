@@ -22,7 +22,7 @@ const deleteComment = (req, res, next) => {
     }, (err, comment) => {
         if (err) return res.send("Server Error")
         if (!comment) return res.send("Comment Not Found")
-        if (req.session.user.role != 'admin' && req.session.user._id != comment.writer_id) {
+        if (req.session.user.role != 'Admin' && req.session.user._id != comment.writer_id) {
             return res.send("Comment Delete Failed")
         }
         Comment.deleteOneById({

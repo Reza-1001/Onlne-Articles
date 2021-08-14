@@ -1,5 +1,15 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const domPurifier = require('dompurify');
+const {
+  JSDOM
+} = require('jsdom');
+const htmlPurify = domPurifier(new JSDOM().window);
+
+const {
+  stripHtml
+} = require("string-strip-html");
+
 
 const essentialSchema = {
   type: String,
@@ -23,6 +33,10 @@ const articleShcema = new mongoose.Schema({
       // }
     },
   },
+  snippet: {
+    type: String,
+    trim: true,
+  },
   avatar: {
     type: String,
   },
@@ -43,11 +57,28 @@ const articleShcema = new mongoose.Schema({
     type: Number,
     trim: true
   },
-  category:{
+  category: {
     type: String,
     trim: true
   }
-})    
+})
+
+// articleShcema.pre('validate', function (next) {
+
+ 
+//   let description = this.snippet;
+//   console.log(333333333)
+//   console.log(description)
+//   //check if there is a description
+//     description = htmlPurify.sanitize(description);
+//     console.log(444444444)
+//     console.log(description)
+//     this.snippet = stripHtml(description.substring(0, 200)).result;
+//     console.log(555555555)
+//   console.log(this.snippet)
+//   next();
+// });
+
 const Article = mongoose.model("Article", articleShcema);
 
 module.exports = Article;

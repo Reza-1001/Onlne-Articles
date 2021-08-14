@@ -40,3 +40,12 @@ function Load() {
 
 //     })
 // }
+function saveArticle(){
+  let snippet=tinymce.activeEditor.getContent({
+    format: "text",
+  }).substring(0,200)
+  snippet=snippet.split("\n");
+  alert(snippet)
+$("#snippet").val(snippet);
+$("#save-article").submit();
+}

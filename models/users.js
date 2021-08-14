@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt');
 const essentialSchema = {
   type: String,
   required: true,
-  lowercase: true,
   trim: true,
 };
 const bloggerShcema = new mongoose.Schema({
@@ -27,6 +26,7 @@ const bloggerShcema = new mongoose.Schema({
   userName: {
     ...essentialSchema,
     unique: true,
+    lowercase: true,
     validate(value) {
       if (value.length < 3) {
         throw new Error("Username must be at least 3 characters long");
@@ -48,9 +48,8 @@ const bloggerShcema = new mongoose.Schema({
   },
   role: {
     ...essentialSchema,
-    lowercase: true,
-    enum: ['admin', 'blogger'],
-    default: 'blogger'
+    enum: ['Admin', 'Blogger'],
+    default: 'Blogger'
   },
   profileImage: {
     type: String

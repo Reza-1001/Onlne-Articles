@@ -7,6 +7,8 @@
         <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet">
 
         <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+
         <link rel="stylesheet" href="pages/assets/css/styles.css">
 
         <title>Online Articles</title>
@@ -29,10 +31,10 @@
                     </div>
 
                     <ul class="nav__list">
-                        <li class="nav__item"><a href="/articles" class="nav__link active">Home</a></li>
+                        <li class="nav__item"><a href="/" class="nav__link active">Home</a></li>
                         <li class="nav__item"><a href="/api/dashboard" class="nav__link">Dashboard</a></li>
-                        <li class="nav__item"><a href="/pages/about.html" class="nav__link">About</a></li>
-                        <li class="nav__item"><a href="/pages/contact.html" class="nav__link">Contact</a></li>
+                        <li class="nav__item"><a href="/about-us" class="nav__link">About</a></li>
+                        <li class="nav__item"><a href="/contact-us" class="nav__link">Contact</a></li>
                         <form method="get" action="/api/login/" id="get_login_page">
                             <li class="nav__item"><a href="javascript:{}" onclick="document.getElementById('get_login_page').submit();" class="nav__link">Login</a></li>
                         </form>
@@ -57,7 +59,7 @@
                     <div class="home__data">
                         <h1 class="home__title">Read Online<br> Articles</h1>
                         <p class="home__description">You Can find Best Articles <br> On the Web.</p>
-                        <a href="#" class="home__button">Start Reading</a>
+                        <a href="/api/article" class="home__button">Start Reading</a>
                     </div>
                 </div>
             </section>
@@ -66,7 +68,7 @@
             </section>
         </main>
 
-        
+    
         <!--===== GSAP =====-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
 

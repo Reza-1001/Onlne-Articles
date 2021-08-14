@@ -6,12 +6,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const apiRouter = require('./routes/api');
+const pageRenders = require('./routes/pageRenders');
 const cors = require('cors');
 const app = express();
-
-
-
-
 
 // app.use('/favicon.ico', express.static('publicfavicon.ico'));
 
@@ -23,7 +20,8 @@ app.use(cors());
 mongoose.connect(
   'mongodb://localhost:27017/AnyArticle', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
   }
 )
 app.use(logger('dev'));
@@ -43,18 +41,16 @@ app.use(session({
     expires: 6000000
   }
 }));
-    
+
 app.use('/api', apiRouter);
 
-app.use('/', (req, res ,next) => {
-  res.sendFile(path.join(__dirname,'public/pages/home.html'));
-})
-     
+app.use('/', pageRenders)
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
-   
+
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development

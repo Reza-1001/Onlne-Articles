@@ -28,7 +28,7 @@
 </head>
 
 <body class="bg-image">
-    <a href="/api/dashboard">Back Dashboard</a>
+
  
 
     <!-- editor -->
@@ -36,7 +36,7 @@
         <div class="row justify-content-center " style="height:100%" >
             <div class="col-12 col-lg-10 col-xl-12 mx-auto" >
                 <div class="my-4 h-90" >
-                    <form method="post" action="/api/article/new">
+                    <form id="save-article" method="post" action="/api/article/new" enctype="multipart/form-data">
                         <div class="form-row">
                             <div class="form-group col-lg-6">
                                 <label for="title">Title</label>
@@ -52,7 +52,15 @@
                         <div class="form-group">
                             <textarea id="mytextarea" class="form-control" rows="5" name="mytext" required></textarea>
                         </div>
-                        <button id="save-info" type="submit" class="btn btn-primary mt-2">Save</button>
+                        <div class="form-group">
+                            <label for="article-avatar" class="text-black">Upload image</label>
+                            <input type="file" name="article" id="article-avatar" class="form-control-file text-white">
+                        </div>
+                        <div class="form-group d-none">
+                            <input type="text" class="form-control" id="snippet" name="snippet" required />
+                            
+                        </div>
+                        <button id="save-info" type="submit" class="btn btn-primary mt-2" onclick="saveArticle();">Save</button>
                         <a href="/api/dashboard" id="cancel-info"  class="btn btn-primary mt-2">Cancel</a>
 
                     </form>
@@ -62,5 +70,4 @@
     </div>
     <!-- /editor -->
 </body>
-
 </html>

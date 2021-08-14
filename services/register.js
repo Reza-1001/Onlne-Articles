@@ -59,9 +59,8 @@ const registerPage = (req, res, next) => {
 }
 
 const createAdmin = (req, res, next) => {
-    console.log("admin creation")
     Blogger.findOne({
-        role: 'admin'
+        role: 'Admin'
     }, (err, adminExist) => {
         if (err) return res.send('Error in Create Admin');
         if (adminExist) return res.status(404).send('Not found');
@@ -72,9 +71,9 @@ const createAdmin = (req, res, next) => {
             password: req.body.password,
             profileImage: "",
             phoneNumber: req.body.phoneNumber,
-            role: "admin"
+            role: "Admin"
         }).save(err => {
-            if (err) return res.send('Error in Create Admin')
+            if (err) return res.send(err)
             return res.send('Admin created succesfully')
         })
     })

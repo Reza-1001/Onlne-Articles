@@ -30,7 +30,7 @@ const getOneUser = (req, res, next) => {
         console.log(user)
         if (err) return res.send("Server Error");
         if (!user) return res.send("User Not Found");
-        if (req.session.user.role == 'admin' || req.session.user._id == req.params.id) {
+        if (req.session.user.role == 'Admin' || req.session.user._id == req.params.id) {
             return res.send(user);
         }
         return res.send('Access Denied');
@@ -52,8 +52,8 @@ const updateUserPassword = (req, res, next) => {
 }
 
 const updateUserInfo = (req, res, next) => {
-    let oldUseAvatar= req.session.user.profileImage;
-    let oldUserName=req.session.user.userName;
+    // let oldUseAvatar= req.session.user.profileImage;
+    // let oldUserName=req.session.user.userName;
     User.findByIdAndUpdate(req.session.user._id, req.body, {
         new: true
     }, (err, user) => {
@@ -61,7 +61,7 @@ const updateUserInfo = (req, res, next) => {
         // if (user.userName !== oldUserName) fs.renameSync(`/images/avatar/${user.userName}-avatar`, `/images/avatar/${oldUseAvatar}`)
         return res.redirect('/api/dashboard')
     })
-} 
+}
 
 const addAvatar = (req, res, next) => {
     const upload = generalTools.UploadAvatar.single('avatar');
@@ -72,7 +72,7 @@ const addAvatar = (req, res, next) => {
         else {
             User.findByIdAndUpdate(req.session.user._id, {
                 profileImage: req.file.filename
-            }, { 
+            }, {
                 new: true
             }, (err, user) => {
                 if (err) {
@@ -80,13 +80,13 @@ const addAvatar = (req, res, next) => {
                 } else {
                     if (req.session.user.profileImage) {
                         fs.unlink(path.join(__dirname, '../public/images/avatar', req.session.user.profileImage), err => {
-                            if (err) { 
+                            if (err) {
                                 return res.status(500).json({
                                     msg: "Server Error!"
                                 })
-                            } 
-                    
-                        })  
+                            }
+
+                        })
                     }
                     req.session.user = user;
                     return res.redirect('/api/dashboard')
@@ -96,10 +96,10 @@ const addAvatar = (req, res, next) => {
     })
 }
 
-const deleteAvatar=(req,res,next)=>{
+const deleteAvatar = (req, res, next) => {
     User.findByIdAndUpdate(req.session.user._id, {
         profileImage: ""
-    }, { 
+    }, {
         new: true
     }, (err, user) => {
         if (err) {
@@ -107,13 +107,13 @@ const deleteAvatar=(req,res,next)=>{
         } else {
             if (req.session.user.profileImage) {
                 fs.unlink(path.join(__dirname, '../public/images/avatar', req.session.user.profileImage), err => {
-                    if (err) { 
+                    if (err) {
                         return res.status(500).json({
                             msg: "Server Error!"
                         })
-                    } 
-                 
-                })  
+                    }
+
+                })
             }
             req.session.user = user;
             res.json(true)
