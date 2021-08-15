@@ -1,0 +1,21 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+.container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    
+margin-top:100px;
+    
+}
+.article-content{
+    overflow:hidden;
+    width:90%;
+}
+img{
+    max-width: 100% !important;
+    height: auto !important;
+}

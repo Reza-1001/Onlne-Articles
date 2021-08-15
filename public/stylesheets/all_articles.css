@@ -1,9 +1,14 @@
 body {
-  background: #2c2c2c !important;
+  /* background:url('/assets/images/abg.jpg'); */
+  background: #ffffff !important;
+
 }
 .card-img {
   background: url('/images/mosque.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: center;
+}
+.card{
+  background: #e9e8e8;
 }

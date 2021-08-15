@@ -24,55 +24,33 @@
         <p class="text-white">No article yet, create a new one</p>
         <%  } %>
         <% articles.forEach(article=>{ %>
-        <div class="col-lg-6 card mt-2 mr-0">
-            <div class="row p-2">
-                <div class="col-5 overflow-hidden">
-                    <img src="/images/article/<%=article.avatar%>" class="card-img" alt="...">
-                </div>
-                <div class="col-7">
-                    <div class="d-flex align-items-start">
-                        <h5 class="w-100"><b> <%= article.title %> </b></h5>
-                        <!-- display more button -->
-                        <div class="more position-relative" style="cursor: pointer;">
-                            <i class="material-icons p-2">more_vert</i>
-                            <!-- options list -->
-                            <div class="d-none options card rounded-pill shadow-sm p-1 position-absolute">
-                                <a href="blogs/edit/<%= articles._id %> " class="rounded-circle p-2 mb-2"
-                                    style="background:blue;">
-                                    <i class="material-icons" style="color:white">create</i>
-                                </a>
-                                <form action="/api/article/<%=article.id%>?_method=DELETE" method="POST">
-                                    <button class="rounded-circle p-2 bg-danger">
-                                        <i class="material-icons" style="color:white">delete</i>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+            <div class="mt-3 col-12 col-md-6 col-lg-6">
+                <div class="card">
+                    <img style="height:300px" class="card-img-top" src="/images/article/<%=article.avatar%>" alt="Card image cap" />
+                    <div class="card-body">
+                        <h5 class="card-title"><%- article.title %></h5>
+                        <p class="card-text">
+                           <%- article.snippet %>
+                        </p>
                     </div>
-                    <span class="align-self-stretch "><%- article.snippet %>
-                    </span>
-                    <div class="d-flex align-items-end">
-                        <div class="mr-2">
+                    <div class="card-footer d-flex align-items-end">
+                        <div class="writer-avatar">
                             <% let avatar=article.writer.profileImage %>
                             <% if (!article.writer.profileImage){ %>
                             <% avatar="default-avatar.jpg" %>
                             <% } %>
-                            <img src="/images/avatar/<%= avatar %>" class="rounded-circle"
-                                style="width: 80px; height: 80px;">
+                            <img class="rounded-circle" src="/images/avatar/<%= avatar %>" style="width: 80px; height:80px;" />
                         </div>
-                        <div class=" flex-grow-1">
-                            <h5 class="" style="font-size: 14px; line-height: 0.5rem;">
-                                <span><b><%= article.writer.firstName + " " + article.writer.lastName%></b></span></h5>
-                            <p style="font-size: 12px; line-height: 0.2rem;">
-                                <%= article.createdAt.toLocaleDateString() %></p>
+                        <div class="writer-info ml-3">
+                            <p style="line-height: 0.2rem;"><%- article.writer.firstName +" " + article.writer.lastName%></p>
+                            <p> <%- article.createdAt.toLocaleDateString() %></p>
                         </div>
-                        <a href="api/article/<%=article._id %> " class=" align-self-end">
-                            <i class='material-icons ml-3 text-black'>send</i>
-                        </a>
+                        <div class="read-more">
+                            <a href="/api/article/<%-article._id%>" class="btn btn-primary ml-4">Read more</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         <% }) %>
     </div>
     </div>
