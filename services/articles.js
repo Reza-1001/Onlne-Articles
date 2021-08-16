@@ -2,7 +2,7 @@ const path = require('path');
 const Blogger = require('../models/Users');
 const Comment = require('../models/Comment');
 const Article = require('../models/Article');
-
+const generalTools = require('../tools/general-tools');
 const fs = require('fs');
 const {
     deleteAllComments
@@ -48,7 +48,7 @@ const getArticle = (req, res, next) => {
         profileImage: 1
     }).exec((err, article) => {
         if (err) return res.send("Server Error");
-        if (!article) return res.send("article Not Found");
+        if (!article) return res.send("Article Not Found");
         let data = fs.readFileSync(path.join(__dirname, "../", article.content));
         res.render('pages/article/readArticle', {
             article: {
@@ -60,12 +60,19 @@ const getArticle = (req, res, next) => {
 }
 
 const deleteArticle = (req, res, next) => {
-
+    Article.findByIdAndDelete({
+        _id: req.params.article_id
+    }, (err, article) => {
+        if (err) return res.send("Server Error");
+        if (!article) return res.send("Article Not Found");
+        generalTools.deleteArticleFiles(article.content, article.avatar);
+        res.send(true);
+    })
 }
 
 
-const editArticle=(req,res,next)=>{
-    console.log("--------"+req.params.raticle_id)
+const editArticle = (req, res, next) => {
+    console.log("--------" + req.params.raticle_id)
     Article.findOne({
         _id: req.params.article_id
     }).populate('writer', {
@@ -77,7 +84,7 @@ const editArticle=(req,res,next)=>{
     }).exec((err, article) => {
         if (err) return res.send("Server Error");
         if (!article) return res.send("article Not Found");
-        let data = fs.readFileSync(path.join(__dirname, "../", article.content),'utf8');
+        let data = fs.readFileSync(path.join(__dirname, "../", article.content), 'utf8');
         res.render('pages/article/editArticle', {
             article: {
                 content: data,

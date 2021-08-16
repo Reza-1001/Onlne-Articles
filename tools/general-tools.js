@@ -100,4 +100,22 @@ generalTools.DefaultAvatar = function (req, res, next) {
   next();
 }
 
+
+generalTools.deleteArticleFiles = function (articleFile, articleAvatar) {
+  fs.unlink(path.join(__dirname, '../', articleFile), err => {
+    if (err) {
+      return res.status(500).json({
+        msg: "Server Error!"
+      })
+    }
+  })
+  fs.unlink(path.join(__dirname, '../public/images/article', articleAvatar), err => {
+    if (err) {
+      return res.status(500).json({
+        msg: "Server Error!"
+      })
+    }
+  })
+}
+
 module.exports = generalTools;
