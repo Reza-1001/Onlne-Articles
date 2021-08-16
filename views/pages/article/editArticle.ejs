@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Article</title>
+    <script src="/plugins/tinymce/tinymce.js" referrerpolicy="origin"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="/javascripts/editArticle.js"></script>
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/profile_info.css">
+
+    <script>
+        tinymce.init({
+            selector: '#mytextarea',
+            height: 500,
+            width: "100%",
+            plugins: 'print preview searchreplace autolink directionality visualblocks visualchars image link table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',
+            toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat |link image',
+            image_title: true,
+            /* enable automatic uploads of images represented by blob or data URIs*/
+            automatic_uploads: true,
+            /*
+              URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+              images_upload_url: 'postAcceptor.php',
+              here we add custom filepicker only to Image dialog
+            */
+            file_picker_types: 'image',
+            /* and here's our custom image picker*/
+            file_picker_callback: function (cb, value, meta) {
+              var input = document.createElement('input');
+              input.setAttribute('type', 'file');
+              input.setAttribute('accept', 'image/*');
+          
+              /*
+                Note: In modern browsers input[type="file"] is functional without
+                even adding it to the DOM, but that might not be the case in some older
+                or quirky browsers like IE, so you might want to add it to the DOM
+                just in case, and visually hide it. And do not forget do remove it
+                once you do not need it anymore.
+              */
+          
+              input.onchange = function () {
+                var file = this.files[0];
+          
+                var reader = new FileReader();
+                reader.onload = function () {
+                  /*
+                    Note: Now we need to register the blob in TinyMCEs image blob
+                    registry. In the next release this part hopefully won't be
+                    necessary, as we are looking to handle it internally.
+                  */
+                  var id = 'blobid' + (new Date()).getTime();
+                  var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                  var base64 = reader.result.split(',')[1];
+                  var blobInfo = blobCache.create(id, file, base64);
+                  blobCache.add(blobInfo);
+          
+                  /* call the callback and populate the Title field with the file name */
+                  cb(blobInfo.blobUri(), { title: file.name });
+                };
+                reader.readAsDataURL(file);
+              };
+          
+              input.click();
+            },
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+          });
+      
+    </script>
+</head>
+
+<body class="bg-image">
+<!-- <span id="article" hidden>
+    <%= JSON.stringify(article); %>
+</span> -->
+    <!-- editor -->
+    <div class="container bg-light opacity">
+        <div class="row justify-content-center " style="height:100%" >
+            <div class="col-12 col-lg-10 col-xl-12 mx-auto" >
+                <div class="my-4 h-90" >
+                    <form id="save-article" method="post" action="/api/article/new" enctype="multipart/form-data">
+                        <div class="form-row">
+                            <div class="form-group col-lg-6">
+                                <label for="title">Article Title</label>
+                                <input type="text" id="title" class="form-control" name="title" value="<%= article.info.category %>" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-6">
+                                <label for="category">Category</label>
+                                <input type="text" class="form-control" id="category" name="category" value="<%= article.info.category %>" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="mytextarea" class="form-control" rows="5" name="mytext" required><%= article.content%></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="article-avatar" class="text-black">Upload image</label>
+                            <input type="file" name="article" id="article-avatar" class="form-control-file text-white">
+                        </div>
+                        <div class="form-group d-none">
+                            <input type="text" class="form-control" id="snippet" name="snippet" required />
+                            
+                        </div>
+                        <button id="save-info" type="submit" class="btn btn-primary mt-2" onclick="saveArticle();">Save</button>
+                        <a href="/api/dashboard" id="cancel-info"  class="btn btn-primary mt-2">Cancel</a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /editor -->
+</body>
+</html>

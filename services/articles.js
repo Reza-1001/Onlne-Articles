@@ -36,7 +36,7 @@ const addNewArticle = (req, res, next) => {
         return res.redirect('/api/dashboard')
     });
 }
- 
+
 const getArticle = (req, res, next) => {
     Article.findOne({
         _id: req.params.article_id
@@ -49,13 +49,42 @@ const getArticle = (req, res, next) => {
     }).exec((err, article) => {
         if (err) return res.send("Server Error");
         if (!article) return res.send("article Not Found");
-        let data=fs.readFileSync(path.join(__dirname,"../", article.content));
-        res.render('pages/article/readArticle',{article:{content:data,info:article}})
-    })  
-} 
+        let data = fs.readFileSync(path.join(__dirname, "../", article.content));
+        res.render('pages/article/readArticle', {
+            article: {
+                content: data,
+                info: article
+            }
+        })
+    })
+}
 
 const deleteArticle = (req, res, next) => {
 
+}
+
+
+const editArticle=(req,res,next)=>{
+    console.log("--------"+req.params.raticle_id)
+    Article.findOne({
+        _id: req.params.article_id
+    }).populate('writer', {
+        _id: 1,
+        firstName: 1,
+        lastName: 1,
+        _id: 1,
+        profileImage: 1
+    }).exec((err, article) => {
+        if (err) return res.send("Server Error");
+        if (!article) return res.send("article Not Found");
+        let data = fs.readFileSync(path.join(__dirname, "../", article.content),'utf8');
+        res.render('pages/article/editArticle', {
+            article: {
+                content: data,
+                info: article
+            }
+        })
+    })
 }
 
 const getAllArticles = (req, res, next) => {
@@ -90,5 +119,6 @@ module.exports = {
     deleteArticle,
     getArticle,
     getAllArticles,
-    newArticlePage
+    newArticlePage,
+    editArticle
 };
