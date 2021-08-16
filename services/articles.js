@@ -38,7 +38,6 @@ const addNewArticle = (req, res, next) => {
 }
  
 const getArticle = (req, res, next) => {
-    console.log(req.params.article_id)
     Article.findOne({
         _id: req.params.article_id
     }).populate('writer', {
@@ -50,9 +49,8 @@ const getArticle = (req, res, next) => {
     }).exec((err, article) => {
         if (err) return res.send("Server Error");
         if (!article) return res.send("article Not Found");
-        console.log("-->"+ article.content)
         let data=fs.readFileSync(path.join(__dirname,"../", article.content));
-        res.render('pages/article/readArticle',{"article":data})
+        res.render('pages/article/readArticle',{article:{content:data,info:article}})
     })  
 } 
 
