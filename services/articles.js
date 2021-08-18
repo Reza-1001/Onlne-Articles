@@ -44,7 +44,6 @@ const getArticle = (req, res, next) => {
         _id: 1,
         firstName: 1,
         lastName: 1,
-        _id: 1,
         profileImage: 1
     }).exec((err, article) => {
         if (err) return res.send("Server Error");
@@ -54,7 +53,8 @@ const getArticle = (req, res, next) => {
             article: {
                 content: data,
                 info: article
-            }
+            },
+            user: req.session.user
         })
     })
 }

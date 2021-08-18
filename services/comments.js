@@ -3,8 +3,11 @@ const Blogger = require('../models/Users');
 const Comment = require('../models/Comment');
 
 const addComment = (req, res, next) => {
-    if (!req.body.content || !req.body.writer || req.body.article)
+    console.log(req.body)
+    if (!req.body.content || !req.body.writer_id || !req.body.article_id) {
+        console.log("is here");
         return res.send("Empty Fields")
+    }
     const NEW_COMMENT = new Comment({
         content: req.body.content,
         writer_id: req.body.writer_id,
@@ -12,6 +15,7 @@ const addComment = (req, res, next) => {
     })
 
     NEW_COMMENT.save(err => {
+        console.log(err)
         res.send("comment added")
     })
 }
@@ -42,25 +46,30 @@ const deleteComment = (req, res, next) => {
 const deleteAllComments = (articleId) => {
     Comment.find({
         article_id: articleId
-    }, function (err, deletedComments){
+    }, function (err, deletedComments) {
         if (err) throw err;
 
         res.send(`All Comments of ${articleId} Deleted Successfully`);
     })
 }
-
+  
 
 const getAllComments = (req, res, next) => {
     Comment.find({
         article_id: req.params.article_id
-    }, {
-        content: 1,
-        writer_id: 1,
+    }).populate('writer_id', {
+        _id: 1,
+        firstName: 1,
+        lastName: 1,
+        profileImage: 1
+    }).populate('article_id', {
+        _id: 1,
+        title: 1,
         createdAt: 1,
-        article_id: 1
-    }, (err, comments) => {
+    }).exec((err, comments) => {
         if (err) return res.send("Server Error");
         if (!comments) return res.send([])
+        console.log(comments)
         return res.send(comments);
     })
 }

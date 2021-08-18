@@ -19,9 +19,11 @@
     <script>
         tinymce.init({
             selector: '#mytextarea',
-            height: 500,
-            width: "100%",
-            plugins: 'print preview searchreplace autolink directionality visualblocks visualchars image link table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',
+            width: '100%',
+            height: 400,
+            autoresize_min_height: 400,
+            autoresize_max_height: 800,
+            plugins: 'autoresize print preview searchreplace autolink directionality visualblocks visualchars image link table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',
             toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat |link image',
             image_title: true,
             /* enable automatic uploads of images represented by blob or data URIs*/
