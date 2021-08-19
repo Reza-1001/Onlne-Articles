@@ -99,23 +99,27 @@ generalTools.DefaultAvatar = function (req, res, next) {
   }
   next();
 }
-
+ 
 
 generalTools.deleteArticleFiles = function (articleFile, articleAvatar) {
-  fs.unlink(path.join(__dirname, '../', articleFile), err => {
-    if (err) {
-      return res.status(500).json({
-        msg: "Server Error!"
-      })
-    }
-  })
-  fs.unlink(path.join(__dirname, '../public/images/article', articleAvatar), err => {
-    if (err) {
-      return res.status(500).json({
-        msg: "Server Error!"
-      })
-    }
-  })
+  if (articleFile) {
+    fs.unlink(path.join(__dirname, '../', articleFile), err => {
+      if (err) {
+        return ({
+          msg: "Server Error!"
+        })
+      }
+    })
+  }
+  if (articleAvatar) {
+    fs.unlink(path.join(__dirname, '../public/images/article', articleAvatar), err => {
+      if (err) {
+        return ({
+          msg: "Server Error!"
+        })
+      }
+    })
+  }
 }
 
-module.exports = generalTools;
+module.exports = generalTools; 

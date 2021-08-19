@@ -129,7 +129,7 @@ function readURL(input) {
             url: '/api/users/avatar',
             type: 'POST',
             data: image,
-            contentType: false,
+            contentType: false, 
             processData: false,
             success: function (status) {
                 // Swal.fire({

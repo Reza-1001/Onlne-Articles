@@ -120,6 +120,45 @@ const getAllArticles = (req, res, next) => {
 
 }
 
+const updateArticle = (req, res, next) => {
+    let articleFile = `public/articles/${req.body.title}-${req.session.user.userName}.html`;
+    let newArticle
+    if (req.file) {
+        newArticle = {
+            title: req.body.title,
+            category: req.body.category,
+            snippet: req.body.snippet,
+            content: articleFile,
+            avatar: req.file.filename,
+        };
+    } else if(!req.file) {
+         newArticle = {
+            title: req.body.title,
+            category: req.body.category,
+            snippet: req.body.snippet,
+            content: articleFile,
+        };
+    }
+let a
+    Article.findOneAndUpdate({
+            "_id": req.params.article_id
+        },
+        newArticle
+    ).exec(function (err, article) {
+        if (err) return res.status(500).send("Somthing went wrong in update Article! \n" + err);
+        if (req.file){
+            generalTools.deleteArticleFiles(article.content, article.avatar);
+        }else{
+            generalTools.deleteArticleFiles(article.content);
+        }
+
+        
+        fs.writeFileSync(articleFile, req.body.mytext);
+
+        // res.redirect(`/api/article/${article._id}`);
+    })
+}
+
 
 module.exports = {
     addNewArticle,
@@ -127,5 +166,6 @@ module.exports = {
     getArticle,
     getAllArticles,
     newArticlePage,
-    editArticle
+    editArticle,
+    updateArticle
 };
