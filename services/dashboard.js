@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 
 const dashboard = (req, res, next) => {
-  if (req.session.user.role === "admin") {
+  if (req.session.user.role === "Admin") {
     res.render('pages/admin/dashboard', {
       user: req.session.user
     })

@@ -106,7 +106,7 @@ generalTools.deleteArticleFiles = function (articleFile, articleAvatar) {
     fs.unlink(path.join(__dirname, '../', articleFile), err => {
       if (err) {
         return ({
-          msg: "Server Error!"
+          msg: "Error Deleting File!"
         })
       }
     })
@@ -115,7 +115,7 @@ generalTools.deleteArticleFiles = function (articleFile, articleAvatar) {
     fs.unlink(path.join(__dirname, '../public/images/article', articleAvatar), err => {
       if (err) {
         return ({
-          msg: "Server Error!"
+          msg: "Error Deleting File!"
         })
       }
     })
