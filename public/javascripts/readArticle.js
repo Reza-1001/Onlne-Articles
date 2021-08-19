@@ -13,7 +13,7 @@ $('document').ready(function () {
 
 
 function loadComments(response) {
-    $(".be-comment-block").append(`<h1 class="comments-title">Comments (3)</h1>`)
+    $(".be-comment-block").append(`<h1 class="comments-title">Comments (${response.length})</h1>`)
     if (response.length >= 1) {
         response.forEach(comment => {
           

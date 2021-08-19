@@ -155,7 +155,7 @@ let a
         
         fs.writeFileSync(articleFile, req.body.mytext);
 
-        // res.redirect(`/api/article/${article._id}`);
+        res.redirect(`/api/article/${article._id}`);
     })
 }
 
