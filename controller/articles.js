@@ -12,7 +12,7 @@ const {
     updateArticle
 } = require('../services/articles.js');
 
-router.get('/new', newArticlePage)
+router.get('/new', generalTools.LoginCheck,newArticlePage)
 
 router.post('/new', generalTools.UploadAvatar.single('article'), addNewArticle);
 

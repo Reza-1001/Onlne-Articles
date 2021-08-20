@@ -1,7 +1,5 @@
 const path = require('path');
-const Blogger = require('../models/Users');
-const bcrypt = require('bcrypt');
-
+const User = require('../models/Users');
 
 
 const dashboard = (req, res, next) => {
@@ -16,8 +14,15 @@ const dashboard = (req, res, next) => {
   }
 }
 
-const getProfileInfoPage=(req,res,next) => {
-  res.render('pages/profile_info',{user:req.session.user});
+const getProfileInfoPage = (req, res, next) => {
+  res.render('pages/profile_info', {
+    user: req.session.user
+  });
+}
+const usersInfoPage = (req, res, next) => {
+  res.render('pages/admin/users_info', {
+    user: req.session.user
+  });
 }
 
 
@@ -29,22 +34,11 @@ const logOut = (req, res, next) => {
     res.redirect('/api/login');
   });
 }
-const deleteUser = (req, res, next) => {
-  Blogger.deleteOne({
-    userName: req.body.userName
-  }, function (err, obj) {
-    if (err) throw err;
-
-    console.log("1 document deleted" + obj.userName);
-
-    res.send("User Deleted")
-  });
-}
 
 
 module.exports = {
   dashboard,
   logOut,
-  deleteUser,
-  getProfileInfoPage
+  getProfileInfoPage,
+  usersInfoPage
 };

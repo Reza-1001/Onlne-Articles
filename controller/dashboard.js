@@ -5,17 +5,19 @@ const comment=require('./comments');
 const {
     dashboard,
     logOut,
-    deleteUser,
-    getProfileInfoPage, 
+    getProfileInfoPage,
+    usersInfoPage, 
 } = require('../services/dashboard');
 
 router.get('/', generalTools.LoginCheck, dashboard);
 
 router.get('/profile', getProfileInfoPage)
 
+router.get('/users', usersInfoPage)
+
 router.get('/logout', logOut)
 
-router.delete('/deleteuser', generalTools.DeleteBloggerCheck, deleteUser)
+
 
 router.post('/comment', comment);
 

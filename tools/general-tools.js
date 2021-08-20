@@ -22,10 +22,9 @@ generalTools.LoginCheck = function (req, res, next) {
 };
 
 generalTools.DeleteBloggerCheck = function (req, res, next) {
-  // console.log(req.body.userName)
-  // console.log(req.session.user)
+  console.log(req.params.user_id)
   User.findOne({
-    'userName': req.body.userName
+    '_id': req.params.user_id
   }, (err, user) => {
     if (err) return res.send("Server Error")
     if (req.session.user.role == "Admin" && user.role != "Admin") {

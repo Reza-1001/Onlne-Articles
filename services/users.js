@@ -11,7 +11,14 @@ const generalTools = require('./../tools/general-tools.js');
 
 const getAllUsers = (req, res, next) => {
     User.find({
-        role: 'blogger'
+        role: 'Blogger'
+    }, {
+        userName: 1,
+        firstName: 1,
+        lastName: 1,
+        profileImage: 1,
+        createAt: 1,
+        aboutMe: 1
     }, (err, bloggers) => {
         if (err) return res.send("Server Error")
         if (!bloggers) return res.send("No Blogger Found")
@@ -23,11 +30,9 @@ const getAllUsers = (req, res, next) => {
 
 
 const getOneUser = (req, res, next) => {
-    console.log(req.params.id);
     User.find({
         _id: req.params.id
     }, (err, user) => {
-        console.log(user)
         if (err) return res.send("Server Error");
         if (!user) return res.send("User Not Found");
         if (req.session.user.role == 'Admin' || req.session.user._id == req.params.id) {
@@ -36,6 +41,10 @@ const getOneUser = (req, res, next) => {
         return res.send('Access Denied');
     })
 }
+
+
+
+
 
 
 const updateUserPassword = (req, res, next) => {
@@ -122,11 +131,26 @@ const deleteAvatar = (req, res, next) => {
     })
 }
 
+const deleteUser = (req, res, next) => {
+    User.deleteOne({
+      userName: req.body.userName
+    }, function (err, obj) {
+      if (err) throw err;
+  
+      console.log("1 document deleted" + obj.userName);
+  
+      res.send("User Deleted")
+    });
+  }
+
+
+
 module.exports = {
     getAllUsers,
     getOneUser,
     updateUserPassword,
     updateUserInfo,
     addAvatar,
-    deleteAvatar
+    deleteAvatar,
+    deleteUser
 };
