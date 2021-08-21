@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	<form id="register-form" method="get" action="/api/login"></form>
+	<form id="register-form" method="get" action="/login"></form>
 
 	<div class="back-home">
 		<a href="/">
@@ -25,7 +25,7 @@
 		
 		<div class="login-content">
 			
-			<form class="login-form" method="post" action="/api/register">
+			<form class="login-form" method="post" action="/register">
 				
 				<h2 class="title">Start Writing</h2>
            		<div class="input-div one">
@@ -82,7 +82,7 @@
            		    	<input type="password" class="input" name="phoneNumber">
             	   </div>
             	</div>
-				<a href="/api/login"> Login</a>
+				<a href="/login"> Login</a>
             	<input type="submit" class="btn" value="Register">
 				<% if (error) { %>
 					<p> <%= error %></p>

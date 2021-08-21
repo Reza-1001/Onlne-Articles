@@ -72,7 +72,7 @@ $("#save-password").click(function () {
 
   $.ajax({
     type: 'PATCH',
-    url: '/api/users',
+    url: '/users',
     processData: false,
     contentType: 'application/json',
     data: JSON.stringify({
@@ -110,7 +110,7 @@ function readURL(input) {
     // $.ajax({
     //   type: "POST",
     //   dataType: 'text',
-    //   url: "/api/users/avatar",
+    //   url: "/users/avatar",
     //   cache: false,
     //   data: image,
     //   processData: false,
@@ -122,11 +122,11 @@ function readURL(input) {
     // return false; // avoid to execute the actual submit of the form.
 
 
-    // $.post('/api/users/avatar', $('##profile-upload-form').serialize())
+    // $.post('/users/avatar', $('##profile-upload-form').serialize())
   var image = new FormData();
         image.append("avatar", $('#file-input')[0].files[0]);
         $.ajax({
-            url: '/api/users/avatar',
+            url: '/users/avatar',
             type: 'POST',
             data: image,
             contentType: false, 
@@ -159,7 +159,7 @@ function readURL(input) {
 
 function DeleteAvatar(){
   $.ajax({
-    url: '/api/users/avatar',
+    url: '/users/avatar',
     type: 'DELETE',
     success: function(result) {
         // Do something with the result

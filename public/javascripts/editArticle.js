@@ -16,7 +16,7 @@ function updateArticle() {
    
 
     // $.ajax({
-    //     url: `/api/article/update/${articleId}`,
+    //     url: `/article/update/${articleId}`,
     //     type: "POST",
     //     data: data,
     //     contentType: false, 

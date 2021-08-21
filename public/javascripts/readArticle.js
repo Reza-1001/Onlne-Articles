@@ -2,7 +2,7 @@ $('document').ready(function () {
     let articleId = $("#article-id").text();
     $.ajax({
         type: "GET",
-        url: `/api/comment/${articleId}`,
+        url: `/comment/${articleId}`,
         success: function (response) {
             console.log(response);
             loadComments(response);
@@ -54,7 +54,7 @@ function submitComment() {
     
     $.ajax({
         type: "POST",
-        url: "/api/comment",
+        url: "/comment",
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(commentData),

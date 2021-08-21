@@ -9,14 +9,14 @@ const fs = require('fs');
 
 generalTools.SessionCheck = function (req, res, next) {
   if (req.cookies.user_sid && req.session.user) {
-    return res.redirect('/api/dashboard')
+    return res.redirect('/dashboard')
   };
   return next()
 };
 
 generalTools.LoginCheck = function (req, res, next) {
   if (!req.session.user) {
-    return res.redirect("/api/login");
+    return res.redirect("/login");
   };
   return next()
 };

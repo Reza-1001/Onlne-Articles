@@ -7,6 +7,9 @@ const dashboard = require('../controller/dashboard');
 const users = require('../controller/users');
 const articles = require('../controller/articles');
 const comments = require('../controller/comments');
+const pageRenders = require('./../controller/pageRenders');
+
+router.use('/', pageRenders);
 
 router.use('/register', register);
 

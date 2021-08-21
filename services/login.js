@@ -39,7 +39,7 @@ const userLogin = (req, res, next) => {
                 })
             }
             req.session.user = user
-            res.redirect('/api/dashboard');
+            res.redirect('/dashboard');
         })
     })
 }

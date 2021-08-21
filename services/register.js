@@ -11,7 +11,7 @@ const createBlogger = (req, res) => {
     console.log(req.body)
     if (!req.body.firstName || !req.body.lastName || !req.body.userName || !req.body.password || req.body.phonNumber) {
         return res.redirect(url.format({
-            pathname: '/api/register',
+            pathname: '/register',
             query: {
                 "msg": "Empty Fields"
             }
@@ -23,7 +23,7 @@ const createBlogger = (req, res) => {
         if (err) {
             res.status(302);
             return res.redirect(url.format({
-                pathname: '/api/register',
+                pathname: '/register',
                 query: {
                     "msg": "Server Error"
                 }
@@ -31,7 +31,7 @@ const createBlogger = (req, res) => {
         }
         if (user) {
             return res.redirect(url.format({
-                pathname: "/api/register",
+                pathname: "/register",
                 query: {
                     "msg": "Username Already Exists"
                 }
@@ -46,7 +46,7 @@ const createBlogger = (req, res) => {
             phoneNumber: req.body.phoneNumber
         })
         NEW_BLOGGER.save(err => {
-            return res.redirect('/api/login');
+            return res.redirect('/login');
             // res.send("OK")
         });
     })

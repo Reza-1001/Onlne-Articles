@@ -20,7 +20,7 @@ function saveArticle() {
 function deleteArticle(el) {
   let articleId = el.id;
   $.ajax({
-    url: `/api/article/${articleId}`,
+    url: `/article/${articleId}`,
     type: 'DELETE',
     success: function (result) {
       alert("Article Deleted");

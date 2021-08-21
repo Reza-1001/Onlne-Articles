@@ -31,7 +31,7 @@ const logOut = (req, res, next) => {
     if (err) {
       return console.log(err);
     }
-    res.redirect('/api/login');
+    res.redirect('/login');
   });
 }
 

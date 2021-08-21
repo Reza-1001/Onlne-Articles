@@ -68,7 +68,7 @@ const updateUserInfo = (req, res, next) => {
     }, (err, user) => {
         if (err) return res.status(500).json(false);
         // if (user.userName !== oldUserName) fs.renameSync(`/images/avatar/${user.userName}-avatar`, `/images/avatar/${oldUseAvatar}`)
-        return res.redirect('/api/dashboard')
+        return res.redirect('/dashboard')
     })
 }
 
@@ -98,7 +98,7 @@ const addAvatar = (req, res, next) => {
                         })
                     }
                     req.session.user = user;
-                    return res.redirect('/api/dashboard')
+                    return res.redirect('/dashboard')
                 }
             })
         }
@@ -126,7 +126,7 @@ const deleteAvatar = (req, res, next) => {
             }
             req.session.user = user;
             res.json(true)
-            // return res.redirect('/api/dashboard')
+            // return res.redirect('/dashboard')
         }
     })
 }

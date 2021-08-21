@@ -33,7 +33,7 @@ const addNewArticle = (req, res, next) => {
             return res.send('Error in Save Article');
         }
         fs.writeFileSync(articleFile, req.body.mytext);
-        return res.redirect('/api/dashboard')
+        return res.redirect('/dashboard')
     });
 }
 
@@ -95,6 +95,7 @@ const editArticle = (req, res, next) => {
 }
 
 const getAllArticles = (req, res, next) => {
+    console.log("Search===>  "+req.query.search)
     Article.find({}).populate('writer', {
         firstName: 1,
         lastName: 1,
@@ -111,9 +112,24 @@ const getAllArticles = (req, res, next) => {
                 articles: articles
             })
         }
-        res.render('pages/article/allArticles', {
+        if (req.query.search){
+            let keyWord=req.query.search.toLowerCase();
+            articles=articles.filter(article => {
+                content=fs.readFileSync(path.join(__dirname,`../${article.content}`),'utf-8');
+                if (content.toLowerCase().indexOf(keyWord) != -1 || article.title.toLowerCase().indexOf(keyWord) != -1) {
+                    return true
+              }
+            });
+            console.log(articles)
+            return res.render('pages/article/allArticles', {
+                articles: articles
+            })
+        }else{
+              res.render('pages/article/allArticles', {
             articles: articles
         })
+        }
+      
         // return res.send(articles); 
     })
 
@@ -155,7 +171,7 @@ let a
         
         fs.writeFileSync(articleFile, req.body.mytext);
 
-        res.redirect(`/api/article/${article._id}`);
+        res.redirect(`/article/${article._id}`);
     })
 }
 

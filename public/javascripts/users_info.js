@@ -1,6 +1,6 @@
 $("document").ready(function () {
     $.ajax({
-        url: '/api/users/',
+        url: '/users/',
         type: "GET",
         success: function (data) {
             console.log(data)
@@ -12,7 +12,7 @@ $("document").ready(function () {
     $('#user-form-modal').on('show.bs.modal', function (event) {
         let userId=$(event.relatedTarget).closest('tr').attr("id")
         $.ajax({
-            url: `/api/users/user${userId}`,
+            url: `/users/user${userId}`,
             type: "GET",
             success: function (data) {
                 console.log(data)
@@ -65,7 +65,7 @@ function loadUsersTable(userList) {
 function deleteUser(el) {
     let userId = $(el).closest('tr').attr("id");
     $.ajax({
-        url: `/api/users/${userId}`,
+        url: `/users/${userId}`,
         type: 'DELETE',
         success: function (result) {
             // Do something with the result
