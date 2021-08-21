@@ -98,7 +98,7 @@ generalTools.DefaultAvatar = function (req, res, next) {
   }
   next();
 }
- 
+
 
 generalTools.deleteArticleFiles = function (articleFile, articleAvatar) {
   if (articleFile) {
@@ -121,4 +121,4 @@ generalTools.deleteArticleFiles = function (articleFile, articleAvatar) {
   }
 }
 
-module.exports = generalTools; 
+module.exports = generalTools;
