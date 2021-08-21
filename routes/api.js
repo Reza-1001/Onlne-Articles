@@ -9,7 +9,7 @@ const articles = require('../controller/articles');
 const comments = require('../controller/comments');
 const pageRenders = require('./../controller/pageRenders');
 
-// router.use('/', pageRenders);
+router.use('/', pageRenders);
 
 router.use('/register', register);
 

@@ -9,25 +9,16 @@ $("document").ready(function () {
     })
 
 
-
-
-    $('#user-form-modal').on('show.bs.modal', function (event) {
-        let userId = $(event.relatedTarget).closest('tr').attr("id")
+    $("#search-button").on('click', function () {
+        let searchValue=$("#search-value").val();
         $.ajax({
-            url: `/users/user${userId}`,
+            url: `/users?search=${searchValue}`,
             type: "GET",
             success: function (data) {
                 console.log(data)
-                loadUserModal(data);
+                loadUsersTable(data);
             }
         })
-        // var button = $(event.relatedTarget) // Button that triggered the modal
-        // var recipient = button.data('whatever') // Extract info from data-* attributes
-        // // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        // var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        // modal.find('.modal-body input').val(recipient)
     })
 })
 
@@ -35,6 +26,7 @@ $("document").ready(function () {
 
 
 function loadUsersTable(userList) {
+    $("tbody").html("");
     userList.forEach(function (user, i) {
         $("tbody").append(`<tr id=${user._id}>
     <td class="align-middle">

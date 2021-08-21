@@ -10,6 +10,7 @@ const Article = require('../models/Article');
 const generalTools = require('./../tools/general-tools.js');
 
 const getAllUsers = (req, res, next) => {
+    console.log("Search query===>" + req.query.search)
     User.find({
         role: 'Blogger'
     }, {
@@ -19,12 +20,23 @@ const getAllUsers = (req, res, next) => {
         profileImage: 1,
         createAt: 1,
         aboutMe: 1
-    }, (err, bloggers) => {
+    }, (err, users) => {
         if (err) return res.send("Server Error")
-        if (!bloggers) return res.send("No Blogger Found")
+        if (!users) return res.send("No User Found")
 
         // res.render('pages/dashboard',{users:bloggers})
-        return res.send(bloggers);
+        if (req.query.search) {
+            let keyWord = req.query.search.toLowerCase();
+            users = users.filter(user => {
+                if (user.firstName.toLowerCase().indexOf(keyWord) != -1 ||
+                    user.lastName.toLowerCase().indexOf(keyWord) != -1 ||
+                    user.userName.toLowerCase().indexOf(keyWord) != -1) {
+                    return true
+                }
+            })
+            return res.send(users);
+        }
+        return res.send(users);
     })
 }
 
@@ -136,7 +148,7 @@ const deleteUser = (req, res, next) => {
     User.deleteOne({
         _id: req.params.user_id
     }, function (err, obj) {
-        if (err)  return res.send("Error Deleting User");
+        if (err) return res.send("Error Deleting User");
 
         console.log("1 document deleted" + obj.userName);
 
