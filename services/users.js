@@ -132,10 +132,11 @@ const deleteAvatar = (req, res, next) => {
 }
 
 const deleteUser = (req, res, next) => {
+    console.log("Im here" + req.params.user_id)
     User.deleteOne({
-        userName: req.body.userName
+        _id: req.params.user_id
     }, function (err, obj) {
-        if (err) throw err;
+        if (err)  return res.send("Error Deleting User");
 
         console.log("1 document deleted" + obj.userName);
 

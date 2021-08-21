@@ -20,7 +20,7 @@ const getProfileInfoPage = (req, res, next) => {
   });
 }
 const usersInfoPage = (req, res, next) => {
-  res.render('pages/admin/users_info', {
+  res.render('pages/admin/user_management', {
     user: req.session.user
   });
 }
