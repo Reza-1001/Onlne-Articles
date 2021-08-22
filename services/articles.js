@@ -97,6 +97,7 @@ const editArticle = (req, res, next) => {
 const getAllArticles = (req, res, next) => {
     console.log("Search===>  "+req.query.search)
     Article.find({}).populate('writer', {
+        userName:1,
         firstName: 1,
         lastName: 1,
         _id: 1,
