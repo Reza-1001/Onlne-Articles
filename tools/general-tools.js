@@ -69,7 +69,7 @@ const avatarStorage = multer.diskStorage({
     if (file.fieldname == 'avatar')
       cb(null, `${req.session.user.userName}-${Date.now()}-${file.originalname}`)
     if (file.fieldname == 'article')
-      cb(null, `${req.body.title}-${Date.now()}-${file.originalname}`)
+      cb(null, `article-avatar-${Date.now()}-${file.originalname}`)
   }
 })
 

@@ -11,6 +11,9 @@
     <!-- Google Fonts Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
 
+    <!-- boxicon -->
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet">
+
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -70,7 +73,7 @@
                 </ul>
             </div>
         </nav>
-        <!-- Navbar -->
+        <!-- /Navbar -->
 
         <!-- Jumbotron -->
         <div id="intro" class="p-5 col-12 text-center bg-light">
@@ -87,9 +90,9 @@
             <!-- /Search Box -->
 
         </div>
-        <!-- Jumbotron -->
+        <!-- /Jumbotron -->
     </header>
-    <!--Main Navigation-->
+    <!--Main /Navigation-->
 
     <!--Main layout-->
     <main class="my-5">
@@ -155,17 +158,18 @@
                 <!-- <form id="pagination-form" method="get" action="/article"> -->
                 <input type="hidden" id="page-number" name="page" value="" />
                 <ul class="pagination pagination-circle justify-content-center">
-                    <!-- <li class="page-item previous">
+                    <li class="page-item previous">
                         <a class="page-previous" href="" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li> -->
+                    </li>
                     <% let page=1 %>
-                    <% for (let i = 0; i < count; i = i + 3){ %>
-                    <li class="page-item page-num"><a class="page-link" href="/article?page=<%= page %>"><%= page %></a></li>
-                     <% page++; %>   
+                    <% for (let i = 0; i < count; i = i + 9){ %>
+                    <li class="page-item page-num"><a class="page-link" href="/article?page=<%= page %>"><%= page %></a>
+                    </li>
+                    <% page++; %>
                     <% } %>
-                    <!-- <li class="page-item">
+                    <li class="page-item">
                         <a class="page-next" href="#">Next</a>
-                    </li> -->
+                    </li>
                 </ul>
                 <!-- </form> -->
             </nav>
