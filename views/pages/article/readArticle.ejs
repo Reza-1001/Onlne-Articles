@@ -13,13 +13,16 @@
 </head>
 
 <body>
-    <div class="container d-flex">
-<div class="article-title">
+    <div class="container d-flex column justify-content-center">
+        <div class="article-title">
+            <span id="article-id" hidden><%- article.info._id %></span>
+        </div>
+        <div class="">
+            <a href="/dashboard" class="btn btn-success d-flex align-items-center">
+                Go to Dashboard</a>
+        </div>
+        <div class="article-content mt-5">
 
-    <span id="article-id" hidden><%- article.info._id %></span>
-</div>
-        <div class="article-content">
-            
             <div><%- article.content %></div>
 
 
@@ -50,17 +53,17 @@
                 </div> -->
 
                 <!-- <form class="form-block"> -->
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6">
-                            <div class="form-group fl_icon">
-                                <div class="icon"><i class="fa fa-user"></i></div>
-                                <% if (user){ %>
-                                <input id="comment-name" class="form-input" type="text" placeholder="<%= user.userName %>">
-                                <span id="writer-id" hidden><%- user._id %></span>
-                                <% }else{ %>
-                                    <input id="comment-name" class="form-input" type="text" placeholder="You're Name">
-                                    <span id="writer-id" hidden></span>
-                                    <%}%>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group fl_icon">
+                            <div class="icon"><i class="fa fa-user"></i></div>
+                            <% if (user){ %>
+                            <input id="comment-name" class="form-input" type="text" placeholder="<%= user.userName %>">
+                            <span id="writer-id" hidden><%- user._id %></span>
+                            <% }else{ %>
+                            <input id="comment-name" class="form-input" type="text" placeholder="You're Name">
+                            <span id="writer-id" hidden></span>
+                            <%}%>
                                   
                             </div>
                         </div>

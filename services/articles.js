@@ -17,9 +17,8 @@ const newArticlePage = (req, res, next) => {
 
 const addNewArticle = (req, res, next) => {
 
-    let articleFile = `public/articles/${req.body.title}-${req.session.user.userName}.html`;
+    let articleFile = `public/articles/article-${Date.now()}-${req.session.user.userName}.html`;
     const NEW_ARTICLE = new Article({
-        avatar: req.file.filename,
         content: articleFile,
         snippet: req.body.snippet,
         writer: req.session.user._id,
@@ -27,6 +26,20 @@ const addNewArticle = (req, res, next) => {
         category: req.body.category,
         views: 20,
     });
+    if (!req.file) {
+        let filename = `article-avatar-${Date.now()}-article.jpg`;
+        fs.copyFile(path.join(__dirname, '../public/assets/images/article.jpg'), path.join(__dirname, `../public/images/article/${filename}`), (err) => {
+            if (err) throw err;
+        });
+        NEW_ARTICLE.avatar = filename;
+
+    } else {
+
+        NEW_ARTICLE.avatar = req.file.filename;
+
+    }
+
+
     NEW_ARTICLE.save(err => {
         if (err) {
             console.log(err);
@@ -109,7 +122,7 @@ const getAllArticles = (req, res, next) => {
     }).exec((err, articles) => {
         if (err) return res.send("Server Error")
         if (!articles) return res.send("No Article Found")
-        
+
         if (req.query.id) {
             articles = articles.filter(article => {
                 return article.writer._id == req.query.id
@@ -128,10 +141,10 @@ const getAllArticles = (req, res, next) => {
             });
         }
         let articleCount = articles.length;
-        articles = articles.slice((pageNumber - 1) * 3, pageNumber * 3)
+        articles = articles.slice((pageNumber - 1) * 9, pageNumber * 9)
         res.render('pages/article/allArticles', {
             articles: articles,
-            count:articleCount
+            count: articleCount
         })
     })
 }
