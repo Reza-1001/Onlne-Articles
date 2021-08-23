@@ -16,7 +16,6 @@ const newArticlePage = (req, res, next) => {
 }
 
 const addNewArticle = (req, res, next) => {
-
     let articleFile = `public/articles/article-${Date.now()}-${req.session.user.userName}.html`;
     const NEW_ARTICLE = new Article({
         content: articleFile,
@@ -32,11 +31,8 @@ const addNewArticle = (req, res, next) => {
             if (err) throw err;
         });
         NEW_ARTICLE.avatar = filename;
-
     } else {
-
         NEW_ARTICLE.avatar = req.file.filename;
-
     }
 
 
