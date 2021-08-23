@@ -72,7 +72,6 @@ const deleteArticle = (req, res, next) => {
 
 
 const editArticle = (req, res, next) => {
-    console.log("--------" + req.params.raticle_id)
     Article.findOne({
         _id: req.params.article_id
     }).populate('writer', {
@@ -95,9 +94,14 @@ const editArticle = (req, res, next) => {
 }
 
 const getAllArticles = (req, res, next) => {
-    console.log("Search===>  "+req.query.search)
+    let pageNumber
+    if (!req.query.page)
+        pageNumber = 1;
+    else
+        pageNumber = req.query.page;
+
     Article.find({}).populate('writer', {
-        userName:1,
+        userName: 1,
         firstName: 1,
         lastName: 1,
         _id: 1,
@@ -105,6 +109,7 @@ const getAllArticles = (req, res, next) => {
     }).exec((err, articles) => {
         if (err) return res.send("Server Error")
         if (!articles) return res.send("No Article Found")
+        
         if (req.query.id) {
             articles = articles.filter(article => {
                 return article.writer._id == req.query.id
@@ -113,28 +118,22 @@ const getAllArticles = (req, res, next) => {
                 articles: articles
             })
         }
-        if (req.query.search){
-            let keyWord=req.query.search.toLowerCase();
-            articles=articles.filter(article => {
-                content=fs.readFileSync(path.join(__dirname,`../${article.content}`),'utf-8');
+        if (req.query.search) {
+            let keyWord = req.query.search.toLowerCase();
+            articles = articles.filter(article => {
+                content = fs.readFileSync(path.join(__dirname, `../${article.content}`), 'utf-8');
                 if (content.toLowerCase().indexOf(keyWord) != -1 || article.title.toLowerCase().indexOf(keyWord) != -1) {
                     return true
-              }
+                }
             });
-            console.log(articles)
-            return res.render('pages/article/allArticles', {
-                articles: articles
-            })
-        }else{
-              res.render('pages/article/allArticles', {
-            articles: articles
-        })
         }
-      
-        // return res.send(articles); 
+        let articleCount = articles.length;
+        articles = articles.slice((pageNumber - 1) * 3, pageNumber * 3)
+        res.render('pages/article/allArticles', {
+            articles: articles,
+            count:articleCount
+        })
     })
-
-
 }
 
 const updateArticle = (req, res, next) => {
@@ -148,28 +147,28 @@ const updateArticle = (req, res, next) => {
             content: articleFile,
             avatar: req.file.filename,
         };
-    } else if(!req.file) {
-         newArticle = {
+    } else if (!req.file) {
+        newArticle = {
             title: req.body.title,
             category: req.body.category,
             snippet: req.body.snippet,
             content: articleFile,
         };
     }
-let a
+    let a
     Article.findOneAndUpdate({
             "_id": req.params.article_id
         },
         newArticle
     ).exec(function (err, article) {
         if (err) return res.status(500).send("Somthing went wrong in update Article! \n" + err);
-        if (req.file){
+        if (req.file) {
             generalTools.deleteArticleFiles(article.content, article.avatar);
-        }else{
+        } else {
             generalTools.deleteArticleFiles(article.content);
         }
 
-        
+
         fs.writeFileSync(articleFile, req.body.mytext);
 
         res.redirect(`/article/${article._id}`);

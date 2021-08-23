@@ -151,20 +151,23 @@
             <!--Section: Content-->
 
             <!-- Pagination -->
-            <nav class="my-4" aria-label="...">
+            <nav class="my-5" aria-label="...">
+                <!-- <form id="pagination-form" method="get" action="/article"> -->
+                <input type="hidden" id="page-number" name="page" value="" />
                 <ul class="pagination pagination-circle justify-content-center">
-                    <li class="page-item">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
+                    <!-- <li class="page-item previous">
+                        <a class="page-previous" href="" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li> -->
+                    <% let page=1 %>
+                    <% for (let i = 0; i < count; i = i + 3){ %>
+                    <li class="page-item page-num"><a class="page-link" href="/article?page=<%= page %>"><%= page %></a></li>
+                     <% page++; %>   
+                    <% } %>
+                    <!-- <li class="page-item">
+                        <a class="page-next" href="#">Next</a>
+                    </li> -->
                 </ul>
+                <!-- </form> -->
             </nav>
         </div>
     </main>
@@ -189,7 +192,7 @@
     <!-- MDB -->
     <script type="text/javascript" src="/javascripts/all_articles/mdb.min.js"></script>
     <!-- Custom scripts -->
-    <!-- <script type="text/javascript" src="/javascripts/all_articles/script.js"></script> -->
+    <script type="text/javascript" src="/javascripts/all_articles/script.js"></script>
 </body>
 
 </html>
