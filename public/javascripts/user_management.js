@@ -10,7 +10,7 @@ $("document").ready(function () {
 
 
     $("#search-button").on('click', function () {
-        let searchValue=$("#search-value").val();
+        let searchValue = $("#search-value").val();
         $.ajax({
             url: `/users?search=${searchValue}`,
             type: "GET",
@@ -39,7 +39,9 @@ function loadUsersTable(userList) {
     <td class="text-center align-middle">Active</td>
     <td class="text-center align-middle">
         <div class="btn-group align-top">
-            <button class="btn btn-sm btn-outline-secondary badge" type="button">Reset Pass</button>
+            <button class="btn btn-sm btn-outline-secondary badge ${(()=>{
+                if (user.resetPassRequest===true) return 'bg-warning'
+            })()}" type="button" onclick=resetPassword(this);>Reset Pass</button>
             <button class="btn btn-sm btn-outline-secondary badge"
                 type="button" onclick=deleteUser(this);><i class="fa fa-trash"></i></button>
         </div>
@@ -56,6 +58,18 @@ function deleteUser(el) {
         type: 'DELETE',
         success: function (result) {
             // Do something with the result
+            console.log(result)
+            window.location.reload();
+        }
+    });
+}
+
+function resetPassword(el) {
+    let userId = $(el).closest('tr').attr("id");
+    $.ajax({
+        url: `/users/reset_pass/${userId}`,
+        type: 'GET',
+        success: function (result) {
             console.log(result)
             window.location.reload();
         }

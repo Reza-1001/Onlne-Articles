@@ -52,7 +52,7 @@ const deleteAllComments = (articleId) => {
         res.send(`All Comments of ${articleId} Deleted Successfully`);
     })
 }
-  
+
 
 const getAllComments = (req, res, next) => {
     Comment.find({
@@ -69,8 +69,21 @@ const getAllComments = (req, res, next) => {
     }).exec((err, comments) => {
         if (err) return res.send("Server Error");
         if (!comments) return res.send([])
-        console.log(comments)
-        return res.send(comments);
+        let userRole;
+        if (req.session.user)
+            userRole = req.session.user.role
+        else
+            userRole = "visitor"
+
+        // if (req.session.user.role=="Admin"){
+        //     userRole="Admin"
+        // }else if(!req.seesion.user){
+        //     userRole="user"
+        // }
+        return res.send({
+            comments,
+            userRole
+        });
     })
 }
 

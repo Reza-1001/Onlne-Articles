@@ -1,3 +1,11 @@
+$("document").ready(function(){
+	$("#forget-pass").on('click',()=>{
+		alert(1)
+		$("#reset-password-modal").modal();
+	})
+	
+})
+
 const inputs = document.querySelectorAll(".input");
 
 

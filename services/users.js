@@ -10,7 +10,6 @@ const Article = require('../models/Article');
 const generalTools = require('./../tools/general-tools.js');
 
 const getAllUsers = (req, res, next) => {
-    console.log("Search query===>" + req.query.search)
     User.find({
         role: 'Blogger'
     }, {
@@ -19,7 +18,8 @@ const getAllUsers = (req, res, next) => {
         lastName: 1,
         profileImage: 1,
         createAt: 1,
-        aboutMe: 1
+        aboutMe: 1,
+        resetPassRequest: 1
     }, (err, users) => {
         if (err) return res.send("Server Error")
         if (!users) return res.send("No User Found")
@@ -53,11 +53,6 @@ const getOneUser = (req, res, next) => {
         return res.send('Access Denied');
     })
 }
-
-
-
-
-
 
 const updateUserPassword = (req, res, next) => {
     User.updateOne({
@@ -144,19 +139,42 @@ const deleteAvatar = (req, res, next) => {
 }
 
 const deleteUser = (req, res, next) => {
-    console.log("Im here" + req.params.user_id)
     User.deleteOne({
         _id: req.params.user_id
     }, function (err, obj) {
         if (err) return res.send("Error Deleting User");
-
         console.log("1 document deleted" + obj.userName);
-
         res.send("User Deleted")
     });
 }
 
+const resetPassword = (req, res, next) => {
+    console.log("-------" + req.params.user_id);
+    let newPass;
+    User.findOne({
+        _id: req.params.user_id
+    }, (err, user) => {
+        if (err) return res.status(500).send("Serrver Error \n" + err);
+        if (!user) return res.status(404).send("User Not Found");
+        newPass = user.phoneNumber;
+        console.log("newPass=" + newPass)
+        User.updateOne({
+            _id: req.params.user_id
+        }, {
+            $set: {
+                password: newPass,
+                resetPassRequest: false
+            }
+        }, {
+            new: true
+        }, (err, user2) => {
+            if (err) return console.log(err);
+            console.log("user2" + user2)
+            return res.json(true)
+        })
+    })
 
+}
 
 module.exports = {
     getAllUsers,
@@ -165,5 +183,6 @@ module.exports = {
     updateUserInfo,
     addAvatar,
     deleteAvatar,
-    deleteUser
+    deleteUser,
+    resetPassword
 };

@@ -17,15 +17,14 @@ const {
     addAvatar,
     deleteAvatar,
     deleteUser,
+    resetPassword
 } = require('../services/users');
 
 
 router.get('/', IsAdmin, getAllUsers);
 
 router.patch('/', generalTools.PasswordCheck, updateUserPassword)
-// router.patch('/', (req,res)=>{
-//     console.log(req.body)
-// })
+
 
 router.post('/update', updateUserInfo)
 
@@ -37,6 +36,7 @@ router.delete('/avatar', deleteAvatar)
 
 router.delete('/:user_id', generalTools.DeleteBloggerCheck, deleteUser)
 
+router.get('/reset_pass/:user_id', resetPassword)
 
 
 

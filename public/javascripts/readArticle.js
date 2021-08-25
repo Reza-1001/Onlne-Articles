@@ -13,12 +13,13 @@ $('document').ready(function () {
 
 
 function loadComments(response) {
-    $(".be-comment-block").append(`<h1 class="comments-title">Comments (${response.length})</h1>`)
-    if (response.length >= 1) {
-        response.forEach(comment => {
-          
+    $(".be-comment-block").append(`<h1 class="comments-title">Comments (${response.comments.length})</h1>`)
+    if (response.comments.length >= 1) {
+        response.comments.forEach(comment => {
+
             $(".be-comment-block").append(`<div class="be-comment">
         <div class="be-img-comment">
+        
             <a href="blog-detail-2.html">
                 <img src="/images/avatar/${comment.writer_id.profileImage}" alt="" class="be-ava-comment">
             </a>
@@ -34,7 +35,11 @@ function loadComments(response) {
             </span>
             <p class="be-comment-text">
             ${comment.content}
+            
             </p>
+            ${(()=>{
+                if (response.userRole=="Admin"){return '<a class="btn btn-primary pull-right" onclick="deleteComment();">Delete Comment</a>'}else{return ""}
+            })()}
         </div>
     </div>`)
         })
@@ -45,26 +50,30 @@ function submitComment() {
     var session = '<%=Session["user"] != null%>';
     if ($("#writer-id").text() == "") {
         alert("Your Session has expired");
-    }else{
-    let commentData = {
-        content: $("#comment-text").val(),
-        writer_id: $("#writer-id").text(),
-        article_id: $("#article-id").text()
-    }
-    
-    $.ajax({
-        type: "POST",
-        url: "/comment",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(commentData),
-        processData: false,
-        success: function (data) {
-            alet(data)
-        },
-        error: function (data) {
-            alert(data)
+    } else {
+        let commentData = {
+            content: $("#comment-text").val(),
+            writer_id: $("#writer-id").text(),
+            article_id: $("#article-id").text()
         }
-    });
+
+        $.ajax({
+            type: "POST",
+            url: "/comment",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(commentData),
+            processData: false,
+            success: function (data) {
+                alet(data)
+            },
+            error: function (data) {
+                alert(data)
+            }
+        });
+    }
 }
+
+function deleteComment() {
+
 }

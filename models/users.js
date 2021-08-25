@@ -22,7 +22,7 @@ const bloggerShcema = new mongoose.Schema({
         throw new Error("last name must be at least 3 characters long");
       }
     },
-  }, 
+  },
   userName: {
     ...essentialSchema,
     unique: true,
@@ -54,13 +54,17 @@ const bloggerShcema = new mongoose.Schema({
   profileImage: {
     type: String
   },
-  aboutMe:{
-    type:String,
-    default:""
+  aboutMe: {
+    type: String,
+    default: ""
   },
   phoneNumber: {
     type: String,
     trim: true
+  },
+  resetPassRequest: {
+    type: Boolean,
+    default: false
   }
 })
 bloggerShcema.pre('save', function (next) {
@@ -78,13 +82,15 @@ bloggerShcema.pre('save', function (next) {
 })
 
 bloggerShcema.pre('updateOne', function (next) {
+  console.log(11)
   const password = this._update.$set.newPass;
 
-  if(!password)
-  return next();
-      const salt = bcrypt.genSaltSync();
-      const hash = bcrypt.hashSync(password, salt);
-      this._update.$set.password=hash;
+  console.log("pre--" + password)
+  if (!password)
+    return next();
+  const salt = bcrypt.genSaltSync();
+  const hash = bcrypt.hashSync(password, salt);
+  this._update.$set.password = hash;
   return next();
 })
 

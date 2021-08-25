@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const generalTools=require('../tools/general-tools')
+const generalTools = require('../tools/general-tools')
 
 const {
     addComment,
