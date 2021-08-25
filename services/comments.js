@@ -21,36 +21,31 @@ const addComment = (req, res, next) => {
 }
 
 const deleteComment = (req, res, next) => {
-    Comment.findOne({
-        _id: req.body.id
-    }, (err, comment) => {
-        if (err) return res.send("Server Error")
-        if (!comment) return res.send("Comment Not Found")
-        if (req.session.user.role != 'Admin' && req.session.user._id != comment.writer_id) {
-            return res.send("Comment Delete Failed")
-        }
-        Comment.deleteOneById({
-            _id: req.body._id
-        }, function (err, deletedComment) {
-            if (err) throw err;
+    console.log("+++++++" + req.params.comment_id)
+    if (req.session.user.role != 'Admin') {
+        return res.send("Comment Delete Failed")
+    }
+    Comment.findByIdAndDelete({
+        _id: req.params.comment_id
+    }, function (err, deletedComment) {
+        if (err) throw err;
+        console.log(deletedComment)
+        console.log("1 document deleted");
+        res.send("Comment Deleted");
 
-            console.log("1 document deleted");
+    });
 
-            res.send("Comment Deleted");
 
-        });
-
-    })
 }
 
 const deleteAllComments = (articleId) => {
-    Comment.find({
-        article_id: articleId
-    }, function (err, deletedComments) {
-        if (err) throw err;
+    // Comment.find({
+    //     _id: req.params.comment_id
+    // }, function (err, deletedComments) {
+    //     if (err) throw err;
 
-        res.send(`All Comments of ${articleId} Deleted Successfully`);
-    })
+    //     res.send(`All Comments of ${articleId} Deleted Successfully`);
+    // })
 }
 
 

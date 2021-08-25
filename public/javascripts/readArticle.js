@@ -38,7 +38,7 @@ function loadComments(response) {
             
             </p>
             ${(()=>{
-                if (response.userRole=="Admin"){return '<a class="btn btn-primary pull-right" onclick="deleteComment();">Delete Comment</a>'}else{return ""}
+                if (response.userRole=="Admin"){return `<a id=${comment._id} class="btn btn-primary pull-right" onclick="deleteComment(this);">Delete Comment</a>`}else{return ""}
             })()}
         </div>
     </div>`)
@@ -74,6 +74,13 @@ function submitComment() {
     }
 }
 
-function deleteComment() {
-
+function deleteComment(el) {
+    let commentId=$(el).attr('id');
+$.ajax({
+    url:`/comment/${commentId}`,
+    method: 'DELETE',
+    success: function (data) {
+        console.log(data)
+    }
+})
 }
