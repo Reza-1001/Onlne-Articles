@@ -4,12 +4,11 @@ const Blogger = require('../models/Users');
 const Article = require('../models/Article');
 const generalTools = require('./../tools/general-tools.js');
 
-// ********************************************************************************
 
-// ********************************************************************************
 const createBlogger = (req, res) => {
-    console.log(req.body)
+    // check if fileds are empty
     if (!req.body.firstName || !req.body.lastName || !req.body.userName || !req.body.password || req.body.phonNumber) {
+        // if filed or fields are empty render register page with err
         return res.redirect(url.format({
             pathname: '/register',
             query: {
@@ -17,6 +16,9 @@ const createBlogger = (req, res) => {
             }
         }));
     }
+
+    // if fileds are not empty
+    // check if new user's username already exists
     Blogger.findOne({
         userName: req.body.userName
     }, (err, user) => {
@@ -29,6 +31,7 @@ const createBlogger = (req, res) => {
                 }
             }))
         }
+        // if username already exist render register page
         if (user) {
             return res.redirect(url.format({
                 pathname: "/register",
@@ -37,6 +40,8 @@ const createBlogger = (req, res) => {
                 }
             }))
         }
+
+        // if username not exist create new blogger model
         const NEW_BLOGGER = new Blogger({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -46,8 +51,9 @@ const createBlogger = (req, res) => {
             phoneNumber: req.body.phoneNumber
         })
         NEW_BLOGGER.save(err => {
+            // if registeration is successful redirect user to login page
             return res.redirect('/login');
-            // res.send("OK")
+
         });
     })
 }
@@ -57,8 +63,10 @@ const registerPage = (req, res, next) => {
         error: null
     });
 }
-
+// creating Admin
 const createAdmin = (req, res, next) => {
+
+    // check if user with role Admin Already exist | only one admin can be created
     Blogger.findOne({
         role: 'Admin'
     }, (err, adminExist) => {

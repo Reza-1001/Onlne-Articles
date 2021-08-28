@@ -6,56 +6,80 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- boxicon -->
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+
+
     <link rel="stylesheet" href="/stylesheets/readArticle.css">
+
+
+    <link rel="stylesheet" href="/pages/assets/css/styles.css">
+
 </head>
 
 <body>
-    
+    <header>
+        <!-- Intro settings -->
+        <style>
+            #intro {
+                /* Margin to fix overlapping fixed navbar */
+                margin-top: 58px;
+            }
+
+            @media (max-width: 991px) {
+                #intro {
+                    /* Margin to fix overlapping fixed navbar */
+                    margin-top: 45px;
+                }
+            }
+        </style>
+
+        <!-- Navbar -->
+        <nav class="nav bd-grid">
+            <div>
+                <i class="bx bxs-book-reader icon"></i>
+                OnlineArticle
+            </div>
+
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="bx bx-menu"></i>
+            </div>
+
+            <div class="nav__menu" id="nav-menu">
+                <div class="nav__close" id="nav-close">
+                    <i class="bx bx-x"></i>
+                </div>
+
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="/" class="nav__link active">Home</a></li>
+                    <li class="nav__item"><a href="/dashboard" class="nav__link">Dashboard</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /Navbar -->
+    </header>
     <div class="container d-flex column justify-content-center">
         <div class="article-title">
             <span id="article-id" hidden><%- article.info._id %></span>
         </div>
-        <div class="">
-            <a href="/dashboard" class="btn btn-success d-flex align-items-center">
-                Go to Dashboard</a>
-        </div>
         <div class="article-content mt-5 w-100">
             <div><%- article.content %></div>
             <div class="be-comment-block ">
-                <!-- <h1 class="comments-title">Comments (3)</h1> -->
-                <!-- <div class="be-comment">
-                    <div class="be-img-comment">
-                        <a href="blog-detail-2.html">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="be-ava-comment">
-                        </a>
-                    </div>
-                    <div class="be-comment-content">
-
-                        <span class="be-comment-name">
-                            <a href="blog-detail-2.html">Ravi Sah</a>
-                        </span>
-                        <span class="be-comment-time">
-                            <i class="fa fa-clock-o"></i>
-                            May 27, 2015 at 3:14am
-                        </span>
-
-                        <p class="be-comment-text">
-                            Pellentesque gravida tristique ultrices.
-                            Sed blandit varius mauris, vel volutpat urna hendrerit id.
-                            Curabitur rutrum dolor gravida turpis tristique efficitur.
-                        </p>
-                    </div>
-                </div> -->
-                <!-- <form class="form-block"> -->
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group fl_icon">
                             <div class="icon"><i class="fa fa-user"></i></div>
                             <% if (user){ %>
-                            <input id="comment-name" class="form-input" type="text" placeholder="<%= user.userName %>">
+                            <input id="comment-name" class="form-input" type="text" readonly="readonly"
+                                placeholder="<%= user.userName %>">
                             <span id="writer-id" hidden><%- user._id %></span>
                             <% }else{ %>
                             <input id="comment-name" class="form-input" type="text" placeholder="You're Name">
@@ -64,20 +88,23 @@
                                   
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-6 fl_icon">
+                        <!-- <div class="col-xs-12 col-sm-6 fl_icon">
                             <div class="form-group fl_icon">
                                 <div class="icon"><i class="fa fa-envelope-o"></i></div>
                                 <input id="comment-email" class="form-input" type="text" placeholder="Your email">
                             </div>
-                        </div>
-                        <div class="col-xs-12">
+                        </div> -->
+                    <div class="col-xs-12 col-12 mb-5 ">
                             <div class="form-group">
                                 <textarea id="comment-text" class="form-input" required="" placeholder="Your text"></textarea>
                             </div>
+                        <div class="col-xs-12 col-12 d-flex justify-content-end">
+                                <a class="btn btn-primary pull-right" onclick="submitComment();">submit</a>
                         </div>
-                        <a class="btn btn-primary pull-right" onclick="submitComment();">submit</a>
                     </div>
-                <!-- </form> --> 
+                        
+                    </div>
+            
             </div>
         </div>
   

@@ -9,5 +9,4 @@ Start Application
 -- npm start
 (node .bin/www)
 
-
-Application Run On:http://localhost:5000 
+Application Run On:http://localhost:3000

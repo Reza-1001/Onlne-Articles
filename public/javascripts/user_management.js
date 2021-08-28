@@ -1,21 +1,24 @@
+// send a request for get All users List
 $("document").ready(function () {
     $.ajax({
         url: '/users/',
         type: "GET",
         success: function (data) {
-            console.log(data)
+
+            // send recieved data to a function for loadng users list table
             loadUsersTable(data);
         }
     })
 
-
+    // perform a request with search keyword 
     $("#search-button").on('click', function () {
         let searchValue = $("#search-value").val();
         $.ajax({
             url: `/users?search=${searchValue}`,
             type: "GET",
             success: function (data) {
-                console.log(data)
+
+                // send recieved data to a function for loadng users list table
                 loadUsersTable(data);
             }
         })
@@ -24,9 +27,12 @@ $("document").ready(function () {
 
 
 
-
+// function that loads User List data in a table
 function loadUsersTable(userList) {
+
+    // empty table for loading new data
     $("tbody").html("");
+    // create a table row for each user
     userList.forEach(function (user, i) {
         $("tbody").append(`<tr id=${user._id}>
     <td class="align-middle">
@@ -40,8 +46,9 @@ function loadUsersTable(userList) {
     <td class="text-center align-middle">
         <div class="btn-group align-top">
             <button class="btn btn-sm btn-outline-secondary badge ${(()=>{
-                if (user.resetPassRequest===true) return 'bg-warning'
-            })()}" type="button" onclick=resetPassword(this);>Reset Pass</button>
+                // if user requested for a password reset
+                if (user.resetPassRequest===true) return 'bg-warning" type="button" onclick=resetPassword(this);>Reset Pass</button>'
+            })()}
             <button class="btn btn-sm btn-outline-secondary badge"
                 type="button" onclick=deleteUser(this);><i class="fa fa-trash"></i></button>
         </div>
@@ -52,26 +59,35 @@ function loadUsersTable(userList) {
 
 
 function deleteUser(el) {
+    // get user id for delete
     let userId = $(el).closest('tr').attr("id");
+    // delete request with user Id 
     $.ajax({
         url: `/users/${userId}`,
         type: 'DELETE',
         success: function (result) {
             // Do something with the result
-            console.log(result)
+
             window.location.reload();
         }
     });
 }
 
+// reset user password to a default value
 function resetPassword(el) {
-    let userId = $(el).closest('tr').attr("id");
-    $.ajax({
-        url: `/users/reset_pass/${userId}`,
-        type: 'GET',
-        success: function (result) {
-            console.log(result)
-            window.location.reload();
-        }
-    });
+
+    var result = confirm("Reset Password?");
+    if (result) {
+        let userId = $(el).closest('tr').attr("id");
+        $.ajax({
+            url: `/users/reset_pass/${userId}`,
+            type: 'GET',
+            success: function (result) {
+                console.log(result)
+                window.location.reload();
+            }
+        });
+    }
+
+
 }

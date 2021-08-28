@@ -3,9 +3,8 @@ const Blogger = require('../models/Users');
 const Comment = require('../models/Comment');
 
 const addComment = (req, res, next) => {
-    console.log(req.body)
+    // check for empty comment filds
     if (!req.body.content || !req.body.writer_id || !req.body.article_id) {
-        console.log("is here");
         return res.send("Empty Fields")
     }
     const NEW_COMMENT = new Comment({
@@ -21,15 +20,15 @@ const addComment = (req, res, next) => {
 }
 
 const deleteComment = (req, res, next) => {
-    console.log("+++++++" + req.params.comment_id)
+    // if request for delete comment is not Admin return failed
     if (req.session.user.role != 'Admin') {
         return res.send("Comment Delete Failed")
     }
+
     Comment.findByIdAndDelete({
         _id: req.params.comment_id
     }, function (err, deletedComment) {
         if (err) throw err;
-        console.log(deletedComment)
         console.log("1 document deleted");
         res.send("Comment Deleted");
 
@@ -48,7 +47,7 @@ const deleteAllComments = (articleId) => {
     // })
 }
 
-
+// Get All comments for an Article
 const getAllComments = (req, res, next) => {
     Comment.find({
         article_id: req.params.article_id
@@ -65,6 +64,8 @@ const getAllComments = (req, res, next) => {
         if (err) return res.send("Server Error");
         if (!comments) return res.send([])
         let userRole;
+
+        // check if the user is Admin | use this for allow delete comment in client side   
         if (req.session.user)
             userRole = req.session.user.role
         else
