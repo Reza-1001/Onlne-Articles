@@ -15,8 +15,10 @@ closeBtn.addEventListener("click", () => {
 // following are the code to change sidebar button(optional)
 function menuBtnChange() {
   if (sidebar.classList.contains("open")) {
+    $('.container').animate({marginLeft: '+=260px'},500)
     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
   } else {
+    $('.container').animate({marginLeft: '-=260px'},500)
     closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
   }
 }
