@@ -17,7 +17,9 @@ const {
     addAvatar,
     deleteAvatar,
     deleteUser,
-    resetPassword
+    resetPassword,
+    usersStatistics
+
 } = require('../services/users');
 
 
@@ -37,6 +39,9 @@ router.delete('/avatar', deleteAvatar)
 router.delete('/:user_id', generalTools.DeleteBloggerCheck, deleteUser)
 
 router.get('/reset_pass/:user_id', resetPassword)
+
+
+router.get('/statistics', usersStatistics)
 
 
 

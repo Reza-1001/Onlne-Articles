@@ -39,16 +39,13 @@ function loadUsersTable(userList) {
        ${i+1}
     </td>
     <td class="align-middle">
-        <img src="/images/avatar/${user.profileImage}" style="width: 35px; height: 35px; border-radius: 3px;"></div>
+        <img src="/images/avatar/${user.profileImage}" style="width: 35px; height: 35px; border-radius: 50%;"></div>
         ${user.firstName+" "+user.lastName}</td>
     <td class="text-nowrap align-middle"><span>${user.createAt}</span></td>
     <td class="text-center align-middle">Active</td>
     <td class="text-center align-middle">
         <div class="btn-group align-top">
-            <button class="btn btn-sm btn-outline-secondary badge ${(()=>{
-                // if user requested for a password reset
-                if (user.resetPassRequest===true) return 'bg-warning" type="button" onclick=resetPassword(this);>Reset Pass</button>'
-            })()}
+          
             <button class="btn btn-sm btn-outline-secondary badge"
                 type="button" onclick=deleteUser(this);><i class="fa fa-trash"></i></button>
         </div>
@@ -71,23 +68,4 @@ function deleteUser(el) {
             window.location.reload();
         }
     });
-}
-
-// reset user password to a default value
-function resetPassword(el) {
-
-    var result = confirm("Reset Password?");
-    if (result) {
-        let userId = $(el).closest('tr').attr("id");
-        $.ajax({
-            url: `/users/reset_pass/${userId}`,
-            type: 'GET',
-            success: function (result) {
-                console.log(result)
-                window.location.reload();
-            }
-        });
-    }
-
-
 }

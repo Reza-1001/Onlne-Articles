@@ -1,5 +1,6 @@
 const path = require('path');
 const User = require('../models/Users');
+const Article = require('../models/Article');
 
 
 const dashboard = (req, res, next) => {
@@ -9,10 +10,18 @@ const dashboard = (req, res, next) => {
       user: req.session.user
     })
   } else {
+
     // if user is blogger render blogger dashboard
-    res.render('pages/blogger/dashboard', {
-      user: req.session.user
+    let user = req.session.user;
+    Article.countDocuments({
+      writer: user._id
+    }, (err, count) => {
+      res.render('pages/blogger/dashboard', {
+        user:user,
+        articleCount: count
+      })
     })
+
   }
 }
 

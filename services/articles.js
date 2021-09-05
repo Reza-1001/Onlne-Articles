@@ -128,7 +128,9 @@ const getAllArticles = (req, res, next) => {
     else
         pageNumber = req.query.page;
 
-    Article.find({}).populate('writer', {
+    Article.find({}).sort({
+        createdAt: -1
+    }).populate('writer', {
         userName: 1,
         firstName: 1,
         lastName: 1,
@@ -145,7 +147,7 @@ const getAllArticles = (req, res, next) => {
             })
             articleCount = articles.length;
             // return all articles for a writer
-            return res.render('pages/article/allArticles', {
+            return res.render('pages/article/myArticles', {
                 articles: articles,
                 count: articleCount
             })
@@ -218,6 +220,33 @@ const updateArticle = (req, res, next) => {
 }
 
 
+const articleStatistics = (req, res, next) => {
+    
+    Article.countDocuments({}, (err, count) => {
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        Article.countDocuments({
+            createdAt: {
+                $gte: today
+            }
+        }, (err2, newArticles) => {
+            Article.find({}).sort({
+                createdAt: -1
+            }).populate('writer', {
+                userName: 1,
+                _id: 1,
+            }).exec((err3, recentArticles) => {
+                res.json({
+                    allArticles: count,
+                    newArticles: newArticles,
+                    recentArticles: recentArticles.slice(0, 8)
+                })
+            })
+        });
+
+    })
+}
+
 module.exports = {
     addNewArticle,
     deleteArticle,
@@ -225,5 +254,6 @@ module.exports = {
     getAllArticles,
     newArticlePage,
     editArticle,
-    updateArticle
+    updateArticle,
+    articleStatistics
 };

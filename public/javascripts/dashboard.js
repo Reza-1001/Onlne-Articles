@@ -1,167 +1,91 @@
-let sidebar = document.querySelector(".sidebar");
-let closeBtn = document.querySelector("#btn");
-let homeSection = document.querySelector(".home-section");
-let bloggerSection = document.querySelector(".blogger-section");
-let articleSection = document.querySelector(".article-section");
-let profileSection = document.querySelector(".profile-section");
-closeBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("open");
-  menuBtnChange(); //calling the function(optional)
-});
+$('document').ready(function () {
 
 
 
+  firstRequest();
+  secondRequest();
 
-// following are the code to change sidebar button(optional)
-function menuBtnChange() {
-  if (sidebar.classList.contains("open")) {
-    $('.container').animate({marginLeft: '+=260px'},500)
-    closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
-  } else {
-    $('.container').animate({marginLeft: '-=260px'},500)
-    closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
-  }
-}
+  function firstRequest() {
+    $.ajax({
+      type: "GET",
+      url: '/users/statistics',
+      success: function (response) {
+        console.log(response);
+        // send response data to function
+        loadUserStatistics(response);
 
-
-// $("#home").click(function () {
-//   $("#home-section").show();
-//   $("#bloggers-section").hide();
-//   $("#articles-section").hide();
-//   // $("#statistics-section").hide();
-//   $("#profile-section").hide();
-// })
-
-// $("#bloggers").click(function () {
-//   $("#home-section").hide();
-//   $("#bloggers-section").show();
-//   $("#articles-section").hide();
-//   // $("#statistics-section").hide();
-//   $("#profile-section").hide();
-// })
-$("#articles").click(function () {
-  $("#article-submenu").toggle();
-
-//   $("#home-section").hide();
-//   $("#bloggers-section").hide();
-//   $("#articles-section").show();
-//   // $("#statistics-section").hide();
-//   $("#profile-section").hide();
-})
-// // $("#statistics").click(function(){
-// //   $("#home-section").hide();
-// //   $("#bloggers-section").hide();
-// //   $("#articles-section").hide();
-// //   $("#statistics-section").show();
-// //   $("#profile-section").hide();
-// // })
-
-// $("#profile").click(function () {
-//   $("#home-section").hide();
-//   $("#bloggers-section").hide();
-//   $("#articles-section").hide();
-//   // $("#statistics-section").hide();
-//   $("#profile-section").show();
-// })
-
-
-$("#save-password").click(function () {
-
-
-  $.ajax({
-    type: 'PATCH',
-    url: '/users',
-    processData: false,
-    contentType: 'application/json',
-    data: JSON.stringify({
-      oldPass: $("#old-password").val(),
-      newPass: $("#new-password").val()
-    }),
-
-    /* success and error handling omitted for brevity */
-    success: function (responseData) {
-      console.log(responseData)
-      if (responseData == true) {
-        alert("Password Changed Succesfully")
-        $("#old-password").val("");
-        $("#new-password").val("");
-      } else {
-        alert("Current Password incorrect")
-        $("#old-password").val("");
       }
-    }
-  });
-})
+    })
 
-
-function readURL(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-      $('#profile-avatar')
-        .attr('src', e.target.result);
-    };
-
-    reader.readAsDataURL(input.files[0]);
-
-    // $.ajax({
-    //   type: "POST",
-    //   dataType: 'text',
-    //   url: "/users/avatar",
-    //   cache: false,
-    //   data: image,
-    //   processData: false,
-    //   contentType: false,
-    //   success: function (data) {
-    //     alert(data); // show response from the php script.
-    //   }
-    // });
-    // return false; // avoid to execute the actual submit of the form.
-
-
-    // $.post('/users/avatar', $('##profile-upload-form').serialize())
-  var image = new FormData();
-        image.append("avatar", $('#file-input')[0].files[0]);
-        $.ajax({
-            url: '/users/avatar',
-            type: 'POST',
-            data: image,
-            contentType: false, 
-            processData: false,
-            success: function (status) {
-                // Swal.fire({
-                //         position: 'top-end',
-                //         icon: 'success',
-                //         title: 'Change Avatar was successfully',
-                //         showConfirmButton: false,
-                //         timer: 1500
-                //     })
-                window.location.reload();
-            },
-            error: function (err) {
-                //  Swal.fire({
-                //         position: 'top-end',
-                //         icon: 'error',
-                //         title: `you can not change Avatar`,
-                //         showConfirmButton: false,
-                //         timer: 1500
-                //     })
-                window.location.reload();
-            }
-        });
-    
-    // $("#profile-upload-form").submit();
   }
-}
 
-function DeleteAvatar(){
-  $.ajax({
-    url: '/users/avatar',
-    type: 'DELETE',
-    success: function(result) {
-        // Do something with the result
-        window.location.reload();
+
+  function secondRequest() {
+    $.ajax({
+      type: "POST",
+      url: '/article/statistics',
+      success: function (response) {
+        console.log(response);
+        // send response data to function
+        loadArticleStatistics(response);
+      }
+    })
+  }
+
+
+
+  function loadUserStatistics(response) {
+    $('#all-users').text(response.allUsers)
+    $('#new-users').text(response.newUsers)
+    $('#user-list').html("");
+    $('#user-requests-table tbody').html("");
+    response.recentUsers.forEach(user => {
+      $('#user-list').append(`<li>
+        <img style="border-radius:50%;width:100px;height:100px" src="/images/avatar/${user.profileImage}" alt=${user.userName}>
+        <a class="users-list-name" href="#">${user.firstName + " " + user.lastName}</a>
+        <span class="users-list-date">${user.createAt.toLocalDate}</span>
+        </li>`)
+    })
+
+    response.users.forEach(user => {
+      $('#user-requests-table tbody').append(` <tr id=${user._id}>
+      <td>${user.userName}</td>
+      <td>${user.firstName+""+user.lastName}</td>
+      <td><button class="btn btn-sm btn-outline-secondary badge bg-warning" type="button"
+              onclick="resetPassword(this);">Reset Pass</button></td>
+  </tr>`)
+    })
+  }
+
+  function loadArticleStatistics(response) {
+    $('#new-articles').text(response.newArticles)
+    $('#all-articles').text(response.allArticles)
+    response.recentArticles.forEach(article => {
+      $('#article-list').append(`<li>
+        <img style="border-radius:50%;width:100px;height:100px" src="/images/article/${article.avatar}" alt=${article.title}>
+        <a class="users-list-name" href="/article/${article._id}">${article.title}</a>
+        <span class="users-list-date">${article.createAt}</span>
+        </li>`)
+    })
+  }
+
+  // reset user password to a default value
+  function resetPassword(el) {
+
+    var result = confirm("Reset Password?");
+    if (result) {
+      let userId = $(el).closest('tr').attr("id");
+      $.ajax({
+        url: `/users/reset_pass/${userId}`,
+        type: 'GET',
+        success: function (result) {
+          console.log(result)
+          // window.location.reload();
+          firstRequest();
+        }
+      });
     }
-});
-}
+
+
+  }
+})

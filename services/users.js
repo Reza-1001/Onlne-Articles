@@ -178,6 +178,49 @@ const resetPassword = (req, res, next) => {
 
 }
 
+
+const usersStatistics = (req, res, next) => {
+
+    User.countDocuments({
+        role: 'Blogger'
+    }, (err, count) => {
+
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        User.countDocuments({
+            createAt: {
+                $gte: today
+            }
+        }, (err2, newUsers) => {
+            User.find({
+                role: 'Blogger'
+            }).sort({
+                createAt: -1
+            }).exec((err3, recentUsers) => {
+
+                User.find({
+                    resetPassRequest: true
+                }, (err, users) => {
+                    res.json({
+                        allUsers: count,
+                        newUsers: newUsers,
+                        recentUsers: recentUsers,
+                        users: users
+                    })
+                })
+
+            })
+        });
+
+    })
+}
+
+
+
+
+
+
+
 module.exports = {
     getAllUsers,
     getOneUser,
@@ -186,5 +229,7 @@ module.exports = {
     addAvatar,
     deleteAvatar,
     deleteUser,
-    resetPassword
+    resetPassword,
+    usersStatistics
+
 };

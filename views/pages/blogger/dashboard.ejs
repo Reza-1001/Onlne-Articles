@@ -2,7 +2,140 @@
    
         <%- include('./../../partials/blogger/_blogger_dashboard_panel') -%> 
    
-
+        <!-- <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+        
+            <title>view user information - Bootdey.com</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+       
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+        </head>
+        <body>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" /> -->
+        <div class="container bootdey flex-grow-1 container-p-y">
+   
+                    <div class="media align-items-center py-3 mb-3">
+                      <img src="/images/avatar/<%= user.profileImage %>" alt="" class="d-block ui-w-100 rounded-circle">
+                      <div class="media-body ml-4">
+                        <h4 class="font-weight-bold mb-0"><%= user.firstName + " " + user.lastName %> <span class="text-muted font-weight-normal"></span></h4>
+                        <div class="text-muted mb-2"><%= user.userName %></div>
+                        <a href="/dashboard/profile" class="btn btn-primary btn-sm">Edit</a>&nbsp;
+                        <a href="javascript:void(0)" class="btn btn-default btn-sm">Profile</a>&nbsp;
+                        <a href="javascript:void(0)" class="btn btn-default btn-sm icon-btn"><i class="fa fa-mail"></i></a>
+                      </div>
+                    </div>
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <table class="table user-view-table m-0">
+                          <tbody>
+                            <tr>
+                              <td>Registered:</td>
+                              <td><%= user.createAt %></td>
+                            </tr>
+                            <tr>
+                              <td>Latest activity:</td>
+                              <td><%= Date.now() %></td>
+                            </tr>
+                            <tr>
+                              <td>Role:</td>
+                              <td>Blogger</td>
+                            </tr>
+                            <tr>
+                              <td>Status:</td>
+                              <td><span class="badge badge-outline-success">Active</span></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <hr class="border-light m-0">
+                      <div class="table-responsive">
+                        
+                      </div>
+                    </div>
+        
+                    <div class="card">
+                      <div class="row no-gutters row-bordered">
+                        <div class="d-flex col-md align-items-center">
+                          <a href="/article?id=<%= user._id %>" class="card-body d-block text-body">
+                            <div class="text-muted small line-height-1">Articles</div>
+                            <div id="user-article-count" class="text-xlarge"><%= articleCount %></div>
+                          </a>
+                        </div>
+                      </div>
+                      <hr class="border-light m-0">
+                      <div class="card-body">
+        
+                        <table class="table user-view-table m-0">
+                          <tbody>
+                            <tr>
+                              <td>Username:</td>
+                              <td><%= user.userName %></td>
+                            </tr>
+                            <tr>
+                              <td>Name:</td>
+                              <td><%= user.firstName + " " + user.lastName%></td>
+                            </tr>
+                            <tr>
+                              <td>Phone Number:</td>
+                              <td><%= user.phoneNumber %></td>
+                            </tr>
+                            <tr>
+                              <td>About Me</td>
+                              <td><%= user.aboutMe %></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+        
+                  </div>
+        
+        <style type="text/css">
+        body{
+            margin-top:20px;
+            background: #f5f5f5;
+        }
+        
+        .ui-w-100 {
+            width: 100px !important;
+            height: auto;
+        }
+        
+        .card {
+            background-clip: padding-box;
+            box-shadow: 0 1px 4px rgba(24,28,33,0.012);
+        }
+        
+        .user-view-table td:first-child {
+            width: 9rem;
+        }
+        .user-view-table td {
+            padding-right: 0;
+            padding-left: 0;
+            border: 0;
+        }
+        
+        .text-light {
+            color: #babbbc !important;
+        }
+        
+        .card .row-bordered>[class*=" col-"]::after {
+            border-color: rgba(24,28,33,0.075);
+        }    
+        
+        .text-xlarge {
+            font-size: 170% !important;
+        }
+        </style>
+        
+        <script type="text/javascript">
+        
+        </script>
+        </body>
+        </html>
 
 </body>
 </html>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><% article.info.title %></title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- boxicon -->
@@ -31,7 +31,7 @@
         <style>
             #intro {
                 /* Margin to fix overlapping fixed navbar */
-                margin-top: 58px;
+                margin-top: 30px;
             }
 
             @media (max-width: 991px) {
@@ -66,50 +66,54 @@
         </nav>
         <!-- /Navbar -->
     </header>
-    <div class="container d-flex column justify-content-center">
+    <div class="container justify-content-center flex-column">
         <div class="article-title">
             <span id="article-id" hidden><%- article.info._id %></span>
+            <h1><%- article.info.title %></h1>
+            <img src="/images/article/<%= article.info.avatar %>" />
+        </div>
+        <div class="article-writer mt-5 d-flex justify-content-center">
+            <img class="rounded-circle" src="/images/avatar/<%= article.info.writer.profileImage %>"
+                style="width: 80px; height:80px;" />
+            <h5><%- article.info.writer.firstName +" " + article.info.writer.lastName%></h5>
+
         </div>
         <div class="article-content mt-5 w-100">
             <div><%- article.content %></div>
-            <div class="be-comment-block ">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6">
-                        <div class="form-group fl_icon">
-                            <div class="icon"><i class="fa fa-user"></i></div>
-                            <% if (user){ %>
-                            <input id="comment-name" class="form-input" type="text" readonly="readonly"
-                                placeholder="<%= user.userName %>">
-                            <span id="writer-id" hidden><%- user._id %></span>
-                            <% }else{ %>
-                            <input id="comment-name" class="form-input" type="text" placeholder="You're Name">
-                            <span id="writer-id" hidden></span>
-                            <%}%>
-                                  
-                            </div>
-                        </div>
-                        <!-- <div class="col-xs-12 col-sm-6 fl_icon">
-                            <div class="form-group fl_icon">
-                                <div class="icon"><i class="fa fa-envelope-o"></i></div>
-                                <input id="comment-email" class="form-input" type="text" placeholder="Your email">
-                            </div>
-                        </div> -->
-                    <div class="col-xs-12 col-12 mb-5 ">
-                            <div class="form-group">
-                                <textarea id="comment-text" class="form-input" required="" placeholder="Your text"></textarea>
-                            </div>
-                        <div class="col-xs-12 col-12 d-flex justify-content-end">
-                                <a class="btn btn-primary pull-right" onclick="submitComment();">submit</a>
-                        </div>
-                    </div>
-                        
-                    </div>
-
-            </div>
         </div>
-  
+        <div class="be-comment-block">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="form-group fl_icon">
+                        <div class="icon"><i class="fa fa-user"></i></div>
+                        <% if (user){ %>
+                        <input id="comment-name" class="form-input" type="text" readonly="readonly"
+                            placeholder="<%= user.userName %>">
+                        <span id="writer-id" hidden><%- user._id %></span>
+                        <% }else{ %>
+                        <input id="comment-name" class="form-input" type="text" placeholder="You're Name">
+                        <span id="writer-id" hidden></span>
+                        <%}%>
+                              
+                        </div>
+                    </div>
+                    <!-- <div class="col-xs-12 col-sm-6 fl_icon">
+                        <div class="form-group fl_icon">
+                            <div class="icon"><i class="fa fa-envelope-o"></i></div>
+                            <input id="comment-email" class="form-input" type="text" placeholder="Your email">
+                        </div>
+                    </div> -->
+                <div class="col-xs-12 col-12 mb-5 ">
+                        <div class="form-group">
+                            <textarea id="comment-text" class="form-input" required="" placeholder="Your text"></textarea>
+                        </div>
+                    <div class="col-xs-12 col-12 d-flex justify-content-end">
+                            <a class="btn btn-primary pull-right" onclick="submitComment();">submit</a>
+                    </div>
+                </div>
+                </div>
+        </div>
     </div>
 <script type="text/javascript" src="/javascripts/readArticle.js"></script>
 </body>
-
 </html>

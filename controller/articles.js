@@ -9,10 +9,11 @@ const {
     getAllArticles,
     newArticlePage,
     editArticle,
-    updateArticle
+    updateArticle,
+    articleStatistics
 } = require('../services/articles.js');
 
-router.get('/new', generalTools.LoginCheck,newArticlePage)
+router.get('/new', generalTools.LoginCheck, newArticlePage)
 
 router.post('/new', generalTools.UploadAvatar.single('article'), addNewArticle);
 
@@ -22,10 +23,11 @@ router.get('/:article_id', getArticle);
 
 router.get('/edit/:article_id', editArticle);
 
-router.post('/update/:article_id',generalTools.UploadAvatar.single('article'), updateArticle);
- 
+router.post('/update/:article_id', generalTools.UploadAvatar.single('article'), updateArticle);
+
 // Get All Articles for All users || Get All Articles of a single user by id in query
 router.get('/', getAllArticles);
 
-    
+router.post('/statistics', articleStatistics);
+
 module.exports = router;
