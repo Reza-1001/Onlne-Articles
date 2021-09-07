@@ -221,7 +221,7 @@ const updateArticle = (req, res, next) => {
 
 
 const articleStatistics = (req, res, next) => {
-    
+
     Article.countDocuments({}, (err, count) => {
         const now = new Date();
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());

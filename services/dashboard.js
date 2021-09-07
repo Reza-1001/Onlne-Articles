@@ -17,7 +17,7 @@ const dashboard = (req, res, next) => {
       writer: user._id
     }, (err, count) => {
       res.render('pages/blogger/dashboard', {
-        user:user,
+        user: user,
         articleCount: count
       })
     })
