@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Register</title>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/login-register.css">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
-	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
-	<link rel="stylesheet" href="/stylesheets/bootstrap.css">
+
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Google Fonts Poppins -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+
+	<!-- Font Awesome -->
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+	<!-- Jquery -->
+	<script src="/javascripts/jquery-3.6.0.js"></script>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="/stylesheets/bootstrap.css">
+
+	<script src="/javascripts/bootstrap.bundle.js"></script>
+
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="/stylesheets/login-register.css">
+
+	<title>Register</title>
 </head>
+
 <body>
 	<form id="register-form" method="get" action="/login"></form>
 
@@ -15,7 +32,7 @@
 		<a href="/">
 			Back Home
 			<i class="fas fa-chevron-right"></i>
-		  </a>
+		</a>
 	</div>
 
 
@@ -23,74 +40,75 @@
 		<div class="img">
 			<img src="/assets/svg/login_bg.svg">
 		</div>
-		
+
 		<div class="login-content">
-			
+
 			<form class="login-form" method="post" action="/register">
-				
+
 				<h2 class="title">Start Writing</h2>
-           		<div class="input-div one">
-           		   <div class="i">
-           		   		<i class="fas fa-user"></i>
-           		   </div>
-           		   <div class="div">
-           		   		<h5>First Name</h5>
-           		   		<input type="text" class="input" name="firstName">
-           		   </div>
-           		</div>
-           		<div class="input-div one">
-           		   <div class="i">
-           		   		<i class="fas fa-user"></i>
-           		   </div>
-           		   <div class="div">
-           		   		<h5>Last Name</h5>
-           		   		<input type="text" class="input" name="lastName">
-           		   </div>
-           		</div>
-           		<div class="input-div one">
-           		   <div class="i">
-           		   		<i class="fas fa-user"></i>
-           		   </div>
-           		   <div class="div">
-           		   		<h5>Username</h5>
-           		   		<input type="text" class="input" name="userName">
-           		   </div>
-           		</div>
-           		<div class="input-div pass">
-           		   <div class="i"> 
-           		    	<i class="fas fa-lock"></i>
-           		   </div>
-           		   <div class="div">
-           		    	<h5>Password</h5>
-           		    	<input type="password" class="input" name="password">
-            	   </div>
-            	</div>
-           		<div class="input-div pass">
-           		   <div class="i"> 
-           		    	<i class="fas fa-lock"></i>
-           		   </div>
-           		   <div class="div">
-           		    	<h5>Retype Password</h5>
-           		    	<input id="pass-retype" type="password" class="input">
-            	   </div>
-            	</div>
-           		<div class="input-div pass">
-           		   <div class="i"> 
-           		    	<i class="fas fa-phone"></i>
-           		   </div>
-           		   <div class="div">
-           		    	<h5>Phone Number</h5>
-           		    	<input type="password" class="input" name="phoneNumber">
-            	   </div>
-            	</div>
+				<div class="input-div one">
+					<div class="i">
+						<i class="fas fa-user"></i>
+					</div>
+					<div class="div">
+						<h5>First Name</h5>
+						<input type="text" class="input" name="firstName">
+					</div>
+				</div>
+				<div class="input-div one">
+					<div class="i">
+						<i class="fas fa-user"></i>
+					</div>
+					<div class="div">
+						<h5>Last Name</h5>
+						<input type="text" class="input" name="lastName">
+					</div>
+				</div>
+				<div class="input-div one">
+					<div class="i">
+						<i class="fas fa-user"></i>
+					</div>
+					<div class="div">
+						<h5>Username</h5>
+						<input type="text" class="input" name="userName">
+					</div>
+				</div>
+				<div class="input-div pass">
+					<div class="i">
+						<i class="fas fa-lock"></i>
+					</div>
+					<div class="div">
+						<h5>Password</h5>
+						<input type="password" class="input" name="password">
+					</div>
+				</div>
+				<div class="input-div pass">
+					<div class="i">
+						<i class="fas fa-lock"></i>
+					</div>
+					<div class="div">
+						<h5>Retype Password</h5>
+						<input id="pass-retype" type="password" class="input">
+					</div>
+				</div>
+				<div class="input-div pass">
+					<div class="i">
+						<i class="fas fa-phone"></i>
+					</div>
+					<div class="div">
+						<h5>Phone Number</h5>
+						<input type="password" class="input" name="phoneNumber">
+					</div>
+				</div>
 				<a href="/login"> Login</a>
-            	<input type="submit" class="btn btn-primary" value="Register">
+				<input type="submit" class="btn btn-primary" value="Register">
 				<% if (error) { %>
-					<p> <%= error %></p>
+				<p> <%= error %></p>
 				<% } %>
-            </form>
-        </div>
-    </div>
-    <script type="text/javascript" src="/javascripts/login.js"></script>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="/javascripts/login.js"></script>
 </body>
+
 </html>
