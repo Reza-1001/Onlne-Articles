@@ -9,6 +9,11 @@ const User = require('../models/Users');
 const Article = require('../models/Article');
 const generalTools = require('./../tools/general-tools.js');
 
+
+
+// *****************************************************************************************************
+//                                  get all bloggers info
+// *****************************************************************************************************
 const getAllUsers = (req, res, next) => {
     User.find({
         role: 'Blogger'
@@ -22,12 +27,16 @@ const getAllUsers = (req, res, next) => {
         resetPassRequest: 1
     }, (err, users) => {
         if (err) return res.send("Server Error")
+
+        // no users found in db
         if (!users) return res.send("No User Found")
 
-        // res.render('pages/dashboard',{users:bloggers})
+        // client searched for a user with
+        // filter users list by search keyword
         if (req.query.search) {
             let keyWord = req.query.search.toLowerCase();
             users = users.filter(user => {
+                // if users firstname or lastname or username match with keyword
                 if (user.firstName.toLowerCase().indexOf(keyWord) != -1 ||
                     user.lastName.toLowerCase().indexOf(keyWord) != -1 ||
                     user.userName.toLowerCase().indexOf(keyWord) != -1) {
@@ -41,12 +50,18 @@ const getAllUsers = (req, res, next) => {
 }
 
 
+
+// *****************************************************************************************************
+//                                  get one user info by ID
+// *****************************************************************************************************
 const getOneUser = (req, res, next) => {
     User.find({
         _id: req.params.id
     }, (err, user) => {
         if (err) return res.send("Server Error");
         if (!user) return res.send("User Not Found");
+
+        // Check if client is Admin or client requests for its own info
         if (req.session.user.role == 'Admin' || req.session.user._id == req.params.id) {
             return res.send(user);
         }
@@ -54,6 +69,10 @@ const getOneUser = (req, res, next) => {
     })
 }
 
+
+// *****************************************************************************************************
+//                                  Update user password by ID
+// *****************************************************************************************************
 const updateUserPassword = (req, res, next) => {
     User.updateOne({
         _id: req.session.user._id
@@ -67,9 +86,11 @@ const updateUserPassword = (req, res, next) => {
     })
 }
 
+
+// *****************************************************************************************************
+//                                  get all bloggers info
+// *****************************************************************************************************
 const updateUserInfo = (req, res, next) => {
-    // let oldUseAvatar= req.session.user.profileImage;
-    // let oldUserName=req.session.user.userName;
     User.findByIdAndUpdate(req.session.user._id, req.body, {
         new: true
     }, (err, user) => {

@@ -8,13 +8,18 @@ const {
     deleteAllComments
 } = require('./comments');
 
-
+// *****************************************************************************************************
+//                                  Send New Article Page to client
+// *****************************************************************************************************
 const newArticlePage = (req, res, next) => {
     res.render('pages/article/newArticle', {
         user: req.session.user
     });
 }
 
+// *****************************************************************************************************
+//                                  get new article info and save to db
+// *****************************************************************************************************
 const addNewArticle = (req, res, next) => {
     // file name for saving Article file as html file
     let articleFile = `public/articles/article-${Date.now()}-${req.session.user.userName}.html`;
@@ -54,6 +59,10 @@ const addNewArticle = (req, res, next) => {
     });
 }
 
+
+// *****************************************************************************************************
+//                                  Get one article by ID
+// *****************************************************************************************************
 const getArticle = (req, res, next) => {
     Article.findOne({
         _id: req.params.article_id
@@ -77,6 +86,10 @@ const getArticle = (req, res, next) => {
     })
 }
 
+
+// *****************************************************************************************************
+//                                  Delete one article by ID
+// *****************************************************************************************************
 const deleteArticle = (req, res, next) => {
     Article.findByIdAndDelete({
         _id: req.params.article_id
@@ -89,6 +102,10 @@ const deleteArticle = (req, res, next) => {
     })
 }
 
+
+// *****************************************************************************************************
+//                                  Delete All articles for a user
+// *****************************************************************************************************
 const deleteAllArticles = (userId) => {
     Article.deleteMany({
         writer: userId
@@ -99,6 +116,10 @@ const deleteAllArticles = (userId) => {
 }
 
 
+
+// *****************************************************************************************************
+//                                  find an article by id and render edit article page with article info
+// *****************************************************************************************************
 const editArticle = (req, res, next) => {
     Article.findOne({
         _id: req.params.article_id
@@ -121,6 +142,10 @@ const editArticle = (req, res, next) => {
     })
 }
 
+
+// *****************************************************************************************************
+//                                  find all articles from db and sent to client
+// *****************************************************************************************************
 const getAllArticles = (req, res, next) => {
     let pageNumber
     if (!req.query.page)
@@ -221,7 +246,6 @@ const updateArticle = (req, res, next) => {
 
 
 const articleStatistics = (req, res, next) => {
-
     Article.countDocuments({}, (err, count) => {
         const now = new Date();
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());

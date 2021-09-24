@@ -17,7 +17,7 @@ body{
 	left: 0;
 	height: 100%;
 	z-index: -1;
-}
+} 
 
 .container{
     width: 100vw;
@@ -129,12 +129,19 @@ body{
 }
 
 .input-div.focus > div > h5{
+	color: #999 !important;
 	top: -5px;
 	font-size: 1rem;
 }
 
 .input-div.focus > .i > i{
 	color: #536DFE;
+}
+
+
+.empty{
+	color: #f10303;
+	
 }
 
 .input-div > div > input{

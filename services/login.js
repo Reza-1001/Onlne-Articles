@@ -9,7 +9,6 @@ const loginPage = (req, res, next) => {
     })
 }
 
-
 const userLogin = (req, res, next) => {
     // check if fileds are empty
     if (!req.body.userName || !req.body.password) {
