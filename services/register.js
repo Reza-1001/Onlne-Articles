@@ -33,7 +33,7 @@ const createBlogger = (req, res) => {
         }
         // if username already exist render register page
         if (user) {
-            return res.redirect(url.format({
+            return res.render(url.format({
                 pathname: "/register",
                 query: {
                     "msg": "Username Already Exists"

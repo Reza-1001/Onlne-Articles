@@ -12,7 +12,7 @@ const loginPage = (req, res, next) => {
 const userLogin = (req, res, next) => {
     // check if fileds are empty
     if (!req.body.userName || !req.body.password) {
-        return res.render('pages/login', {
+        return res.send({
             error: "Empty Fields"
         })
     }
@@ -20,33 +20,35 @@ const userLogin = (req, res, next) => {
     Blogger.findOne({
         "userName": req.body.userName
     }, (err, user) => {
-        if (err) return res.render('pages/login', {
+        if (err)  return res.send({
             error: "Server Error"
         })
         if (!user) {
             // if  user not found return login page and not found msg
-            return res.render('pages/login', {
+            return res.send({
                 error: "User Not Found"
             })
         }
 
         // if user found check for password, compare password sent for login and stored in db
         bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
-            if (err) return res.render('pages/login', {
+            if (err)  return res.send({
                 error: "Server Error"
             })
 
             // if password in not match return login page and err msg
             if (!isMatch) {
                 // return res.send('User Not Found')
-                return res.render('pages/login', {
+                return res.send({
                     error: "User Not Found"
                 })
             }
             // if password match set user info to the session
             req.session.user = user
             // redrect user to dashbaord
-            res.redirect('/dashboard');
+            res.send({
+                msg: "Login Successful"
+            })
         })
     })
 }

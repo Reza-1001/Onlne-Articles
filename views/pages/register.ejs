@@ -19,6 +19,11 @@
 
 	<script src="/javascripts/bootstrap.bundle.js"></script>
 
+	<!-- Swal -->
+	<link rel="stylesheet" type="text/css" href="/plugins/sweetalert2/sweetalert2.min.css">
+
+	<script src="/plugins/sweetalert2/sweetalert2.min.js"></script>
+
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="/stylesheets/login-register.css">
 
@@ -26,16 +31,13 @@
 </head>
 
 <body>
-	<form id="register-form" method="get" action="/login"></form>
-
+	<form id="login-form" method="get" action="/login"></form>
 	<div class="back-home">
 		<a href="/">
 			Back Home
 			<i class="fas fa-chevron-right"></i>
 		</a>
 	</div>
-
-
 	<div class="container">
 		<div class="img">
 			<img src="/assets/svg/login_bg.svg">
@@ -43,7 +45,7 @@
 
 		<div class="login-content">
 
-			<form class="login-form" method="post" action="/register">
+			<form class="data-form">
 
 				<h2 class="title">Start Writing</h2>
 				<div class="input-div one">
@@ -70,7 +72,7 @@
 					</div>
 					<div class="div">
 						<h5>Username</h5>
-						<input type="text" class="input" name="userName">
+						<input id="user-name" type="text" class="input" name="userName">
 					</div>
 				</div>
 				<div class="input-div pass">
@@ -79,7 +81,7 @@
 					</div>
 					<div class="div">
 						<h5>Password</h5>
-						<input type="password" class="input" name="password">
+						<input id="password1" type="password" class="input" name="password">
 					</div>
 				</div>
 				<div class="input-div pass">
@@ -87,8 +89,8 @@
 						<i class="fas fa-lock"></i>
 					</div>
 					<div class="div">
-						<h5>Retype Password</h5>
-						<input id="pass-retype" type="password" class="input">
+						<h5>Re-type Password</h5>
+						<input id="password2" type="password" class="input">
 					</div>
 				</div>
 				<div class="input-div pass">
@@ -97,18 +99,18 @@
 					</div>
 					<div class="div">
 						<h5>Phone Number</h5>
-						<input type="password" class="input" name="phoneNumber">
+						<input id="phone-number" type="text" class="input" name="phoneNumber">
 					</div>
 				</div>
 				<a href="/login"> Login</a>
-				<input type="submit" class="btn btn-primary" value="Register">
+				<input id="submit-btn" type="button" class="btn btn-primary" value="Register">
 				<% if (error) { %>
 				<p> <%= error %></p>
 				<% } %>
 			</form>
 		</div>
 	</div>
-	<script type="text/javascript" src="/javascripts/login.js"></script>
+	<script type="text/javascript" src="/javascripts/register.js"></script>
 </body>
 
 </html>
