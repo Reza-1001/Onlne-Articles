@@ -9,12 +9,10 @@ const createBlogger = (req, res) => {
     // check if fileds are empty
     if (!req.body.firstName || !req.body.lastName || !req.body.userName || !req.body.password || req.body.phonNumber) {
         // if filed or fields are empty render register page with err
-        return res.redirect(url.format({
-            pathname: '/register',
-            query: {
-                "msg": "Empty Fields"
-            }
-        }));
+        return res.send({
+            error:"Empty Fields"
+            
+        });
     }
 
     // if fileds are not empty
@@ -24,21 +22,16 @@ const createBlogger = (req, res) => {
     }, (err, user) => {
         if (err) {
             res.status(302);
-            return res.redirect(url.format({
-                pathname: '/register',
-                query: {
-                    "msg": "Server Error"
-                }
-            }))
+            return res.send({
+                error:"Server Error"
+            });
         }
         // if username already exist render register page
         if (user) {
-            return res.render(url.format({
-                pathname: "/register",
-                query: {
-                    "msg": "Username Already Exists"
-                }
-            }))
+            return res.send({
+                error:"Username Already Exists"
+                
+            });
         }
 
         // if username not exist create new blogger model
@@ -52,7 +45,10 @@ const createBlogger = (req, res) => {
         })
         NEW_BLOGGER.save(err => {
             // if registeration is successful redirect user to login page
-            return res.redirect('/login');
+            return res.send({
+                msg:"Registration Successful"
+                
+            });
 
         });
     })

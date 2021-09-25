@@ -39,11 +39,12 @@ $("document").ready(function () {
 					window.location.href = "/login";
 				},
 				error: function (data) {
-					Swal.fire(
-						'Registration failed',
-						'Please check youre information and try again',
-						'failed'
-					)
+					Swal.fire({
+						icon: 'failed',
+						title: 'Failed',
+						text: 'Something went wrong, Please Try Again',
+						timer:1500
+					})
 				}
 
 			})

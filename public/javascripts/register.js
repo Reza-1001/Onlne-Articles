@@ -24,27 +24,35 @@ $("document").ready(function () {
 	$("#submit-btn").on('click', function () {
 		let validation = validateRegistrationInfo();
 		if (validation == true) {
-				$.ajax({
-					method: 'POST',
-					url:'/register',
-					data:$(".data-form").serialize(),
-					success: function (data) {
-						Swal.fire(
-							'Registration Succesful',
-							'You can start writing now',
-							'success'
-						)
-						window.location.href = "/login";
-					},
-					error: function (data) {
-						Swal.fire(
-							'Registration failed',
-							'Please check youre information and try again',
-							'failed'
-						)
+			$.ajax({
+				method: 'POST',
+				url: '/register',
+				data: $(".data-form").serialize(),
+				success: function (data) {
+					let icon = "success";
+					let msg = data.msg;
+					if (data.error) {
+						icon = "error";
+						msg = data.error;
 					}
+					Swal.fire({
+						icon: `${icon}`,
+						title: 'Register',
+						text: `${msg}`,
+						timer: 1500
+					})
+					if (data.msg)
+						window.location.href = "/login";
+				},
+				error: function (data) {
+					Swal.fire(
+						'Registration failed',
+						'Please check youre information and try again',
+						'failed'
+					)
+				}
 
-				})
+			})
 		}
 
 	});
