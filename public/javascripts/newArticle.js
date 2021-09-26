@@ -12,10 +12,10 @@ function saveArticle() {
     format: "text",
   }).substring(0, 200)
   snippet = snippet.split("\n");
-  $("#snippet").val(snippet);
+  $("#snippet").val(snippet + "...");
   $("#save-article").submit();
 }
- 
+
 
 function deleteArticle(el) {
   let articleId = el.id;

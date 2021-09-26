@@ -5,13 +5,13 @@ const Article = require('../models/Article');
 const generalTools = require('./../tools/general-tools.js');
 
 
-const createBlogger = (req, res) => {
+const createBlogger = (req, res, next) => {
     // check if fileds are empty
     if (!req.body.firstName || !req.body.lastName || !req.body.userName || !req.body.password || req.body.phonNumber) {
         // if filed or fields are empty render register page with err
         return res.send({
-            error:"Empty Fields"
-            
+            error: "Empty Fields"
+
         });
     }
 
@@ -23,18 +23,19 @@ const createBlogger = (req, res) => {
         if (err) {
             res.status(302);
             return res.send({
-                error:"Server Error"
+                error: "Server Error"
             });
         }
         // if username already exist render register page
         if (user) {
             return res.send({
-                error:"Username Already Exists"
-                
+                error: "Username Already Exists"
+
             });
         }
 
-        // if username not exist create new blogger model
+        // if username does not exist then create new blogger
+        
         const NEW_BLOGGER = new Blogger({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -46,8 +47,8 @@ const createBlogger = (req, res) => {
         NEW_BLOGGER.save(err => {
             // if registeration is successful redirect user to login page
             return res.send({
-                msg:"Registration Successful"
-                
+                msg: "Registration Successful"
+
             });
 
         });

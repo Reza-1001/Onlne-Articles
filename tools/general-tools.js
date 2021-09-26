@@ -87,7 +87,6 @@ generalTools.UploadAvatar = multer({
 
 generalTools.DefaultAvatar = function (req, res, next) {
 
-  if (req.body.profileImage == '') {
     let filename = `${req.body.userName}-${Date.now()}-default-user-pic.jpg`
     req.body.profileImage = filename
 
@@ -95,7 +94,7 @@ generalTools.DefaultAvatar = function (req, res, next) {
     fs.copyFile(path.join(__dirname, '../public/assets/images/default-user-pic.jpg'), path.join(__dirname, `../public/images/avatar/${filename}`), (err) => {
       if (err) throw err;
     });
-  }
+  
   next();
 }
 
