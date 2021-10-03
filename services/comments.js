@@ -2,7 +2,7 @@ const path = require('path');
 const Blogger = require('../models/Users');
 const Comment = require('../models/Comment');
 
-const addComment = (req, res, next) => {
+exports.addComment = (req, res, next) => {
     // check for empty comment filds
     if (!req.body.content || !req.body.writer_id || !req.body.article_id) {
         return res.send("Empty Fields")
@@ -19,7 +19,7 @@ const addComment = (req, res, next) => {
     })
 }
 
-const deleteComment = (req, res, next) => {
+exports.deleteComment = (req, res, next) => {
     // if request for delete comment is not Admin return failed
     if (req.session.user.role != 'Admin') {
         return res.send("Comment Delete Failed")
@@ -37,7 +37,7 @@ const deleteComment = (req, res, next) => {
 
 }
 
-const deleteAllComments = (articleId) => {
+exports.deleteAllComments = (articleId) => {
     // Comment.find({
     //     _id: req.params.comment_id
     // }, function (err, deletedComments) {
@@ -48,7 +48,7 @@ const deleteAllComments = (articleId) => {
 }
 
 // Get All comments for an Article
-const getAllComments = (req, res, next) => {
+exports.getAllComments = (req, res, next) => {
     Comment.find({
         article_id: req.params.article_id
     }).populate('writer_id', {
@@ -82,11 +82,3 @@ const getAllComments = (req, res, next) => {
         });
     })
 }
-
-
-module.exports = {
-    addComment,
-    deleteComment,
-    deleteAllComments,
-    getAllComments
-};

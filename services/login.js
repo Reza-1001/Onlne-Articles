@@ -3,13 +3,13 @@ const Blogger = require('../models/Users');
 const bcrypt = require('bcrypt');
 
 
-const loginPage = (req, res, next) => {
+exports.loginPage = (req, res, next) => {
     res.render('./pages/login', {
         error: null
     })
 }
 
-const userLogin = (req, res, next) => {
+exports.userLogin = (req, res, next) => {
     // check if fileds are empty
     if (!req.body.userName || !req.body.password) {
         return res.send({
@@ -52,8 +52,3 @@ const userLogin = (req, res, next) => {
         })
     })
 }
-
-module.exports = {
-    loginPage,
-    userLogin
-};

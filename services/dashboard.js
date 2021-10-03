@@ -3,7 +3,7 @@ const User = require('../models/Users');
 const Article = require('../models/Article');
 
 
-const dashboard = (req, res, next) => {
+exports.dashboard = (req, res, next) => {
   // check if user is Admin render Admin dashboard
   if (req.session.user.role === "Admin") {
     res.render('pages/admin/dashboard', {
@@ -26,14 +26,14 @@ const dashboard = (req, res, next) => {
 }
 
 // render user profile page
-const getProfileInfoPage = (req, res, next) => {
+exports.getProfileInfoPage = (req, res, next) => {
   res.render('pages/profile_info', {
     user: req.session.user
   });
 }
 
 // render user management page for Admin
-const usersInfoPage = (req, res, next) => {
+exports.usersInfoPage = (req, res, next) => {
   // check if user requesting for All user lst is admin
   if (req.session.user.role === "Admin") {
     res.render('pages/admin/user_management', {
@@ -48,7 +48,7 @@ const usersInfoPage = (req, res, next) => {
 }
 
 // log out user
-const logOut = (req, res, next) => {
+exports.logOut = (req, res, next) => {
   req.session.destroy((err) => {
     if (err) {
       return console.log(err);
@@ -56,11 +56,3 @@ const logOut = (req, res, next) => {
     res.redirect('/login');
   });
 }
-
-
-module.exports = {
-  dashboard,
-  logOut,
-  getProfileInfoPage,
-  usersInfoPage
-};

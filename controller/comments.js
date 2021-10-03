@@ -2,20 +2,16 @@ const express = require('express');
 const router = express.Router();
 const generalTools = require('../tools/general-tools');
 
-const {
-    addComment,
-    deleteComment,
-    getAllComments,
-} = require('../services/comments.js');
+const commentsService = require('../services/comments.js');
 
 
-router.post('/', addComment);
+router.post('/', commentsService.addComment);
 
 
-router.delete('/:comment_id', deleteComment);
+router.delete('/:comment_id', commentsService.deleteComment);
 
 
-router.get('/:article_id', getAllComments);
+router.get('/:article_id', commentsService.getAllComments);
 
 
 module.exports = router;

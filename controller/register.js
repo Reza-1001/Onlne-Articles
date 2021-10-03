@@ -1,16 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const generalTools = require('../tools/general-tools')
-const {
-    registerPage,
-    createBlogger,
-    createAdmin
-} = require('../services/register');
+const registerService = require('../services/register');
 
-router.post('/createadmin', generalTools.DefaultAvatar, createAdmin)
+router.post('/createadmin', generalTools.DefaultAvatar, registerService.createAdmin)
 
-router.get('/', registerPage);
+router.get('/', registerService.registerPage);
 
-router.post('/', generalTools.DefaultAvatar, createBlogger);
+router.post('/', generalTools.DefaultAvatar, registerService.createBlogger);
 
 module.exports = router;

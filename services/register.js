@@ -5,7 +5,7 @@ const Article = require('../models/Article');
 const generalTools = require('./../tools/general-tools.js');
 
 
-const createBlogger = (req, res, next) => {
+exports.createBlogger = (req, res, next) => {
     // check if fileds are empty
     if (!req.body.firstName || !req.body.lastName || !req.body.userName || !req.body.password || req.body.phonNumber) {
         // if filed or fields are empty render register page with err
@@ -55,13 +55,13 @@ const createBlogger = (req, res, next) => {
     })
 }
 
-const registerPage = (req, res, next) => {
+exports.registerPage = (req, res, next) => {
     return res.render('./pages/register', {
         error: null
     });
 }
 // creating Admin
-const createAdmin = (req, res, next) => {
+exports.createAdmin = (req, res, next) => {
 
     // check if user with role Admin Already exist | only one admin can be created
     Blogger.findOne({
@@ -83,9 +83,3 @@ const createAdmin = (req, res, next) => {
         })
     })
 }
-
-module.exports = {
-    registerPage,
-    createBlogger,
-    createAdmin
-};

@@ -9,39 +9,28 @@ const {
     IsAdmin
 } = require('../tools/general-tools');
 
-const {
-    getAllUsers,
-    getOneUser,
-    updateUserPassword,
-    updateUserInfo,
-    addAvatar,
-    deleteAvatar,
-    deleteUser,
-    resetPassword,
-    usersStatistics
-
-} = require('../services/users');
+const usersService = require('../services/users');
 
 
-router.get('/', IsAdmin, getAllUsers);
+router.get('/', IsAdmin, usersService.getAllUsers);
 
-router.patch('/', generalTools.PasswordCheck, updateUserPassword)
-
-
-router.post('/update', updateUserInfo)
-
-router.get('/user:id', getOneUser)
-
-router.post('/avatar', addAvatar)
-
-router.delete('/avatar', deleteAvatar)
-
-router.delete('/:user_id', generalTools.DeleteBloggerCheck, deleteUser)
-
-router.get('/reset_pass/:user_id', resetPassword)
+router.patch('/', generalTools.PasswordCheck, usersService.updateUserPassword)
 
 
-router.get('/statistics', usersStatistics)
+router.post('/update', usersService.updateUserInfo)
+
+router.get('/user:id', usersService.getOneUser)
+
+router.post('/avatar', usersService.addAvatar)
+
+router.delete('/avatar', usersService.deleteAvatar)
+
+router.delete('/:user_id', generalTools.DeleteBloggerCheck, usersService.deleteUser)
+
+router.get('/reset_pass/:user_id', usersService.resetPassword)
+
+
+router.get('/statistics', usersService.usersStatistics)
 
 
 

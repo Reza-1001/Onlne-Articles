@@ -14,7 +14,7 @@ const generalTools = require('./../tools/general-tools.js');
 // *****************************************************************************************************
 //                                  get all bloggers info
 // *****************************************************************************************************
-const getAllUsers = (req, res, next) => {
+exports.getAllUsers = (req, res, next) => {
     User.find({
         role: 'Blogger'
     }, {
@@ -54,7 +54,7 @@ const getAllUsers = (req, res, next) => {
 // *****************************************************************************************************
 //                                  get one user info by ID
 // *****************************************************************************************************
-const getOneUser = (req, res, next) => {
+exports.getOneUser = (req, res, next) => {
     User.find({
         _id: req.params.id
     }, (err, user) => {
@@ -73,7 +73,7 @@ const getOneUser = (req, res, next) => {
 // *****************************************************************************************************
 //                                  Update user password by ID
 // *****************************************************************************************************
-const updateUserPassword = (req, res, next) => {
+exports.updateUserPassword = (req, res, next) => {
     User.updateOne({
         _id: req.session.user._id
     }, {
@@ -90,7 +90,7 @@ const updateUserPassword = (req, res, next) => {
 // *****************************************************************************************************
 //                                  get all bloggers info
 // *****************************************************************************************************
-const updateUserInfo = (req, res, next) => {
+exports.updateUserInfo = (req, res, next) => {
     User.findByIdAndUpdate(req.session.user._id, req.body, {
         new: true
     }, (err, user) => {
@@ -100,7 +100,7 @@ const updateUserInfo = (req, res, next) => {
     })
 }
 
-const addAvatar = (req, res, next) => {
+exports.addAvatar = (req, res, next) => {
     const upload = generalTools.UploadAvatar.single('avatar');
     upload(req, res, function (err) {
         if (err instanceof multer.MulterError) {
@@ -133,7 +133,7 @@ const addAvatar = (req, res, next) => {
     })
 }
 
-const deleteAvatar = (req, res, next) => {
+exports.deleteAvatar = (req, res, next) => {
     User.findByIdAndUpdate(req.session.user._id, {
         profileImage: ""
     }, {
@@ -159,7 +159,7 @@ const deleteAvatar = (req, res, next) => {
     })
 }
 
-const deleteUser = (req, res, next) => {
+exports.deleteUser = (req, res, next) => {
     User.deleteOne({
         _id: req.params.user_id
     }, function (err, user) {
@@ -172,7 +172,7 @@ const deleteUser = (req, res, next) => {
     });
 }
 
-const resetPassword = (req, res, next) => {
+exports.resetPassword = (req, res, next) => {
     console.log(req.params.user_id)
     let newPass;
     User.findOne({
@@ -200,7 +200,7 @@ const resetPassword = (req, res, next) => {
 }
 
 
-const usersStatistics = (req, res, next) => {
+exports.usersStatistics = (req, res, next) => {
 
     User.countDocuments({
         role: 'Blogger'
@@ -241,16 +241,3 @@ const usersStatistics = (req, res, next) => {
 
 
 
-
-module.exports = {
-    getAllUsers,
-    getOneUser,
-    updateUserPassword,
-    updateUserInfo,
-    addAvatar,
-    deleteAvatar,
-    deleteUser,
-    resetPassword,
-    usersStatistics
-
-};

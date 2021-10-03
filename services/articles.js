@@ -11,7 +11,7 @@ const {
 // *****************************************************************************************************
 //                                  Send New Article Page to client
 // *****************************************************************************************************
-const newArticlePage = (req, res, next) => {
+exports.newArticlePage = (req, res, next) => {
     res.render('pages/article/newArticle', {
         user: req.session.user
     });
@@ -20,7 +20,7 @@ const newArticlePage = (req, res, next) => {
 // *****************************************************************************************************
 //                                  get new article info and save to db
 // *****************************************************************************************************
-const addNewArticle = (req, res, next) => {
+exports.addNewArticle = (req, res, next) => {
     // file name for saving Article file as html file
     let articleFile = `public/articles/article-${Date.now()}-${req.session.user.userName}.html`;
     const NEW_ARTICLE = new Article({
@@ -63,7 +63,7 @@ const addNewArticle = (req, res, next) => {
 // *****************************************************************************************************
 //                                  Get one article by ID
 // *****************************************************************************************************
-const getArticle = (req, res, next) => {
+exports.getArticle = (req, res, next) => {
     Article.findOne({
         _id: req.params.article_id
     }).populate('writer', {
@@ -90,7 +90,7 @@ const getArticle = (req, res, next) => {
 // *****************************************************************************************************
 //                                  Delete one article by ID
 // *****************************************************************************************************
-const deleteArticle = (req, res, next) => {
+exports.deleteArticle = (req, res, next) => {
     Article.findByIdAndDelete({
         _id: req.params.article_id
     }, (err, article) => {
@@ -106,7 +106,7 @@ const deleteArticle = (req, res, next) => {
 // *****************************************************************************************************
 //                                  Delete All articles for a user
 // *****************************************************************************************************
-const deleteAllArticles = (userId) => {
+exports.deleteAllArticles = (userId) => {
     Article.deleteMany({
         writer: userId
     }, (err, art) => {
@@ -120,7 +120,7 @@ const deleteAllArticles = (userId) => {
 // *****************************************************************************************************
 //                                  find an article by id and render edit article page with article info
 // *****************************************************************************************************
-const editArticle = (req, res, next) => {
+exports.editArticle = (req, res, next) => {
     Article.findOne({
         _id: req.params.article_id
     }).populate('writer', {
@@ -146,7 +146,7 @@ const editArticle = (req, res, next) => {
 // *****************************************************************************************************
 //                                  find all articles from db and sent to client
 // *****************************************************************************************************
-const getAllArticles = (req, res, next) => {
+exports.getAllArticles = (req, res, next) => {
     let pageNumber
     if (!req.query.page)
         pageNumber = 1;
@@ -205,7 +205,7 @@ const getAllArticles = (req, res, next) => {
     })
 }
 
-const updateArticle = (req, res, next) => {
+exports.updateArticle = (req, res, next) => {
     let articleFile = `public/articles/${req.body.title}-${req.session.user.userName}.html`;
     let newArticle
     if (req.file) {
@@ -245,7 +245,7 @@ const updateArticle = (req, res, next) => {
 }
 
 
-const articleStatistics = (req, res, next) => {
+exports.articleStatistics = (req, res, next) => {
     Article.countDocuments({}, (err, count) => {
         const now = new Date();
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -271,13 +271,3 @@ const articleStatistics = (req, res, next) => {
     })
 }
 
-module.exports = {
-    addNewArticle,
-    deleteArticle,
-    getArticle,
-    getAllArticles,
-    newArticlePage,
-    editArticle,
-    updateArticle,
-    articleStatistics
-};

@@ -3,14 +3,11 @@ const router = express.Router();
 const generalTools=require('../tools/general-tools')
 
 
-const {
-    loginPage,
-    userLogin
-} = require('../services/login.js');
+const loginService = require('../services/login.js');
 
-router.get('/', generalTools.SessionCheck, loginPage);
+router.get('/', generalTools.SessionCheck, loginService.loginPage);
 
-router.post('/', userLogin);
+router.post('/', loginService.userLogin);
 
 
 
