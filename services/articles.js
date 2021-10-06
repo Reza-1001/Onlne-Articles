@@ -8,8 +8,10 @@ const {
     deleteAllComments
 } = require('./comments');
 
+
+
 // *****************************************************************************************************
-//                                  Send New Article Page to client
+//                                  SEND NEW ARTICLE PAGE TO USER
 // *****************************************************************************************************
 exports.newArticlePage = (req, res, next) => {
     res.render('pages/article/newArticle', {
@@ -17,8 +19,9 @@ exports.newArticlePage = (req, res, next) => {
     });
 }
 
+
 // *****************************************************************************************************
-//                                  get new article info and save to db
+//                                  SAVE NEW ARTICLE'S INFO IN DB
 // *****************************************************************************************************
 exports.addNewArticle = (req, res, next) => {
     // file name for saving Article file as html file
@@ -61,7 +64,7 @@ exports.addNewArticle = (req, res, next) => {
 
 
 // *****************************************************************************************************
-//                                  Get one article by ID
+//                                  GET SINGLE ARTICLE BY ID
 // *****************************************************************************************************
 exports.getArticle = (req, res, next) => {
     Article.findOne({
@@ -88,7 +91,7 @@ exports.getArticle = (req, res, next) => {
 
 
 // *****************************************************************************************************
-//                                  Delete one article by ID
+//                                  DELETE SINGLE ARTICLE BY ID
 // *****************************************************************************************************
 exports.deleteArticle = (req, res, next) => {
     Article.findByIdAndDelete({
@@ -104,7 +107,7 @@ exports.deleteArticle = (req, res, next) => {
 
 
 // *****************************************************************************************************
-//                                  Delete All articles for a user
+//                                  DELETE ALL ARTICLES FOR A USER
 // *****************************************************************************************************
 exports.deleteAllArticles = (userId) => {
     Article.deleteMany({
@@ -118,7 +121,7 @@ exports.deleteAllArticles = (userId) => {
 
 
 // *****************************************************************************************************
-//                                  find an article by id and render edit article page with article info
+//                                  FIND AN ARTICLE AND SEND EDIT ARTICLE PAGE
 // *****************************************************************************************************
 exports.editArticle = (req, res, next) => {
     Article.findOne({
@@ -144,7 +147,9 @@ exports.editArticle = (req, res, next) => {
 
 
 // *****************************************************************************************************
-//                                  find all articles from db and sent to client
+//                                  #FIND ALL ARTICLES
+//                                  #FIND ALL ARTICLES OF A USER
+//                                  #FIND ALL ARTICLES FILTERED BY SEARCH KEYWORD
 // *****************************************************************************************************
 exports.getAllArticles = (req, res, next) => {
     let pageNumber
@@ -205,6 +210,9 @@ exports.getAllArticles = (req, res, next) => {
     })
 }
 
+// *****************************************************************************************************
+//                                  UPDATE AN ARTICLE
+// *****************************************************************************************************
 exports.updateArticle = (req, res, next) => {
     let articleFile = `public/articles/${req.body.title}-${req.session.user.userName}.html`;
     let newArticle
@@ -245,6 +253,9 @@ exports.updateArticle = (req, res, next) => {
 }
 
 
+// *****************************************************************************************************
+//                                  GET ARTICLE STATISTICS
+// *****************************************************************************************************
 exports.articleStatistics = (req, res, next) => {
     Article.countDocuments({}, (err, count) => {
         const now = new Date();
@@ -270,4 +281,3 @@ exports.articleStatistics = (req, res, next) => {
 
     })
 }
-

@@ -1,4 +1,5 @@
 $('document').ready(function () {
+
     // get article ID
     let articleId = $("#article-id").text();
 

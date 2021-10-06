@@ -7,13 +7,21 @@ const multer = require('multer');
 const fs = require('fs');
 
 
+// *****************************************************************************************************
+//                                  #CHECK FOR USER'S SESSION
+// *****************************************************************************************************
 generalTools.SessionCheck = function (req, res, next) {
+
   if (req.cookies.user_sid && req.session.user) {
     return res.redirect('/dashboard')
   };
   return next()
 };
 
+
+// *****************************************************************************************************
+//                                  CHECK IF USER IS LOGGED IN
+// *****************************************************************************************************
 generalTools.LoginCheck = function (req, res, next) {
   if (!req.session.user) {
     return res.redirect("/login");
@@ -21,8 +29,11 @@ generalTools.LoginCheck = function (req, res, next) {
   return next()
 };
 
+
+// *****************************************************************************************************
+//                                  CHECK FOR USER'S PERMISSION ON DELETING A USER
+// *****************************************************************************************************
 generalTools.DeleteBloggerCheck = function (req, res, next) {
-  console.log(req.params.user_id)
   User.findOne({
     '_id': req.params.user_id
   }, (err, user) => {
@@ -38,6 +49,10 @@ generalTools.DeleteBloggerCheck = function (req, res, next) {
   })
 }
 
+
+// *****************************************************************************************************
+//                                  CHECK USER'S PASSWORD
+// *****************************************************************************************************
 generalTools.PasswordCheck = function (req, res, next) {
   bcrypt.compare(req.body.oldPass, req.session.user.password, function (err, passCompResult) {
     if (!passCompResult) {
@@ -49,6 +64,10 @@ generalTools.PasswordCheck = function (req, res, next) {
   })
 }
 
+
+// *****************************************************************************************************
+//                                  CHECK IF USER IS ADMIN
+// *****************************************************************************************************
 generalTools.IsAdmin = function (req, res, next) {
   if (req.session.user.role == 'Admin') {
     return next();
@@ -58,7 +77,6 @@ generalTools.IsAdmin = function (req, res, next) {
 
 
 const avatarStorage = multer.diskStorage({
-
   destination: function (req, file, cb) {
     if (file.fieldname == 'avatar')
       cb(null, path.join(__dirname, '../public/images/avatar'))
@@ -73,6 +91,10 @@ const avatarStorage = multer.diskStorage({
   }
 })
 
+
+// *****************************************************************************************************
+//                                  ADD USER AVATAR
+// *****************************************************************************************************
 generalTools.UploadAvatar = multer({
   storage: avatarStorage,
   fileFilter: function (req, file, cb) {
@@ -85,20 +107,27 @@ generalTools.UploadAvatar = multer({
 })
 
 
+
+// *****************************************************************************************************
+//                                  SET A DEFAULT AVATAR FOR USER
+// *****************************************************************************************************
 generalTools.DefaultAvatar = function (req, res, next) {
 
-    let filename = `${req.body.userName}-${Date.now()}-default-user-pic.jpg`
-    req.body.profileImage = filename
+  let filename = `${req.body.userName}-${Date.now()}-default-user-pic.jpg`
+  req.body.profileImage = filename
 
-    // fs.unlinkSync(path.join(__dirname,`../public/images/avatar//^${req.body.userName}/`));
-    fs.copyFile(path.join(__dirname, '../public/assets/images/default-user-pic.jpg'), path.join(__dirname, `../public/images/avatar/${filename}`), (err) => {
-      if (err) throw err;
-    });
-  
+  // fs.unlinkSync(path.join(__dirname,`../public/images/avatar//^${req.body.userName}/`));
+  fs.copyFile(path.join(__dirname, '../public/assets/images/default-user-pic.jpg'), path.join(__dirname, `../public/images/avatar/${filename}`), (err) => {
+    if (err) throw err;
+  });
+
   next();
 }
 
 
+// *****************************************************************************************************
+//                                  DELETE ARTICLE FILES (AVATAR AND HTML FILE)
+// *****************************************************************************************************
 generalTools.deleteArticleFiles = function (articleFile, articleAvatar) {
   if (articleFile) {
     fs.unlink(path.join(__dirname, '../', articleFile), err => {

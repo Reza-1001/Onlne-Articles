@@ -1,8 +1,40 @@
 $("document").ready(function () {
-	$("#forget-pass").on('click', () => {
-		alert(1)
-		$("#reset-password-modal").modal();
+
+	$("#reset-btn").on('click', () => {
+		$.ajax({
+			method: 'POST',
+			url: '/login/reset_pass',
+			data: $("#reset-pass").serialize(),
+			success: function (data) {
+				let icon = "info";
+				let msg = data.msg;
+				if (data.error) {
+					icon = "error";
+					msg = data.error;
+				}
+				Swal.fire({
+					icon: `${icon}`,
+					title: 'Pssword Reset',
+					text: `${msg}`,
+					timer: 3000
+				})
+				// window.location.href = "/login";
+			},
+			error: function (data) {
+				Swal.fire({
+					icon: 'error',
+					title: 'Failed',
+					text: 'Something went wrong, Please Try Again',
+					timer: 1500
+				})
+			}
+
+		})
 	})
+
+
+
+
 
 	$("#submit-btn").on('click', function () {
 		let emptyField = false
@@ -34,16 +66,16 @@ $("document").ready(function () {
 						icon: `${icon}`,
 						title: 'Login',
 						text: `${msg}`,
-						timer:1500
+						timer: 1500
 					})
 					window.location.href = "/login";
 				},
 				error: function (data) {
 					Swal.fire({
-						icon: 'failed',
+						icon: 'error',
 						title: 'Failed',
 						text: 'Something went wrong, Please Try Again',
-						timer:1500
+						timer: 1500
 					})
 				}
 

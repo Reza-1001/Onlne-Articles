@@ -57,7 +57,8 @@ body {
 	width: 360px;
 }
 
-.login-content img {
+.login-content img,
+.modal-content img {
 	height: 100px;
 }
 
@@ -196,6 +197,19 @@ a:hover {
 
 .btn:hover {
 	background-color: black;
+}
+
+.modal-header,
+h4,
+.close {
+	background-color: #f9f9f9;
+	color: white !important;
+	text-align: center;
+	font-size: 30px;
+}
+
+.modal-footer {
+	background-color: #f9f9f9;
 }
 
 

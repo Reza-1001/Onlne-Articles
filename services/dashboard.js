@@ -3,6 +3,10 @@ const User = require('../models/Users');
 const Article = require('../models/Article');
 
 
+
+// *****************************************************************************************************
+//                                  SEND DASHBOARD
+// *****************************************************************************************************
 exports.dashboard = (req, res, next) => {
   // check if user is Admin render Admin dashboard
   if (req.session.user.role === "Admin") {
@@ -25,14 +29,20 @@ exports.dashboard = (req, res, next) => {
   }
 }
 
-// render user profile page
+
+// *****************************************************************************************************
+//                                  SEND USER PROFILE PAGE IN DASHBOARD
+// *****************************************************************************************************
 exports.getProfileInfoPage = (req, res, next) => {
   res.render('pages/profile_info', {
     user: req.session.user
   });
 }
 
-// render user management page for Admin
+
+// *****************************************************************************************************
+//                                  SEND USER INFO PAGE IN DASHBOARD
+// *****************************************************************************************************
 exports.usersInfoPage = (req, res, next) => {
   // check if user requesting for All user lst is admin
   if (req.session.user.role === "Admin") {
@@ -47,7 +57,9 @@ exports.usersInfoPage = (req, res, next) => {
 
 }
 
-// log out user
+// *****************************************************************************************************
+//                                  LOGOUT USER FROM ACCOUNT
+// *****************************************************************************************************
 exports.logOut = (req, res, next) => {
   req.session.destroy((err) => {
     if (err) {

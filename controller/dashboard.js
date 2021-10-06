@@ -12,8 +12,6 @@ router.get('/users', dashboardService.usersInfoPage)
 
 router.get('/logout', dashboardService.logOut)
 
-
-
 router.post('/comment', comment);
 
 module.exports = router;

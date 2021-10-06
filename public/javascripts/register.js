@@ -5,10 +5,11 @@ $("document").ready(function () {
 	let password2 = $("#passowrd2");
 	let elements = [userName, phoneNumber];
 	let numberPattern = /^[0-9]*$/;
+
+
 	// remove whitespace in username and phone Number
 	elements.forEach(element => {
 		$(element).keydown(function () {
-
 			// allowing only digits in phone Number
 			if (element == phoneNumber) {
 				if (!numberPattern.test(element.val())) {
@@ -86,6 +87,10 @@ inputs.forEach(input => {
 
 });
 
+
+// *****************************************************************************************************
+//                                  VALIDATE INPUTS
+// *****************************************************************************************************
 function validateRegistrationInfo() {
 	inputs.forEach(async el => {
 		if ($(el).val().trim() == "") {
@@ -96,7 +101,6 @@ function validateRegistrationInfo() {
 				'Please Enter username and Password',
 				'info'
 			)
-
 		}
 	})
 	if ($(password1).val() !== $(password2).val()) {

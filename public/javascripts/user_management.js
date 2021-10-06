@@ -27,7 +27,9 @@ $("document").ready(function () {
 
 
 
-// function that loads User List data in a table
+// *****************************************************************************************************
+//                                  LOAD USER'S DATA IN TABLE
+// *****************************************************************************************************
 function loadUsersTable(userList) {
 
     // empty table for loading new data
@@ -55,6 +57,9 @@ function loadUsersTable(userList) {
 }
 
 
+// *****************************************************************************************************
+//                                  DELETE A BLOGGER
+// *****************************************************************************************************
 function deleteUser(el) {
     // get user id for delete
     let userId = $(el).closest('tr').attr("id");

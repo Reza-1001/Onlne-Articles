@@ -2,6 +2,11 @@ const path = require('path');
 const Blogger = require('../models/Users');
 const Comment = require('../models/Comment');
 
+
+
+// *****************************************************************************************************
+//                                  ADD NEW COMMENT
+// *****************************************************************************************************
 exports.addComment = (req, res, next) => {
     // check for empty comment filds
     if (!req.body.content || !req.body.writer_id || !req.body.article_id) {
@@ -19,6 +24,11 @@ exports.addComment = (req, res, next) => {
     })
 }
 
+
+
+// *****************************************************************************************************
+//                                  DELETE SINGLE COMMENT
+// *****************************************************************************************************
 exports.deleteComment = (req, res, next) => {
     // if request for delete comment is not Admin return failed
     if (req.session.user.role != 'Admin') {
@@ -37,6 +47,10 @@ exports.deleteComment = (req, res, next) => {
 
 }
 
+
+// *****************************************************************************************************
+//                                  DELETE ALL COMMENTS
+// *****************************************************************************************************
 exports.deleteAllComments = (articleId) => {
     // Comment.find({
     //     _id: req.params.comment_id
@@ -47,7 +61,11 @@ exports.deleteAllComments = (articleId) => {
     // })
 }
 
-// Get All comments for an Article
+
+
+// *****************************************************************************************************
+//                                  GET ALL COMMENTS FOR AN ARTICLE
+// *****************************************************************************************************
 exports.getAllComments = (req, res, next) => {
     Comment.find({
         article_id: req.params.article_id

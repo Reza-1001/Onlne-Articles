@@ -12,7 +12,7 @@ const generalTools = require('./../tools/general-tools.js');
 
 
 // *****************************************************************************************************
-//                                  get all bloggers info
+//                                  GET ALL BLOGGERS INFO
 // *****************************************************************************************************
 exports.getAllUsers = (req, res, next) => {
     User.find({
@@ -52,7 +52,7 @@ exports.getAllUsers = (req, res, next) => {
 
 
 // *****************************************************************************************************
-//                                  get one user info by ID
+//                                  GET SINGLE USER INFO
 // *****************************************************************************************************
 exports.getOneUser = (req, res, next) => {
     User.find({
@@ -71,7 +71,7 @@ exports.getOneUser = (req, res, next) => {
 
 
 // *****************************************************************************************************
-//                                  Update user password by ID
+//                                  UPDATE USERS PASSWORD
 // *****************************************************************************************************
 exports.updateUserPassword = (req, res, next) => {
     User.updateOne({
@@ -88,7 +88,7 @@ exports.updateUserPassword = (req, res, next) => {
 
 
 // *****************************************************************************************************
-//                                  get all bloggers info
+//                                  UPDATE USERS INFO
 // *****************************************************************************************************
 exports.updateUserInfo = (req, res, next) => {
     User.findByIdAndUpdate(req.session.user._id, req.body, {
@@ -100,6 +100,10 @@ exports.updateUserInfo = (req, res, next) => {
     })
 }
 
+
+// *****************************************************************************************************
+//                                  Add USER AVATAR
+// *****************************************************************************************************
 exports.addAvatar = (req, res, next) => {
     const upload = generalTools.UploadAvatar.single('avatar');
     upload(req, res, function (err) {
@@ -133,6 +137,10 @@ exports.addAvatar = (req, res, next) => {
     })
 }
 
+
+// *****************************************************************************************************
+//                                  DELETE USER'S AVATAR
+// *****************************************************************************************************
 exports.deleteAvatar = (req, res, next) => {
     User.findByIdAndUpdate(req.session.user._id, {
         profileImage: ""
@@ -159,6 +167,10 @@ exports.deleteAvatar = (req, res, next) => {
     })
 }
 
+
+// *****************************************************************************************************
+//                                  DELETE BLOGGER
+// *****************************************************************************************************
 exports.deleteUser = (req, res, next) => {
     User.deleteOne({
         _id: req.params.user_id
@@ -172,6 +184,10 @@ exports.deleteUser = (req, res, next) => {
     });
 }
 
+
+// *****************************************************************************************************
+//                                  RESET USERS PASSWORD
+// *****************************************************************************************************
 exports.resetPassword = (req, res, next) => {
     console.log(req.params.user_id)
     let newPass;
@@ -199,7 +215,9 @@ exports.resetPassword = (req, res, next) => {
 
 }
 
-
+// *****************************************************************************************************
+//                                  GET ALL BLOGGERS STATISTICS
+// *****************************************************************************************************
 exports.usersStatistics = (req, res, next) => {
 
     User.countDocuments({

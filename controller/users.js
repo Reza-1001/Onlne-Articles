@@ -5,6 +5,7 @@ const fs = require('fs')
 const path = require('path')
 const generalTools = require('../tools/general-tools');
 const User = require('../models/Users')
+
 const {
     IsAdmin
 } = require('../tools/general-tools');
@@ -28,7 +29,6 @@ router.delete('/avatar', usersService.deleteAvatar)
 router.delete('/:user_id', generalTools.DeleteBloggerCheck, usersService.deleteUser)
 
 router.get('/reset_pass/:user_id', usersService.resetPassword)
-
 
 router.get('/statistics', usersService.usersStatistics)
 

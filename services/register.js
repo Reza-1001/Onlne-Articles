@@ -5,6 +5,10 @@ const Article = require('../models/Article');
 const generalTools = require('./../tools/general-tools.js');
 
 
+
+// *****************************************************************************************************
+//                                  CREATE NEW BLOGGER
+// *****************************************************************************************************
 exports.createBlogger = (req, res, next) => {
     // check if fileds are empty
     if (!req.body.firstName || !req.body.lastName || !req.body.userName || !req.body.password || req.body.phonNumber) {
@@ -35,7 +39,7 @@ exports.createBlogger = (req, res, next) => {
         }
 
         // if username does not exist then create new blogger
-        
+
         const NEW_BLOGGER = new Blogger({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -55,12 +59,20 @@ exports.createBlogger = (req, res, next) => {
     })
 }
 
+
+// *****************************************************************************************************
+//                                  SEND REGISTER PAGE TO USER
+// *****************************************************************************************************
 exports.registerPage = (req, res, next) => {
     return res.render('./pages/register', {
         error: null
     });
 }
-// creating Admin
+
+
+// *****************************************************************************************************
+//                                  CREATE ADMIN
+// *****************************************************************************************************
 exports.createAdmin = (req, res, next) => {
 
     // check if user with role Admin Already exist | only one admin can be created
