@@ -199,6 +199,11 @@ a:hover {
 	background-color: black;
 }
 
+#show-pass{
+	z-index:2;
+	cursor: pointer;
+}
+
 .modal-header,
 h4,
 .close {

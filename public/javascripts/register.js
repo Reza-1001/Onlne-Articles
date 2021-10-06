@@ -121,3 +121,19 @@ function validateRegistrationInfo() {
 	}
 	return true;
 }
+
+
+function showPass() {
+	let password = $("#password1")[0];
+	let value = password.value;
+	if ($("#show-pass")[0].classList.contains("fa-eye-slash")) {
+		password.type = "text";
+		$("#show-pass").removeClass("fa-eye-slash")
+		$("#show-pass").addClass("fa-eye")
+	} else {
+		password.type = "password";
+		$("#show-pass").addClass("fa-eye-slash")
+		$("#show-pass").removeClass("fa-eye")
+	}
+	password.value = value
+}
