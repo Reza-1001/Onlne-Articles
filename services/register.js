@@ -17,7 +17,7 @@ exports.createBlogger = (req, res, next) => {
             error: "Empty Fields"
 
         });
-    }
+    } 
 
     // if fileds are not empty
     // check if new user's username already exists
@@ -45,7 +45,7 @@ exports.createBlogger = (req, res, next) => {
             lastName: req.body.lastName,
             userName: req.body.userName,
             password: req.body.password,
-            profileImage: req.body.profileImage,
+            profileImage: 'default-avatar.jpg',
             phoneNumber: req.body.phoneNumber
         })
         NEW_BLOGGER.save(err => {

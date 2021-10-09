@@ -131,8 +131,8 @@ generalTools.DefaultAvatar = function (req, res, next) {
 generalTools.deleteArticleFiles = function (articleFiles, avatarFiles, userAvatar) {
 
   if (articleFiles) {
-    articleFiles.forEach((file,i) => {
-      console.log(i+"="+file)
+    articleFiles.forEach((file, i) => {
+      console.log(i + "=" + file)
       fs.unlink(path.join(__dirname, '../', file), err => {
         if (err) {
           return ({
@@ -143,8 +143,8 @@ generalTools.deleteArticleFiles = function (articleFiles, avatarFiles, userAvata
     });
   }
   if (avatarFiles) {
-    avatarFiles.forEach((file,i) => {
-      console.log(i+"="+file)
+    avatarFiles.forEach((file, i) => {
+      console.log(i + "=" + file)
       fs.unlink(path.join(__dirname, '../public/images/article', file), err => {
         if (err) {
           return ({
@@ -154,7 +154,7 @@ generalTools.deleteArticleFiles = function (articleFiles, avatarFiles, userAvata
       })
     })
   }
-  if (userAvatar) {
+  if (userAvatar && userAvatar != "default-avatar.jpg") {
     fs.unlink(path.join(__dirname, '../public/images/avatar', userAvatar), err => {
       if (err) {
         return ({

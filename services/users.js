@@ -103,7 +103,7 @@ exports.updateUserInfo = (req, res, next) => {
 
 
 // *****************************************************************************************************
-//                                  Add USER AVATAR
+//                                  ADD USER AVATAR
 // *****************************************************************************************************
 exports.addAvatar = (req, res, next) => {
     const upload = generalTools.UploadAvatar.single('avatar');
@@ -120,14 +120,13 @@ exports.addAvatar = (req, res, next) => {
                 if (err) {
                     return res.send("Server Error")
                 } else {
-                    if (req.session.user.profileImage) {
+                    if (req.session.user.profileImage!="default-avatar.jpg") {
                         fs.unlink(path.join(__dirname, '../public/images/avatar', req.session.user.profileImage), err => {
                             if (err) {
                                 return res.status(500).json({
                                     msg: "Server Error!"
                                 })
                             }
-
                         })
                     }
                     req.session.user = user;
@@ -143,29 +142,29 @@ exports.addAvatar = (req, res, next) => {
 //                                  DELETE USER'S AVATAR
 // *****************************************************************************************************
 exports.deleteAvatar = (req, res, next) => {
-    User.findByIdAndUpdate(req.session.user._id, {
-        profileImage: ""
-    }, {
-        new: true
-    }, (err, user) => {
-        if (err) {
-            return res.send("Server Error")
-        } else {
-            if (req.session.user.profileImage) {
-                fs.unlink(path.join(__dirname, '../public/images/avatar', req.session.user.profileImage), err => {
-                    if (err) {
-                        return res.status(500).json({
-                            msg: "Server Error!"
-                        })
-                    }
-
-                })
+    if (req.session.user.profileImage != "default-avatar.jpg") {
+        User.findByIdAndUpdate(req.session.user._id, {
+            profileImage: "default-avatar.jpg"
+        }, {
+            new: true
+        }, (err, user) => {
+            if (err) {
+                return res.send("Server Error")
+            } else {
+                if (req.session.user.profileImage) {
+                    fs.unlink(path.join(__dirname, '../public/images/avatar', req.session.user.profileImage), err => {
+                        if (err) {
+                            return res.status(500).json({
+                                msg: "Server Error!"
+                            })
+                        }
+                    })
+                }
+                req.session.user = user;
+                res.json(true)
             }
-            req.session.user = user;
-            res.json(true)
-
-        }
-    })
+        })
+    }
 }
 
 
@@ -190,7 +189,7 @@ exports.deleteUser = (req, res, next) => {
         res.send("User Deleted")
     });
 }
-1
+
 
 
 // *****************************************************************************************************

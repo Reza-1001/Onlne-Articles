@@ -129,10 +129,6 @@ exports.deleteAllArticles = async (userId, userAvatar) => {
         writer: userId
     }, (err, articles) => {
         if (err) return res.send(`Error in Deleting Articles for ${userId}`);
-        console.log("*************************************************")
-        console.log("*************************************************")
-        console.log("*************************************************")
-        console.log(articles)
     })
     console.log("articleFile ==>" + articleFiles)
     console.log("avatarFile ==>" + avatarFiles)
