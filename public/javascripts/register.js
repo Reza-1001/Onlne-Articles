@@ -124,16 +124,21 @@ function validateRegistrationInfo() {
 
 
 function showPass() {
-	let password = $("#password1")[0];
-	let value = password.value;
+	let password1 = $("#password1")[0];
+	let password2 = $("#password2")[0];
+	let value1 = password1.value;
+	let value2 = password2.value;
 	if ($("#show-pass")[0].classList.contains("fa-eye-slash")) {
-		password.type = "text";
+		password1.type = "text";
+		password2.type = "text";
 		$("#show-pass").removeClass("fa-eye-slash")
 		$("#show-pass").addClass("fa-eye")
 	} else {
-		password.type = "password";
+		password1.type = "password";
+		password2.type = "password";
 		$("#show-pass").addClass("fa-eye-slash")
 		$("#show-pass").removeClass("fa-eye")
 	}
-	password.value = value
+	password1.value = value
+	password2.value = value
 }
