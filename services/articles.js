@@ -1,12 +1,7 @@
 const path = require('path');
-const Blogger = require('../models/Users');
-const Comment = require('../models/Comment');
 const Article = require('../models/Article');
 const generalTools = require('../tools/general-tools');
 const fs = require('fs');
-const {
-    deleteAllComments
-} = require('./comments');
 
 
 

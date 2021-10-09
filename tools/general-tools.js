@@ -1,4 +1,3 @@
-const url = require('url');
 const path = require('path');
 const generalTools = {};
 const User = require('../models/Users');

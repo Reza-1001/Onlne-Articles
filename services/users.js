@@ -1,13 +1,13 @@
 const path = require('path');
 const fs = require('fs');
-const url = require('url');
 const multer = require('multer');
-const upload = multer({
-    dest: 'public/images/avatar'
-})
 const User = require('../models/Users');
-const Article = require('../models/Article');
-const articlesService = require('./articles');
+const {
+    deleteAllArticles
+} = require('./articles');
+const {
+    deleteAllComments
+} = require('./comments');
 const generalTools = require('./../tools/general-tools.js');
 
 
@@ -120,7 +120,7 @@ exports.addAvatar = (req, res, next) => {
                 if (err) {
                     return res.send("Server Error")
                 } else {
-                    if (req.session.user.profileImage!="default-avatar.jpg") {
+                    if (req.session.user.profileImage != "default-avatar.jpg") {
                         fs.unlink(path.join(__dirname, '../public/images/avatar', req.session.user.profileImage), err => {
                             if (err) {
                                 return res.status(500).json({
@@ -185,7 +185,8 @@ exports.deleteUser = (req, res, next) => {
         _id: req.params.user_id
     }, function (err, user) {
         if (err) return res.send("Error Deleting User");
-        articlesService.deleteAllArticles(req.params.user_id, userAvatar);
+        deleteAllArticles(req.params.user_id, userAvatar);
+        deleteAllComments(req.params.user_id);
         res.send("User Deleted")
     });
 }

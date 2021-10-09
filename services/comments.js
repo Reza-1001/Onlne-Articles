@@ -51,14 +51,14 @@ exports.deleteComment = (req, res, next) => {
 // *****************************************************************************************************
 //                                  DELETE ALL COMMENTS
 // *****************************************************************************************************
-exports.deleteAllComments = (articleId) => {
-    // Comment.find({
-    //     _id: req.params.comment_id
-    // }, function (err, deletedComments) {
-    //     if (err) throw err;
-
-    //     res.send(`All Comments of ${articleId} Deleted Successfully`);
-    // })
+exports.deleteAllComments = (userId) => {
+    console.log("user id  ========"+userId);
+    Comment.deleteMany({
+        writer: userId
+    }, function (err, deletedComments) {
+        if (err) throw err;
+        
+    })
 }
 
 
