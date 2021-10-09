@@ -109,13 +109,34 @@ exports.deleteArticle = (req, res, next) => {
 // *****************************************************************************************************
 //                                  DELETE ALL ARTICLES FOR A USER
 // *****************************************************************************************************
-exports.deleteAllArticles = (userId) => {
-    Article.deleteMany({
+exports.deleteAllArticles = async (userId, userAvatar) => {
+    let articleFiles = [];
+    let avatarFiles = [];
+    await Article.find({
         writer: userId
-    }, (err, art) => {
+    }, (err, articles) => {
+        if (err) return res.send("Server Error");
+        if (!articles) return res.send("Articles not found");
+        if (articles) {
+            articles.forEach(article => {
+                console.log(article)
+                articleFiles.push(article.content);
+                avatarFiles.push(article.avatar);
+            })
+        }
+    })
+    await Article.deleteMany({
+        writer: userId
+    }, (err, articles) => {
         if (err) return res.send(`Error in Deleting Articles for ${userId}`);
+        console.log("*************************************************")
+        console.log("*************************************************")
+        console.log("*************************************************")
         console.log(articles)
     })
+    console.log("articleFile ==>" + articleFiles)
+    console.log("avatarFile ==>" + avatarFiles)
+    generalTools.deleteArticleFiles(articleFiles,avatarFiles,userAvatar)
 }
 
 

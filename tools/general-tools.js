@@ -128,18 +128,34 @@ generalTools.DefaultAvatar = function (req, res, next) {
 // *****************************************************************************************************
 //                                  DELETE ARTICLE FILES (AVATAR AND HTML FILE)
 // *****************************************************************************************************
-generalTools.deleteArticleFiles = function (articleFile, articleAvatar) {
-  if (articleFile) {
-    fs.unlink(path.join(__dirname, '../', articleFile), err => {
-      if (err) {
-        return ({
-          msg: "Error Deleting File!"
-        })
-      }
+generalTools.deleteArticleFiles = function (articleFiles, avatarFiles, userAvatar) {
+
+  if (articleFiles) {
+    articleFiles.forEach((file,i) => {
+      console.log(i+"="+file)
+      fs.unlink(path.join(__dirname, '../', file), err => {
+        if (err) {
+          return ({
+            msg: "Error Deleting File!"
+          })
+        }
+      })
+    });
+  }
+  if (avatarFiles) {
+    avatarFiles.forEach((file,i) => {
+      console.log(i+"="+file)
+      fs.unlink(path.join(__dirname, '../public/images/article', file), err => {
+        if (err) {
+          return ({
+            msg: "Error Deleting File!"
+          })
+        }
+      })
     })
   }
-  if (articleAvatar) {
-    fs.unlink(path.join(__dirname, '../public/images/article', articleAvatar), err => {
+  if (userAvatar) {
+    fs.unlink(path.join(__dirname, '../public/images/avatar', userAvatar), err => {
       if (err) {
         return ({
           msg: "Error Deleting File!"

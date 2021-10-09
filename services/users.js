@@ -7,6 +7,7 @@ const upload = multer({
 })
 const User = require('../models/Users');
 const Article = require('../models/Article');
+const articlesService = require('./articles');
 const generalTools = require('./../tools/general-tools.js');
 
 
@@ -172,17 +173,24 @@ exports.deleteAvatar = (req, res, next) => {
 //                                  DELETE BLOGGER
 // *****************************************************************************************************
 exports.deleteUser = (req, res, next) => {
+    let userId = req.params.user_id;
+    let userAvatar;
+    User.find({
+        _id: userId
+    }, (err, user) => {
+        if (err) return res.send("Server Error");
+        if (!user) return res.send("User not found");
+        if (user) userAvatar = user.userAvatar;
+    })
     User.deleteOne({
         _id: req.params.user_id
     }, function (err, user) {
         if (err) return res.send("Error Deleting User");
-        if (user) {
-            let userId = user._id;
-
-        }
+        articlesService.deleteAllArticles(req.params.user_id, userAvatar);
         res.send("User Deleted")
     });
 }
+1
 
 
 // *****************************************************************************************************
@@ -253,9 +261,3 @@ exports.usersStatistics = (req, res, next) => {
 
     })
 }
-
-
-
-
-
-
