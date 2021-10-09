@@ -103,7 +103,7 @@ exports.getArticle = (req, res, next) => {
             console.log("DELETED ARTICLE   = " + article)
             // use generaltools method to delete article file and avatar after deleting article from db
             generalTools.deleteArticleFiles([article.content], [article.avatar]);
-            deleteArticleComments(req.params.article_id);
+            deleteArticleComments([req.params.article_id]);
         res.send(true);
     }) 
 }
@@ -115,6 +115,7 @@ exports.getArticle = (req, res, next) => {
 exports.deleteAllArticles = async (userId, userAvatar) => {
     let articleFiles = [];
     let avatarFiles = [];
+    let articleIdList=[];
     await Article.find({
         writer: userId
     }, (err, articles) => {
@@ -125,6 +126,7 @@ exports.deleteAllArticles = async (userId, userAvatar) => {
                 console.log(article)
                 articleFiles.push(article.content);
                 avatarFiles.push(article.avatar);
+                articleIdList.push(article._id);
             })
         }
     })
@@ -134,7 +136,9 @@ exports.deleteAllArticles = async (userId, userAvatar) => {
         if (err) return res.send(`Error in Deleting Articles for ${userId}`);
     })
     generalTools.deleteArticleFiles(articleFiles,avatarFiles,userAvatar);
-    deleteUserComments(userid);
+    deleteUserComments(userId);
+    deleteArticleComments(articleIdList);
+
 }
 
 

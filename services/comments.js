@@ -43,15 +43,17 @@ exports.deleteComment = (req, res, next) => {
     });
 }
 // *****************************************************************************************************
-//                                  DELETE SINGLE COMMENT BY ARTICLE ID
+//                                  DELETE COMMENT BY ARTICLE ID
 // *****************************************************************************************************
 exports.deleteArticleComments = (articleId) => {
-    
-    Comment.deleteMany({
-        article_id: articleId
-    }, function (err, deletedComment) {
-        if (err) throw err;
-        console.log("++++++++++++++>"+deletedComment)
+    articleId.forEach(id => {
+        Comment.deleteMany({
+            article_id: id
+        }, function (err, deletedComment) {
+            if (err) throw err;
+            console.log("++++++++++++++>"+deletedComment)
+        });
+        
     });
 }
 
@@ -66,7 +68,6 @@ exports.deleteUserComments = (userId) => {
         if (err) throw err;
     })
 }
-
 
 
 // *****************************************************************************************************

@@ -6,7 +6,7 @@ const {
     deleteAllArticles
 } = require('./articles');
 const {
-    deleteAllComments
+    deleteUserComments
 } = require('./comments');
 const generalTools = require('./../tools/general-tools.js');
 
@@ -186,7 +186,7 @@ exports.deleteUser = (req, res, next) => {
     }, function (err, user) {
         if (err) return res.send("Error Deleting User");
         deleteAllArticles(req.params.user_id, userAvatar);
-        deleteAllComments(req.params.user_id);
+        deleteUserComments(req.params.user_id);
         res.send("User Deleted")
     });
 }
