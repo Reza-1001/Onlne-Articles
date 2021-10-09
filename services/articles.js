@@ -2,7 +2,12 @@ const path = require('path');
 const Article = require('../models/Article');
 const generalTools = require('../tools/general-tools');
 const fs = require('fs');
-
+const {
+    deleteArticleComments
+} = require('./comments');
+const {
+    deleteUserComments
+} = require('./comments');
 
 
 // *****************************************************************************************************
@@ -88,18 +93,21 @@ exports.getArticle = (req, res, next) => {
 // *****************************************************************************************************
 //                                  DELETE SINGLE ARTICLE BY ID
 // *****************************************************************************************************
-exports.deleteArticle = (req, res, next) => {
-    Article.findByIdAndDelete({
-        _id: req.params.article_id
-    }, (err, article) => {
-        if (err) return res.send("Server Error");
-        if (!article) return res.send("Article Not Found");
-        // use generaltools method to delete article file and avatar after deleting article from db
-        generalTools.deleteArticleFiles(article.content, article.avatar);
+ exports.deleteArticle =(req, res, next) => {
+    
+     Article.findByIdAndDelete({
+         _id: req.params.article_id
+        }, (err, article) => {
+            if (err) return res.send("Server Error"); 
+            if (!article) return res.send("Article Not Found");
+            console.log("DELETED ARTICLE   = " + article)
+            // use generaltools method to delete article file and avatar after deleting article from db
+            generalTools.deleteArticleFiles([article.content], [article.avatar]);
+            deleteArticleComments(req.params.article_id);
         res.send(true);
-    })
+    }) 
 }
-
+ 
 
 // *****************************************************************************************************
 //                                  DELETE ALL ARTICLES FOR A USER
@@ -125,9 +133,8 @@ exports.deleteAllArticles = async (userId, userAvatar) => {
     }, (err, articles) => {
         if (err) return res.send(`Error in Deleting Articles for ${userId}`);
     })
-    console.log("articleFile ==>" + articleFiles)
-    console.log("avatarFile ==>" + avatarFiles)
-    generalTools.deleteArticleFiles(articleFiles,avatarFiles,userAvatar)
+    generalTools.deleteArticleFiles(articleFiles,avatarFiles,userAvatar);
+    deleteUserComments(userid);
 }
 
 

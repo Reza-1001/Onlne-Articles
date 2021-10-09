@@ -34,30 +34,36 @@ exports.deleteComment = (req, res, next) => {
     if (req.session.user.role != 'Admin') {
         return res.send("Comment Delete Failed")
     }
-
     Comment.findByIdAndDelete({
         _id: req.params.comment_id
     }, function (err, deletedComment) {
         if (err) throw err;
         console.log("1 document deleted");
         res.send("Comment Deleted");
-
     });
-
-
+}
+// *****************************************************************************************************
+//                                  DELETE SINGLE COMMENT BY ARTICLE ID
+// *****************************************************************************************************
+exports.deleteArticleComments = (articleId) => {
+    
+    Comment.deleteMany({
+        article_id: articleId
+    }, function (err, deletedComment) {
+        if (err) throw err;
+        console.log("++++++++++++++>"+deletedComment)
+    });
 }
 
 
 // *****************************************************************************************************
 //                                  DELETE ALL COMMENTS
 // *****************************************************************************************************
-exports.deleteAllComments = (userId) => {
-    console.log("user id  ========"+userId);
+exports.deleteUserComments = (userId) => {
     Comment.deleteMany({
-        writer: userId
+        writer_id: userId
     }, function (err, deletedComments) {
         if (err) throw err;
-        
     })
 }
 
