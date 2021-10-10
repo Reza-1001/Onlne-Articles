@@ -70,7 +70,7 @@ function loadArticleStatistics(response) {
     $('#article-list').append(`<li>
       <img style="border-radius:50%;width:100px;height:100px" src="/images/article/${article.avatar}" alt=${article.title}>
       <a class="users-list-name" href="/article/${article._id}">${article.title}</a>
-      <span class="users-list-date">${article.createAt}</span>
+      <span class="users-list-date">${article.writer.userName}</span>
       </li>`)
   })
 }
