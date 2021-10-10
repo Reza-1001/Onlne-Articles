@@ -91,6 +91,22 @@
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         });
     </script>
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        .custom-file-upload:hover {
+            background-color: rgb(14, 159, 243)
+        }
+    </style>
 </head>
 
 <body class="">
@@ -125,8 +141,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="article-avatar" class="text-black">Upload image</label>
-                            <input type="file" name="article" id="article-avatar" class="form-control-file text-white">
+                            <label class="custom-file-upload">
+                                <input type="file" id="article-avatar" name="article" />
+                                <i class="fas fa-cloud-upload-alt"></i> Upload Avatar
+                            </label>
                         </div>
                         <div class="form-group d-none">
                             <input type="text" class="form-control" id="snippet" name="snippet" required />
