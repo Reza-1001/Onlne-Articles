@@ -10,7 +10,7 @@ for (let i = 0; i < moreButton.length; i++) {
 function saveArticle() {
   let snippet = tinymce.activeEditor.getContent({
     format: "text",
-  }).substring(0, 200)
+  }).substring(0, 100)
   snippet = snippet.split("\n");
   $("#snippet").val(snippet + "...");
   $("#save-article").submit();
