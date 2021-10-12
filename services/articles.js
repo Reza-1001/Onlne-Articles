@@ -72,7 +72,7 @@ exports.getArticle = (req, res, next) => {
     }).populate('writer', {
         _id: 1,
         firstName: 1,
-        lastName: 1,
+        lastName: 1, 
         profileImage: 1
     }).exec((err, article) => {
         if (err) return res.send("Server Error");
@@ -93,21 +93,20 @@ exports.getArticle = (req, res, next) => {
 // *****************************************************************************************************
 //                                  DELETE SINGLE ARTICLE BY ID
 // *****************************************************************************************************
- exports.deleteArticle =(req, res, next) => {
-    
-     Article.findByIdAndDelete({
-         _id: req.params.article_id
-        }, (err, article) => {
-            if (err) return res.send("Server Error"); 
-            if (!article) return res.send("Article Not Found");
-            console.log("DELETED ARTICLE   = " + article)
-            // use generaltools method to delete article file and avatar after deleting article from db
-            generalTools.deleteArticleFiles([article.content], [article.avatar]);
-            deleteArticleComments([req.params.article_id]);
+exports.deleteArticle = (req, res, next) => {
+    Article.findByIdAndDelete({
+        _id: req.params.article_id
+    }, (err, article) => {
+        if (err) return res.send("Server Error");
+        if (!article) return res.send("Article Not Found");
+        console.log("DELETED ARTICLE   = " + article)
+        // use generaltools method to delete article file and avatar after deleting article from db
+        generalTools.deleteArticleFiles([article.content], [article.avatar]);
+        deleteArticleComments([req.params.article_id]);
         res.send(true);
-    }) 
+    })
 }
- 
+
 
 // *****************************************************************************************************
 //                                  DELETE ALL ARTICLES FOR A USER
@@ -115,7 +114,7 @@ exports.getArticle = (req, res, next) => {
 exports.deleteAllArticles = async (userId, userAvatar) => {
     let articleFiles = [];
     let avatarFiles = [];
-    let articleIdList=[];
+    let articleIdList = [];
     await Article.find({
         writer: userId
     }, (err, articles) => {
@@ -135,7 +134,7 @@ exports.deleteAllArticles = async (userId, userAvatar) => {
     }, (err, articles) => {
         if (err) return res.send(`Error in Deleting Articles for ${userId}`);
     })
-    generalTools.deleteArticleFiles(articleFiles,avatarFiles,userAvatar);
+    generalTools.deleteArticleFiles(articleFiles, avatarFiles, userAvatar);
     deleteUserComments(userId);
     deleteArticleComments(articleIdList);
 
@@ -237,7 +236,7 @@ exports.getAllArticles = (req, res, next) => {
 //                                  UPDATE AN ARTICLE
 // *****************************************************************************************************
 exports.updateArticle = (req, res, next) => {
-    let articleFile = `public/articles/${req.body.title}-${req.session.user.userName}.html`;
+    let articleFile = `public/articles/article-${Date.now()}-${req.session.user.userName}.html`;
     let newArticle
     if (req.file) {
         newArticle = {
@@ -265,11 +264,9 @@ exports.updateArticle = (req, res, next) => {
 
         // if new article avatar updated remove previous avatar file
         if (req.file) {
-            generalTools.deleteArticleFiles(article.content, article.avatar);
+            generalTools.deleteArticleFiles([article.content], [article.avatar]);
 
-        } else {
-            generalTools.deleteArticleFiles(article.content);
-        }
+        } 
         fs.writeFileSync(articleFile, req.body.mytext);
         res.redirect(`/article/${article._id}`);
     })
