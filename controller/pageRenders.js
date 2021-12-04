@@ -17,7 +17,8 @@ router.get('/about-us', (req, res, next) => {
 router.get('/resume', (req, res, next) => {
     let filePath = "../public/assets/Reza_AhmadNezhad_Resume_2021-8.pdf";
     fs.readFile(path.join(__dirname, filePath) , function (err,data){
-        res.contentType("application/pdf");
+        res.setHeader("Content-Type","application/pdf");
+        res.setHeader("Content-Disposition",'attachment; filename=Reza-Ahmadnezhad-resume.pdf')
         res.send(data);
     });
 })
