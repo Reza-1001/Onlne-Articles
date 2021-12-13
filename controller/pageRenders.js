@@ -16,11 +16,16 @@ router.get('/about-us', (req, res, next) => {
 // Downloading Resume from About us Page
 router.get('/resume', (req, res, next) => {
     let filePath = "../public/assets/Reza_AhmadNezhad_Resume_2021-8.pdf";
-    fs.readFile(path.join(__dirname, filePath) , function (err,data){
-        res.setHeader("Content-Type","application/pdf");
-        res.setHeader("Content-Disposition",'attachment; filename=Reza-Ahmadnezhad-resume.pdf')
-        res.send(data);
-    });
+    // fs.readFile(path.join(__dirname, filePath) , function (err,data){
+    //     res.setHeader("Content-Type","application/pdf");
+    //     res.setHeader("Content-Disposition",'attachment; filename=Reza-Ahmadnezhad-resume.pdf')
+    //     res.send(data);
+    // });
+
+    let file=fs.createReadStream(path.join(__dirname,filePath));
+    res.setHeader('Contetnt-Type','application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; fileNamme=Reza-Ahmadnezhad-resume.pdf');
+    file.pipe(res);
 })
 
-module.exports = router;
+module.exports = router; 

@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
+const fs = require('fs');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
@@ -23,7 +24,6 @@ mongoose.connect(
     useCreateIndex: true
   }
 )
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false
@@ -41,6 +41,10 @@ app.use(session({
   }
 }));
 
+const accessLog = fs.createWriteStream(path.join(__dirname, 'access.log'), {
+  flags: 'a'
+});
+app.use(logger('dev', {stream: accessLog}));
 app.use('/', apiRouter);
 
 

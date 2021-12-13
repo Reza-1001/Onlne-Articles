@@ -1,0 +1,20 @@
+::1 - - [13/Dec/2021:18:29:34 +0000] "GET / HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36"
+::1 - - [13/Dec/2021:18:30:00 +0000] "GET /login/? HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36"
+[0mGET / [36m304 [0m7.204 ms - -[0m
+[0mGET /login/? [36m304 [0m10.210 ms - -[0m
+[0mPOST /login [32m200 [0m148.567 ms - 26[0m
+[0mPOST /login [32m200 [0m97.057 ms - 26[0m
+[0mGET /login/? [36m304 [0m20.004 ms - -[0m
+[0mPOST /login [32m200 [0m107.418 ms - 26[0m
+[0mGET /login [36m302 [0m41.127 ms - 64[0m
+[0mGET /dashboard [36m304 [0m18.715 ms - -[0m
+[0mGET /users/statistics [36m304 [0m67.389 ms - -[0m
+[0mPOST /article/statistics [32m200 [0m84.434 ms - 1820[0m
+[0mGET /dashboard/logout [36m302 [0m11.720 ms - 56[0m
+[0mGET /login [32m200 [0m13.200 ms - 3397[0m
+[0mPOST /login [32m200 [0m110.290 ms - 26[0m
+[0mGET /dashboard [36m304 [0m3.128 ms - -[0m
+[0mPOST /article/statistics [32m200 [0m94.060 ms - 1820[0m
+[0mGET /users/statistics [36m304 [0m125.162 ms - -[0m
+[0mGET /dashboard/logout [36m302 [0m1.577 ms - 56[0m
+[0mGET /login [32m200 [0m2.059 ms - 3397[0m

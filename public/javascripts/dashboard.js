@@ -5,8 +5,8 @@ $('document').ready(function () {
   firstRequest();
   secondRequest();
 
-  
-  
+
+
 })
 
 

@@ -68,7 +68,7 @@ $("document").ready(function () {
 						text: `${msg}`,
 						timer: 1500
 					})
-					window.location.href = "/login";
+					window.location.href = "/dashboard";
 				},
 				error: function (data) {
 					Swal.fire({

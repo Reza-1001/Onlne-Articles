@@ -51,9 +51,8 @@ exports.deleteArticleComments = (articleId) => {
             article_id: id
         }, function (err, deletedComment) {
             if (err) throw err;
-            console.log("++++++++++++++>"+deletedComment)
         });
-        
+
     });
 }
 

@@ -17,7 +17,7 @@ exports.createBlogger = (req, res, next) => {
             error: "Empty Fields"
 
         });
-    } 
+    }
 
     // if fileds are not empty
     // check if new user's username already exists

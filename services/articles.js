@@ -32,7 +32,8 @@ exports.addNewArticle = (req, res, next) => {
         writer: req.session.user._id,
         title: req.body.title,
         category: req.body.category,
-        views: 20,
+        views: 0,
+        likes:0,
     });
     // check if article has avatar image
     // if avatar image is not set by user use default avatar for article and copy it to avatar images

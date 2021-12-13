@@ -20,12 +20,12 @@ $("document").ready(function () {
     function menuBtnChange() {
         if (sidebar.classList.contains("open")) {
             $('.container').animate({
-                marginLeft: '+=260px'
+                marginLeft: '+=100px'
             }, 500)
             closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
         } else {
             $('.container').animate({
-                marginLeft: '-=260px'
+                marginLeft: '-=100px'
             }, 500)
             closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
         }

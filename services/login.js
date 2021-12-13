@@ -70,10 +70,10 @@ exports.resetPasswordRequest = (req, res, next) => {
     User.findOne({
         userName: req.body.userName
     }, (err, user) => {
-        if (err) return res.status(500).res.send({
+        if (err) return res.status(500).send({
             error: "Server Error"
         });
-        if (!user) return res.status(404).res.send({
+        if (!user) return res.status(404).send({
             error: "User Not Found 1"
         });
         if (user.firstName == req.body.firstName && user.lastName == req.body.lastName) {
